@@ -5,7 +5,10 @@
  * @format
  */
 
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  createStaticNavigation,
+  NavigationContainer,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
@@ -27,6 +30,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import {HomeScreen} from './src/screens/home-screen';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -61,19 +65,26 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const Stack = createNativeStackNavigator();
+  const HomeTabs = createBottomTabNavigator({
+    screens: {
+      Home: HomeScreen,
+    },
+  });
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Welcome'}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  const RootStack = createNativeStackNavigator({
+    screens: {
+      Home: {
+        screen: HomeTabs,
+        options: {
+          headerShown: false,
+        },
+      },
+    },
+  });
+
+  const Navigation = createStaticNavigation(RootStack);
+
+  return <Navigation></Navigation>;
 }
 
 const styles = StyleSheet.create({
