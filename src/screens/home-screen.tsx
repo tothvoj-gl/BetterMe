@@ -1,6 +1,13 @@
 import {useEffect} from 'react';
-import {Button} from 'react-native';
+import {Button, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
+import {StyleSheet} from 'react-native-unistyles';
+
+const styles = StyleSheet.create(theme => ({
+  container: {
+    backgroundColor: theme.colors.primary,
+  },
+}));
 
 export const HomeScreen = ({navigation}) => {
   useEffect(() => {
@@ -22,9 +29,11 @@ export const HomeScreen = ({navigation}) => {
       });
   });
   return (
-    <Button
-      title="Go to Jane's profile"
-      onPress={() => navigation.navigate('Profile', {name: 'Jane'})}
-    />
+    <View style={styles.container}>
+      <Button
+        title="Go to Jane's profile"
+        onPress={() => navigation.navigate('Profile', {name: 'Jane'})}
+      />
+    </View>
   );
 };
