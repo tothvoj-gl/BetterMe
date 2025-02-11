@@ -1,9 +1,6 @@
-import {useEffect} from 'react';
-import {Button, Text, View} from 'react-native';
-import auth from '@react-native-firebase/auth';
-import {StyleSheet} from 'react-native-unistyles';
+import {Text, View} from 'react-native';
 
-export const ProfileScreen = ({navigation}) => {
+export const ProfileScreen = () => {
   return (
     <View>
       <Text>Profile</Text>
