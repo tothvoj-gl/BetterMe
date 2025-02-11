@@ -1,0 +1,9 @@
+export const pallette = {
+  primary900: '#FA6C12',
+  light900: '#FFFFFF',
+  l30: '#1F2E7A',
+  l45: '#2E45B8',
+  l55: '#475ED1',
+  l90: '#D6DBF5',
+  l95: '#EBEDFA',
+};

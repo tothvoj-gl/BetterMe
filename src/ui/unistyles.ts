@@ -1,9 +1,11 @@
 import {StyleSheet} from 'react-native-unistyles';
+import {pallette} from './colors';
 
 const lightTheme = {
   colors: {
-    primary: '#ff1ff4',
+    primary: pallette.primary900,
     secondary: '#1ff4ff',
+    background: pallette.light900,
     // any nesting, spreading, arrays, etc.
   },
   // functions, external imports, etc.
@@ -14,6 +16,7 @@ const otherTheme = {
   colors: {
     primary: '#aa12ff',
     secondary: 'pink',
+    background: pallette.light900,
   },
   gap: (v: number) => v * 8,
 };

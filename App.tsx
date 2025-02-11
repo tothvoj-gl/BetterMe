@@ -12,62 +12,40 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {HomeScreen} from './src/screens/home-screen';
+import {Image} from 'react-native';
+import {FinanceScreen} from './src/screens/finance/finance-screen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+import {ProfileScreen} from './src/screens/profile-screen';
+import {pallette} from './src/ui/colors';
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
   const HomeTabs = createBottomTabNavigator({
     screens: {
-      Home: HomeScreen,
+      Finance: {
+        screen: FinanceScreen,
+        options: {
+          tabBarIcon: ({focused}) => {
+            const icon = focused
+              ? require('./chart_active.png')
+              : require('./chart.png');
+            return <Image source={icon} style={{height: 24, width: 24}} />;
+          },
+        },
+      },
+      Profile: {
+        screen: ProfileScreen,
+        options: {
+          tabBarIcon: ({focused}) => {
+            const icon = focused
+              ? require('./profile_active.png')
+              : require('./profile.png');
+            return <Image source={icon} style={{height: 24, width: 24}} />;
+          },
+        },
+      },
+    },
+    screenOptions: {
+      tabBarActiveTintColor: pallette.primary900,
     },
   });
 
@@ -86,24 +64,5 @@ function App(): React.JSX.Element {
 
   return <Navigation></Navigation>;
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
