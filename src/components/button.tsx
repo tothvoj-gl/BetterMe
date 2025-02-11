@@ -2,15 +2,12 @@ import {useEffect} from 'react';
 import {Button, Image, Pressable, Text, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {StyleSheet} from 'react-native-unistyles';
-
-import {AppButton} from '../../components/button';
+import LinearGradient from 'react-native-linear-gradient';
+import {pallette} from '../ui/colors';
 
 const styles = StyleSheet.create(theme => ({
   container: {
     backgroundColor: theme.colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
   },
   linearGradient: {
     paddingLeft: 15,
@@ -28,11 +25,22 @@ const styles = StyleSheet.create(theme => ({
   },
 }));
 
-export const FinanceScreen = ({navigation}) => {
+export const AppButton = () => {
   return (
-    <View style={styles.container}>
-      <Image source={require('./img/finance.png')} />
-      <AppButton></AppButton>
-    </View>
+    <Pressable>
+      {({pressed}) => (
+        <LinearGradient
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 0}}
+          colors={
+            pressed
+              ? [pallette.primary900, pallette.secondary900]
+              : [pallette.secondary900, pallette.primary900]
+          }
+          style={styles.linearGradient}>
+          <Text style={styles.buttonText}>Let's start</Text>
+        </LinearGradient>
+      )}
+    </Pressable>
   );
 };
