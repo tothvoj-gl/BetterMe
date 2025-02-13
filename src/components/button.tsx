@@ -25,7 +25,7 @@ const styles = StyleSheet.create(theme => ({
 
 export const AppButton = () => {
   return (
-    <Pressable>
+    <Pressable accessibilityRole="button">
       {({pressed}) => (
         <LinearGradient
           start={{x: 0, y: 0}}
