@@ -7,6 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ProfileScreen} from './src/screens/profile-screen';
 import {pallette} from './src/ui/colors';
 import {StyleSheet} from 'react-native-unistyles';
+import {AddFinanceInfoScreen} from './src/screens/finance/add-finance-info-screen';
 
 const styles = StyleSheet.create({
   tabIcon: {
@@ -50,6 +51,12 @@ function App(): React.JSX.Element {
     screens: {
       Home: {
         screen: HomeTabs,
+        options: {
+          headerShown: false,
+        },
+      },
+      AddFinanceInfo: {
+        screen: AddFinanceInfoScreen,
         options: {
           headerShown: false,
         },

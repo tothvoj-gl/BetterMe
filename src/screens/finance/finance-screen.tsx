@@ -1,6 +1,7 @@
 import {Image, View} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {AppButton} from '../../components/button';
+import {useNavigation} from '@react-navigation/native';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -26,10 +27,14 @@ const styles = StyleSheet.create(theme => ({
 }));
 
 export const FinanceScreen = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Image source={require('./img/finance.png')} />
-      <AppButton />
+      <AppButton
+        onPress={() => navigation.navigate('AddFinanceInfo')}
+        label="Let's start"
+      />
     </View>
   );
 };
