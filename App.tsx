@@ -1,13 +1,19 @@
-import {createStaticNavigation} from '@react-navigation/native';
+import {
+  createStaticNavigation,
+  NavigationContainer,
+  NavigationProp,
+  StaticParamList,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {Image} from 'react-native';
 import {FinanceScreen} from './src/screens/finance/finance-screen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ProfileScreen} from './src/screens/profile-screen';
-import {pallette} from './src/ui/colors';
+import {pallette} from './src/util/colors';
 import {StyleSheet} from 'react-native-unistyles';
 import {AddFinanceInfoScreen} from './src/screens/finance/add-finance-info-screen';
+import {QueryClient} from '@tanstack/react-query';
 
 const styles = StyleSheet.create({
   tabIcon: {
@@ -16,57 +22,72 @@ const styles = StyleSheet.create({
   },
 });
 
+export type RootStackParamList = {
+  Home: undefined;
+  Profile: undefined;
+  Finance: undefined;
+};
+
+// Create a client
+const queryClient = new QueryClient();
+
 function App(): React.JSX.Element {
-  const HomeTabs = createBottomTabNavigator({
-    screens: {
-      Finance: {
-        screen: FinanceScreen,
-        options: {
-          tabBarIcon: ({focused}) => {
-            const icon = focused
-              ? require('./chart_active.png')
-              : require('./chart.png');
-            return <Image source={icon} style={styles.tabIcon} />;
-          },
-        },
-      },
-      Profile: {
-        screen: ProfileScreen,
-        options: {
-          tabBarIcon: ({focused}) => {
-            const icon = focused
-              ? require('./profile_active.png')
-              : require('./profile.png');
-            return <Image source={icon} style={styles.tabIcon} />;
-          },
-        },
-      },
-    },
-    screenOptions: {
-      tabBarActiveTintColor: pallette.primary900,
-    },
-  });
+  const Tab = createBottomTabNavigator();
 
-  const RootStack = createNativeStackNavigator({
-    screens: {
-      Home: {
-        screen: HomeTabs,
-        options: {
-          headerShown: false,
-        },
-      },
-      AddFinanceInfo: {
-        screen: AddFinanceInfoScreen,
-        options: {
-          headerShown: false,
-        },
-      },
-    },
-  });
+  function HomeTabs() {
+    return (
+      <Tab.Navigator
+        screenOptions={{tabBarActiveTintColor: pallette.primary900}}>
+        <Tab.Screen
+          name="Finance"
+          component={FinanceScreen}
+          options={{
+            tabBarIcon: ({focused}) => {
+              const icon = focused
+                ? require('./chart_active.png')
+                : require('./chart.png');
+              return <Image source={icon} style={styles.tabIcon} />;
+            },
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({focused}) => {
+              const icon = focused
+                ? require('./profile_active.png')
+                : require('./profile.png');
+              return <Image source={icon} style={styles.tabIcon} />;
+            },
+          }}
+        />
+      </Tab.Navigator>
+    );
+  }
 
-  const Navigation = createStaticNavigation(RootStack);
+  const Stack = createNativeStackNavigator();
 
-  return <Navigation />;
+  function RootStack() {
+    return (
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeTabs}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name="AddFinanceInfo" component={AddFinanceInfoScreen} />
+      </Stack.Navigator>
+    );
+  }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </QueryClientProvider>
+  );
 }
 
 export default App;

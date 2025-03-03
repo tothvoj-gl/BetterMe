@@ -1,7 +1,11 @@
 import {Image, View} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {AppButton} from '../../components/button';
-import {useNavigation} from '@react-navigation/native';
+import {StaticScreenProps, useNavigation} from '@react-navigation/native';
+import {buttonLabels} from '../../util/strings';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {RootStackParamList} from '../../../App';
+import {getUserData} from '../../api/db';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -26,14 +30,16 @@ const styles = StyleSheet.create(theme => ({
   },
 }));
 
-export const FinanceScreen = () => {
-  const navigation = useNavigation();
+type Props = BottomTabScreenProps<RootStackParamList>;
+
+export const FinanceScreen = ({navigation}: Props) => {
+  getUserData();
   return (
     <View style={styles.container}>
       <Image source={require('./img/finance.png')} />
       <AppButton
         onPress={() => navigation.navigate('AddFinanceInfo')}
-        label="Let's start"
+        label={buttonLabels.letsStart}
       />
     </View>
   );

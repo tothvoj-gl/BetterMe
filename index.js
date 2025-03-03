@@ -5,6 +5,6 @@
 import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
-import Config from './src/ui/unistyles';
+import Config from './src/util/unistyles';
 
 AppRegistry.registerComponent(appName, () => App);

@@ -1,7 +1,7 @@
 import {Pressable} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import LinearGradient from 'react-native-linear-gradient';
-import {pallette} from '../ui/colors';
+import {pallette} from '../util/colors';
 import {AppText} from './text';
 
 export type Props = {
