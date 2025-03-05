@@ -1,11 +1,13 @@
 import {Image, View} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {AppButton} from '../../components/button';
-import {StaticScreenProps, useNavigation} from '@react-navigation/native';
 import {buttonLabels} from '../../util/strings';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {RootStackParamList} from '../../../App';
-import {getUserData} from '../../api/db';
+import {useUserData} from '../../api/useUserData';
+import {AppText} from '../../components/text';
+import {useAssetTypes} from '../../api/useAssetTypes';
+import {getUserNetWorth} from '../../util/data';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -33,7 +35,29 @@ const styles = StyleSheet.create(theme => ({
 type Props = BottomTabScreenProps<RootStackParamList>;
 
 export const FinanceScreen = ({navigation}: Props) => {
-  getUserData();
+  const {data, isPending, isError, error} = useUserData();
+  const result = useAssetTypes();
+
+  if (isPending) {
+    return <AppText>Loading...</AppText>;
+  }
+
+  if (isError) {
+    return <AppText>Error: {error.message}</AppText>;
+  }
+
+  console.log(data);
+
+  if (data.finance) {
+    return (
+      <View style={styles.container}>
+        <AppText>{getUserNetWorth(data)}</AppText>
+        <AppText>{data.finance?.monthlyNetIncome}</AppText>
+        <AppText>{data.finance?.monthlyNetExpense}</AppText>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Image source={require('./img/finance.png')} />

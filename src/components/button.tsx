@@ -9,7 +9,7 @@ export type Props = {
   label: string;
 };
 
-const styles = StyleSheet.create(theme => ({
+const styles = StyleSheet.create(() => ({
   linearGradient: {
     paddingLeft: 15,
     paddingRight: 15,

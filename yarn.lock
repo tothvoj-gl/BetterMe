@@ -6606,10 +6606,10 @@ react-native-linear-gradient@2.8.3:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.8.3.tgz#9a116649f86d74747304ee13db325e20b21e564f"
   integrity sha512-KflAXZcEg54PXkLyflaSZQ3PJp4uC4whM7nT/Uot9m0e/qxFV3p6uor1983D1YOBJbJN7rrWdqIjq0T42jOJyA==
 
-react-native-nitro-modules@0.22.1:
-  version "0.22.1"
-  resolved "https://registry.yarnpkg.com/react-native-nitro-modules/-/react-native-nitro-modules-0.22.1.tgz#e8cced8f4ee16e9340c52a5e07617572b4e2ee48"
-  integrity sha512-hPNhcKXcxYYO5leumaDVUYWX0GPKkdDG0T2aL+RNucaa/Ur8JunpLab0wr27DQCYVqbVXOhns/WYF4T+6APjWA==
+react-native-nitro-modules@0.24.1:
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/react-native-nitro-modules/-/react-native-nitro-modules-0.24.1.tgz#dcb0050945294fc2536bfa5d26bd7e15414ab686"
+  integrity sha512-wA04fykLsIObAd/2h0mfl3CGZ7Iqtj9CjnHD9j+yAnMCcYDWYlCV8MICmicWgN6eg4yjrEUDsrfFAYWgCFiCBw==
 
 react-native-safe-area-context@5.1.0:
   version "5.1.0"
@@ -6624,10 +6624,10 @@ react-native-screens@4.5.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native-unistyles@3.0.0-beta.6:
-  version "3.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/react-native-unistyles/-/react-native-unistyles-3.0.0-beta.6.tgz#2ad58198526cdf040b3a3f18af2a3146e5e417e5"
-  integrity sha512-poUz+gUl9fgPs16Id+Y+Jn4m5ST7GAr0zui+1GZi1hbA1+vbeXuHoZjv9mdjHR6ch/IMmEno4V71A4rXWKXjTg==
+react-native-unistyles@3.0.0-beta.8:
+  version "3.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/react-native-unistyles/-/react-native-unistyles-3.0.0-beta.8.tgz#33bef5dac3649ad52e61a0b0e5f2d28bea2d4139"
+  integrity sha512-fMUYTC7+zrXhpyfJ9Z5xmVGHTV2VRsNExQwomjnTWO74M/O/PEg+2jKLJ9MnGyHb/70cFV0mjL7Hl/7Olb1T3w==
 
 react-native@0.77.0:
   version "0.77.0"

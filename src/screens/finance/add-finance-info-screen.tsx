@@ -1,6 +1,5 @@
 import {SafeAreaView, Text, View} from 'react-native';
 import {AppButton} from '../../components/button';
-import {useNavigation} from '@react-navigation/native';
 import {StyleSheet} from 'react-native-unistyles';
 
 const styles = StyleSheet.create(theme => ({
@@ -20,7 +19,6 @@ const styles = StyleSheet.create(theme => ({
 }));
 
 export const AddFinanceInfoScreen = () => {
-  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>Profiles</Text>

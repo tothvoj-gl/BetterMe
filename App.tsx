@@ -1,9 +1,4 @@
-import {
-  createStaticNavigation,
-  NavigationContainer,
-  NavigationProp,
-  StaticParamList,
-} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {Image} from 'react-native';
@@ -13,7 +8,7 @@ import {ProfileScreen} from './src/screens/profile-screen';
 import {pallette} from './src/util/colors';
 import {StyleSheet} from 'react-native-unistyles';
 import {AddFinanceInfoScreen} from './src/screens/finance/add-finance-info-screen';
-import {QueryClient} from '@tanstack/react-query';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 const styles = StyleSheet.create({
   tabIcon: {
@@ -26,6 +21,7 @@ export type RootStackParamList = {
   Home: undefined;
   Profile: undefined;
   Finance: undefined;
+  AddFinanceInfo: undefined;
 };
 
 // Create a client

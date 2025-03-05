@@ -1,21 +1,25 @@
-interface FinanceData {
-  assets: number;
-  liabilities: null;
+import {AssetType, LiabilityType} from '../api/types';
+
+export interface FinanceData {
+  assets: Asset[];
+  liabilities: Liability[];
   monthlyNetIncome: number;
   monthlyNetExpense: number;
 }
 
-interface User {
+export interface User {
   birthDate: Date;
-  finance: FinanceData;
+  finance?: FinanceData;
 }
 
-interface Asset {
+export interface Asset extends AssetType {
+  id: string;
   value: number;
   dateModified: Date;
 }
 
-interface Liability {
+export interface Liability extends LiabilityType {
+  id: string;
   value: number;
   dateModified: Date;
 }
