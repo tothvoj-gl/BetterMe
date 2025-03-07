@@ -5,6 +5,12 @@ export interface AssetType {
   avgGrowthRate: number;
 }
 
+export interface Constants {
+  inflationRate: number;
+  lifeExpextancyFemales: number;
+  lifeExpextancyMales: number;
+}
+
 interface AssetObject {
   value?: number;
   dateModified?: FirebaseFirestoreTypes.Timestamp;
@@ -21,6 +27,7 @@ interface LiabilityObject {
 
 export interface UserResponse {
   birthDate: FirebaseFirestoreTypes.Timestamp;
+  sex: string;
   finance: {
     assets: Assets;
     liabilities: Liabilities;

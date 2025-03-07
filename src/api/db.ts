@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import {Asset, Liability, User} from '../model/types';
-import {AssetType, UserResponse} from './types';
+import {AssetType, Constants, UserResponse} from './types';
 
 export const getUserData = async (): Promise<User> => {
   try {
@@ -45,6 +45,7 @@ export const getUserData = async (): Promise<User> => {
     return {
       ...user,
       birthDate: user.birthDate.toDate(),
+      sex: user.sex,
       finance: {
         assets: userAssets.sort((a, b) => b.value - a.value),
         liabilities: userLiabilities,
@@ -71,6 +72,18 @@ export const getAssetTypes = async () => {
     });
 
     return assetTypes;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getConstants = async () => {
+  try {
+    const constants = (
+      await firestore().collection('constants').doc('constants').get()
+    ).data() as Constants;
+
+    return constants;
   } catch (error) {
     throw error;
   }

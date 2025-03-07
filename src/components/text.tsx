@@ -5,7 +5,14 @@ import {ReactNode} from 'react';
 type Props = {
   children: ReactNode;
   color?: 'primary' | 'secondary' | 'light' | 'highlight';
-  size?: 'body1' | 'body2' | 'header2';
+  size?:
+    | 'body1'
+    | 'body2'
+    | 'header1'
+    | 'header2'
+    | 'header3'
+    | 'header4'
+    | 'header5';
   weight?: 'regular' | 'bold' | 'semiBold';
   style?: TextStyle;
 };
@@ -36,9 +43,25 @@ const styles = StyleSheet.create(theme => ({
           fontSize: 12,
           lineHeight: 18,
         },
+        header1: {
+          fontSize: 30,
+          lineHeight: 45,
+        },
         header2: {
           fontSize: 24,
           lineHeight: 36,
+        },
+        header3: {
+          fontSize: 20,
+          lineHeight: 30,
+        },
+        header4: {
+          fontSize: 18,
+          lineHeight: 27,
+        },
+        header5: {
+          fontSize: 16,
+          lineHeight: 24,
         },
       },
       weight: {
