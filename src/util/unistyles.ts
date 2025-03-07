@@ -6,12 +6,22 @@ const lightTheme = {
     primary: pallette.primary900,
     secondary: '#1ff4ff',
     background: pallette.light900,
+    backgroundSecondary: pallette.light950,
     textPrimary: pallette.dark900,
     textSecondary: pallette.light900,
+    textLight: pallette.dark700,
+    textHighlight: pallette.primary900,
     // any nesting, spreading, arrays, etc.
   },
   // functions, external imports, etc.
-  gap: (v: number) => v * 8,
+  spacing: {
+    xs: 4,
+    s: 8,
+    sm: 12,
+    m: 16,
+    l: 32,
+    xl: 64,
+  },
 };
 
 const otherTheme = {
@@ -19,10 +29,20 @@ const otherTheme = {
     primary: '#aa12ff',
     secondary: 'pink',
     background: pallette.light900,
+    backgroundSecondary: pallette.light950,
     textPrimary: pallette.dark900,
     textSecondary: pallette.light900,
+    textLight: pallette.dark700,
+    textHighlight: pallette.primary900,
   },
-  gap: (v: number) => v * 8,
+  spacing: {
+    xs: 4,
+    s: 8,
+    sm: 12,
+    m: 16,
+    l: 32,
+    xl: 64,
+  },
 };
 
 const breakpoints = {

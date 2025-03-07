@@ -1,5 +1,4 @@
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
-import {Asset} from '../model/types';
 
 export interface AssetType {
   name: string;
@@ -9,16 +8,15 @@ export interface AssetType {
 interface AssetObject {
   value?: number;
   dateModified?: FirebaseFirestoreTypes.Timestamp;
+  keepInPension: boolean;
 }
 
 interface LiabilityObject {
   value?: number;
   dateModified?: FirebaseFirestoreTypes.Timestamp;
-}
-
-export interface LiabilityType {
+  monthlyPayment?: number;
+  endDate: FirebaseFirestoreTypes.Timestamp;
   name: string;
-  avgGrowthRate: number;
 }
 
 export interface UserResponse {

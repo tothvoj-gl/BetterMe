@@ -1,20 +1,22 @@
-import {Image, View} from 'react-native';
+import {Image, View, Text} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {AppButton} from '../../components/button';
-import {buttonLabels} from '../../util/strings';
+import {buttonLabels, financeScreen} from '../../util/strings';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {RootStackParamList} from '../../../App';
 import {useUserData} from '../../api/useUserData';
 import {AppText} from '../../components/text';
 import {useAssetTypes} from '../../api/useAssetTypes';
-import {getUserNetWorth} from '../../util/data';
+import {getMontlhlyPension, getUserNetWorth} from '../../util/data';
+import {FinanceListItem} from './finance-list-item';
 
 const styles = StyleSheet.create(theme => ({
   container: {
     backgroundColor: theme.colors.background,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     flex: 1,
+    padding: theme.spacing.m,
   },
   linearGradient: {
     paddingLeft: 15,
@@ -36,7 +38,6 @@ type Props = BottomTabScreenProps<RootStackParamList>;
 
 export const FinanceScreen = ({navigation}: Props) => {
   const {data, isPending, isError, error} = useUserData();
-  const result = useAssetTypes();
 
   if (isPending) {
     return <AppText>Loading...</AppText>;
@@ -49,9 +50,41 @@ export const FinanceScreen = ({navigation}: Props) => {
   console.log(data);
 
   if (data.finance) {
+    const {totalNetWorth, totalWorth} = getUserNetWorth(data, 10);
     return (
       <View style={styles.container}>
-        <AppText>{getUserNetWorth(data)}</AppText>
+        <AppText color="light">{financeScreen.totalNetWorth}</AppText>
+        <Text>
+          <AppText weight="bold" size="header2" color="highlight">
+            {'€ '}
+          </AppText>
+          <AppText weight="bold" size="header2">
+            {totalNetWorth.toLocaleString()}
+          </AppText>
+          <AppText weight="bold" size="header2">
+            {' '}
+            ({totalWorth.toLocaleString()})
+          </AppText>
+        </Text>
+
+        <AppText weight="bold" size="header2">
+          {getMontlhlyPension(data, 10)}
+        </AppText>
+
+        {data.finance?.assets.map(asset => {
+          return <FinanceListItem isAsset item={asset} key={asset.id} />;
+        })}
+
+        {data.finance?.liabilities.map(liability => {
+          return (
+            <FinanceListItem
+              isAsset={false}
+              item={liability}
+              key={liability.id}
+            />
+          );
+        })}
+
         <AppText>{data.finance?.monthlyNetIncome}</AppText>
         <AppText>{data.finance?.monthlyNetExpense}</AppText>
       </View>

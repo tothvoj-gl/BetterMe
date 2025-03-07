@@ -5,3 +5,7 @@ export const screenNames = {
 export const buttonLabels = {
   letsStart: "Let's start",
 };
+
+export const financeScreen = {
+  totalNetWorth: 'Total net worth',
+};

@@ -1,4 +1,4 @@
-import {AssetType, LiabilityType} from '../api/types';
+import {AssetType} from '../api/types';
 
 export interface FinanceData {
   assets: Asset[];
@@ -16,10 +16,12 @@ export interface Asset extends AssetType {
   id: string;
   value: number;
   dateModified: Date;
+  keepInPension: boolean;
 }
 
-export interface Liability extends LiabilityType {
+export interface Liability {
   id: string;
   value: number;
   dateModified: Date;
+  name: string;
 }

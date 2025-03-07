@@ -1,7 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import {Asset, Liability, User} from '../model/types';
-import {AssetType, LiabilityType, UserResponse} from './types';
-import {assets} from '../../react-native.config';
+import {AssetType, UserResponse} from './types';
 
 export const getUserData = async (): Promise<User> => {
   try {
@@ -14,7 +13,7 @@ export const getUserData = async (): Promise<User> => {
     console.log(user);
 
     const assetTypes = await getAssetTypes();
-    const liabilityTypes = await getLiabilityTypes();
+
     const userAssets: Asset[] = [];
 
     for (const [key, value] of Object.entries(user?.finance?.assets)) {
@@ -25,6 +24,7 @@ export const getUserData = async (): Promise<User> => {
           value: value.value,
           dateModified: value.dateModified.toDate(),
           id: key,
+          keepInPension: value.keepInPension,
         });
       }
     }
@@ -32,11 +32,10 @@ export const getUserData = async (): Promise<User> => {
     const userLiabilities: Liability[] = [];
 
     for (const [key, value] of Object.entries(user?.finance?.liabilities)) {
-      const liabilityType = liabilityTypes.get(key);
-      if (liabilityType && value.value && value.dateModified) {
+      if (value.value && value.dateModified) {
         userLiabilities.push({
-          ...liabilityType,
           value: value.value,
+          name: value.name,
           dateModified: value.dateModified.toDate(),
           id: key,
         });
@@ -47,7 +46,7 @@ export const getUserData = async (): Promise<User> => {
       ...user,
       birthDate: user.birthDate.toDate(),
       finance: {
-        assets: userAssets,
+        assets: userAssets.sort((a, b) => b.value - a.value),
         liabilities: userLiabilities,
         monthlyNetIncome: user.finance.monthlyNetIncome,
         monthlyNetExpense: user.finance.monthlyNetExpense,
@@ -72,25 +71,6 @@ export const getAssetTypes = async () => {
     });
 
     return assetTypes;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getLiabilityTypes = async () => {
-  try {
-    const liabilityTypes = new Map<string, LiabilityType>();
-    const querySnapshot = await firestore().collection('liabilityTypes').get();
-
-    querySnapshot.forEach(documentSnapshot => {
-      const liability = {
-        ...(documentSnapshot.data() as LiabilityType),
-        id: documentSnapshot.id,
-      };
-      liabilityTypes.set(documentSnapshot.id, liability);
-    });
-
-    return liabilityTypes;
   } catch (error) {
     throw error;
   }
