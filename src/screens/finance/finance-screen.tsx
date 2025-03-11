@@ -1,4 +1,4 @@
-import {Image, View, Text} from 'react-native';
+import {Image, View, Text, ScrollView} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {AppButton} from '../../components/button';
 import {buttonLabels, financeScreen} from '../../util/strings';
@@ -21,14 +21,14 @@ import {differenceInYears} from 'date-fns/differenceInYears';
 import {useState} from 'react';
 import {pallette} from '../../util/colors';
 import {Spacing} from '../../components/spacing';
-import * as RNLocalize from 'react-native-localize';
+import {LoadingSpinner} from '../../components/loading-spinner';
+import {CashFlowItem} from './cash-flow-item';
 
 const styles = StyleSheet.create(theme => ({
   container: {
     backgroundColor: theme.colors.background,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    flex: 1,
     padding: theme.spacing.m,
   },
   linearGradient: {
@@ -48,6 +48,9 @@ const styles = StyleSheet.create(theme => ({
     color: theme.colors.background,
     backgroundColor: 'transparent',
   },
+  header: {
+    alignSelf: 'flex-start',
+  },
 }));
 
 type Props = BottomTabScreenProps<RootStackParamList>;
@@ -58,15 +61,12 @@ export const FinanceScreen = ({navigation}: Props) => {
   const [years, setYears] = useState(0);
 
   if (isPending) {
-    return <AppText>Loading...</AppText>;
+    return <LoadingSpinner />;
   }
 
   if (isError) {
     return <AppText>Error: {error.message}</AppText>;
   }
-
-  const locale = RNLocalize.getLocales()[0].languageTag;
-  console.log(locale); // Example output: "en-US", "fr-FR"
 
   if (user.finance) {
     const {totalNetWorth, totalWorth} = getUserNetWorth(
@@ -76,8 +76,10 @@ export const FinanceScreen = ({navigation}: Props) => {
     );
 
     return (
-      <View style={styles.container}>
-        <AppText color="light">{financeScreen.totalNetWorth}</AppText>
+      <ScrollView contentContainerStyle={styles.container}>
+        <AppText size="header2" color="light" weight="bold">
+          {financeScreen.totalNetWorth}
+        </AppText>
         <Text>
           <AppText weight="bold" size="header2" color="highlight">
             {getDeviceCurrencySymbol()}{' '}
@@ -123,11 +125,13 @@ export const FinanceScreen = ({navigation}: Props) => {
             {years === 0 ? 'Now' : `${years} `}
           </AppText>
           <AppText weight="bold" size="header5">
-            {years === 0 ? '' : 'years from now'}
+            {years === 0 ? '' : `year${years === 1 ? '' : 's'} from now`}
           </AppText>
         </Text>
         <Spacing />
-        <AppText color="light">{financeScreen.expectedPension}</AppText>
+        <AppText size="header2" color="light" weight="bold">
+          {financeScreen.expectedPension}
+        </AppText>
         <AppText weight="bold" size="header2">
           {getMontlhlyPension(user, years, constants).toLocaleString(
             getCurrentLocale(),
@@ -146,12 +150,29 @@ export const FinanceScreen = ({navigation}: Props) => {
           )}
         </AppText>
         <Spacing />
-        <AppText>{user.finance?.monthlyNetIncome}</AppText>
-        <AppText>{user.finance?.monthlyNetExpense}</AppText>
-        <Spacing />
+        <CashFlowItem
+          name={financeScreen.montlyNetIncome}
+          value={user.finance?.monthlyNetIncome}
+          isIncome
+        />
+
+        <CashFlowItem
+          name={financeScreen.montlyNetExpense}
+          value={user.finance?.monthlyNetExpense}
+          isIncome={false}
+        />
+        <Spacing size="large" />
+        <AppText size="header3" weight="semiBold" style={styles.header}>
+          {financeScreen.assets}
+        </AppText>
+
         {user.finance?.assets.map(asset => {
           return <FinanceListItem isAsset item={asset} key={asset.id} />;
         })}
+        <Spacing />
+        <AppText size="header3" weight="semiBold" style={styles.header}>
+          {financeScreen.liabilities}
+        </AppText>
 
         {user.finance?.liabilities.map(liability => {
           return (
@@ -162,7 +183,7 @@ export const FinanceScreen = ({navigation}: Props) => {
             />
           );
         })}
-      </View>
+      </ScrollView>
     );
   }
 

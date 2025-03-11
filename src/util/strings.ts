@@ -13,4 +13,8 @@ export const financeScreen = {
   withoutInflation: 'without inflation',
   withdrawalPeriod: (years: number) =>
     `assuming a ${years}-year withdrawal period`,
+  montlyNetIncome: 'Monthly net income',
+  montlyNetExpense: 'Monthly net expense',
+  assets: 'Assets',
+  liabilities: 'Liabilities',
 };

@@ -11,6 +11,8 @@ const lightTheme = {
     textSecondary: pallette.light900,
     textLight: pallette.dark700,
     textHighlight: pallette.primary900,
+    danger: pallette.danger900,
+    success: pallette.success900,
     // any nesting, spreading, arrays, etc.
   },
   // functions, external imports, etc.
@@ -26,14 +28,16 @@ const lightTheme = {
 
 const otherTheme = {
   colors: {
-    primary: '#aa12ff',
-    secondary: 'pink',
+    primary: pallette.primary900,
+    secondary: '#1ff4ff',
     background: pallette.light900,
     backgroundSecondary: pallette.light950,
     textPrimary: pallette.dark900,
     textSecondary: pallette.light900,
     textLight: pallette.dark700,
     textHighlight: pallette.primary900,
+    danger: pallette.danger900,
+    success: pallette.success900,
   },
   spacing: {
     xs: 4,

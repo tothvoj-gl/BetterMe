@@ -9,6 +9,7 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "start": "react-native start",
     "test": "jest",
+    "test:coverage": "yarn test --coverage",
     "prepare": "husky"
   },
   "dependencies": {

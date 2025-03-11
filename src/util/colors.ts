@@ -5,4 +5,6 @@ export const pallette = {
   light950: '#FAFAFA',
   dark900: '#0F0F0F',
   dark700: '#787878',
+  danger900: '#FD4300',
+  success900: '#1EC756',
 };

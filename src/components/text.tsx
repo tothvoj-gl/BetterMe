@@ -4,7 +4,13 @@ import {ReactNode} from 'react';
 
 type Props = {
   children: ReactNode;
-  color?: 'primary' | 'secondary' | 'light' | 'highlight';
+  color?:
+    | 'primary'
+    | 'secondary'
+    | 'light'
+    | 'highlight'
+    | 'success'
+    | 'danger';
   size?:
     | 'body1'
     | 'body2'
@@ -32,6 +38,12 @@ const styles = StyleSheet.create(theme => ({
         },
         highlight: {
           color: theme.colors.textHighlight,
+        },
+        success: {
+          color: theme.colors.success,
+        },
+        danger: {
+          color: theme.colors.danger,
         },
       },
       size: {
