@@ -1,6 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import {Asset, Liability, User} from '../model/types';
-import {AssetType, Constants, UserResponse} from './types';
+import {AssetType, Constants, UserSchema} from './types';
 
 export const getUserData = async (): Promise<User> => {
   try {
@@ -9,11 +9,8 @@ export const getUserData = async (): Promise<User> => {
       .doc('jKsLb3uKvwgAQ0exVTblyCaFSNh1')
       .get();
 
-    const user = userDoc.data() as UserResponse;
-    console.log(user);
-
+    const user = UserSchema.parse(userDoc.data());
     const assetTypes = await getAssetTypes();
-
     const userAssets: Asset[] = [];
 
     for (const [key, value] of Object.entries(user?.finance?.assets)) {

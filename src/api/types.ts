@@ -1,9 +1,14 @@
-import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {Timestamp} from '@react-native-firebase/firestore';
+import {z} from 'zod';
 
-export interface AssetType {
-  name: string;
-  avgGrowthRate: number;
-}
+const AssetTypeSchema = z.object({
+  name: z.string(),
+  avgGrowthRate: z.number(),
+});
+
+const TimestampType = z.custom<Timestamp>(value => value instanceof Timestamp);
+
+export type AssetType = z.infer<typeof AssetTypeSchema>;
 
 export interface Constants {
   inflationRate: number;
@@ -11,35 +16,30 @@ export interface Constants {
   lifeExpextancyMales: number;
 }
 
-interface AssetObject {
-  value?: number;
-  dateModified?: FirebaseFirestoreTypes.Timestamp;
-  keepInPension: boolean;
-}
+const AssetSchema = z.object({
+  value: z.number(),
+  keepInPension: z.boolean(),
+  dateModified: TimestampType,
+});
 
-interface LiabilityObject {
-  value?: number;
-  dateModified?: FirebaseFirestoreTypes.Timestamp;
-  monthlyPayment?: number;
-  endDate: FirebaseFirestoreTypes.Timestamp;
-  name: string;
-}
+const LiabilitySchema = z.object({
+  value: z.number(),
+  name: z.string(),
+  monthlyPayment: z.number(),
+  dateModified: TimestampType,
+  endDate: TimestampType,
+});
 
-export interface UserResponse {
-  birthDate: FirebaseFirestoreTypes.Timestamp;
-  sex: string;
-  finance: {
-    assets: Assets;
-    liabilities: Liabilities;
-    monthlyNetExpense: number;
-    monthlyNetIncome: number;
-  };
-}
+export const UserSchema = z.object({
+  sex: z.string(),
+  currency: z.string(),
+  birthDate: TimestampType,
+  finance: z.object({
+    assets: z.record(z.string(), AssetSchema),
+    liabilities: z.record(z.string(), LiabilitySchema),
+    monthlyNetIncome: z.number(),
+    monthlyNetExpense: z.number(),
+  }),
+});
 
-type Assets = {
-  [key: string]: AssetObject;
-};
-
-type Liabilities = {
-  [key: string]: LiabilityObject;
-};
+export type UserResponse = z.infer<typeof UserSchema>;

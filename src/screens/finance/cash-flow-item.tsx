@@ -1,12 +1,13 @@
 import {View} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {AppText} from '../../components/text';
-import {getCurrentLocale, getDeviceCurrency} from '../../util/data';
+import {getCurrentLocale} from '../../util/data';
 
 export type Props = {
   name: string;
   value: number;
   isIncome: boolean;
+  currency: string;
 };
 
 const styles = StyleSheet.create(theme => ({
@@ -21,7 +22,7 @@ const styles = StyleSheet.create(theme => ({
   },
 }));
 
-export const CashFlowItem = ({name, value, isIncome}: Props) => {
+export const CashFlowItem = ({name, value, isIncome, currency}: Props) => {
   return (
     <View style={styles.container}>
       <AppText size="body1" weight="semiBold">
@@ -33,7 +34,7 @@ export const CashFlowItem = ({name, value, isIncome}: Props) => {
         color={isIncome ? 'success' : 'danger'}>
         {value.toLocaleString(getCurrentLocale(), {
           style: 'currency',
-          currency: getDeviceCurrency(),
+          currency: currency,
           maximumFractionDigits: 0,
         })}
       </AppText>

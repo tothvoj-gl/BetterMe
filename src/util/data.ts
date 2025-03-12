@@ -113,17 +113,12 @@ const getCurrencySymbol = (locale: string, currency: string) => {
   return formatted.replace(/\d/g, '').trim();
 };
 
-export const getDeviceCurrencySymbol = () => {
+export const getDeviceCurrencySymbol = (currency: string) => {
   const locale = getCurrentLocale(); // Get device locale
-  const currency = getDeviceCurrency(); // Get device currency
   return getCurrencySymbol(locale, currency);
 };
 
 export const getCurrentLocale = () => {
   const locale = RNLocalize.getLocales()[0].languageTag; // Get device locale
   return locale;
-};
-
-export const getDeviceCurrency = () => {
-  return RNLocalize.getCurrencies()[0];
 };

@@ -10,6 +10,7 @@ export interface FinanceData {
 export interface User {
   birthDate: Date;
   sex: string;
+  currency: string;
   finance?: FinanceData;
 }
 

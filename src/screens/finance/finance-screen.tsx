@@ -8,7 +8,6 @@ import {useUserData} from '../../api/useUserData';
 import {AppText} from '../../components/text';
 import {
   getCurrentLocale,
-  getDeviceCurrency,
   getDeviceCurrencySymbol,
   getLifeExpectancy,
   getMontlhlyPension,
@@ -82,7 +81,7 @@ export const FinanceScreen = ({navigation}: Props) => {
         </AppText>
         <Text>
           <AppText weight="bold" size="header2" color="highlight">
-            {getDeviceCurrencySymbol()}{' '}
+            {getDeviceCurrencySymbol(user.currency)}{' '}
           </AppText>
           <AppText weight="bold" size="header2">
             {totalNetWorth.toLocaleString(getCurrentLocale(), {
@@ -137,7 +136,7 @@ export const FinanceScreen = ({navigation}: Props) => {
             getCurrentLocale(),
             {
               style: 'currency',
-              currency: getDeviceCurrency(),
+              currency: user.currency,
               maximumFractionDigits: 0,
             },
           )}
@@ -154,12 +153,14 @@ export const FinanceScreen = ({navigation}: Props) => {
           name={financeScreen.montlyNetIncome}
           value={user.finance?.monthlyNetIncome}
           isIncome
+          currency={user.currency}
         />
 
         <CashFlowItem
           name={financeScreen.montlyNetExpense}
           value={user.finance?.monthlyNetExpense}
           isIncome={false}
+          currency={user.currency}
         />
         <Spacing size="large" />
         <AppText size="header3" weight="semiBold" style={styles.header}>
