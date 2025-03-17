@@ -17,4 +17,5 @@ export const financeScreen = {
   montlyNetExpense: 'Monthly net expense',
   assets: 'Assets',
   liabilities: 'Liabilities',
+  inCurrentPrices: (value: string) => `(${value} in current prices)`,
 };

@@ -4,6 +4,7 @@ import {z} from 'zod';
 const AssetTypeSchema = z.object({
   name: z.string(),
   avgGrowthRate: z.number(),
+  supportsRegularPayments: z.boolean(),
 });
 
 const TimestampType = z.custom<Timestamp>(value => value instanceof Timestamp);
@@ -20,12 +21,13 @@ const AssetSchema = z.object({
   value: z.number(),
   keepInPension: z.boolean(),
   dateModified: TimestampType,
+  monthlyPayment: z.number().optional(),
 });
 
 const LiabilitySchema = z.object({
   value: z.number(),
   name: z.string(),
-  monthlyPayment: z.number(),
+  annualRate: z.number(),
   dateModified: TimestampType,
   endDate: TimestampType,
 });
@@ -39,6 +41,7 @@ export const UserSchema = z.object({
     liabilities: z.record(z.string(), LiabilitySchema),
     monthlyNetIncome: z.number(),
     monthlyNetExpense: z.number(),
+    incomeGrowthRate: z.number(),
   }),
 });
 

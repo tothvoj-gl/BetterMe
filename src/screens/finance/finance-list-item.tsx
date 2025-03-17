@@ -6,6 +6,7 @@ import {AppText} from '../../components/text';
 export type Props = {
   item: Asset | Liability;
   isAsset: boolean;
+  value: number;
 };
 
 const styles = StyleSheet.create(theme => ({
@@ -28,7 +29,7 @@ const styles = StyleSheet.create(theme => ({
   },
 }));
 
-export const FinanceListItem = ({item, isAsset}: Props) => {
+export const FinanceListItem = ({item, isAsset, value}: Props) => {
   const icon = isAsset
     ? require('./img/icon_asset.png')
     : require('./img/icon_liability.png');
@@ -41,7 +42,7 @@ export const FinanceListItem = ({item, isAsset}: Props) => {
         </AppText>
       </View>
       <AppText size="body2" weight="semiBold">
-        {item.value.toLocaleString()}
+        {value.toLocaleString(undefined, {maximumFractionDigits: 0})}
       </AppText>
     </View>
   );

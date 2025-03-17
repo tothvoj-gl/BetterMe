@@ -1,7 +1,6 @@
 import {View} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {AppText} from '../../components/text';
-import {getCurrentLocale} from '../../util/data';
 
 export type Props = {
   name: string;
@@ -32,7 +31,7 @@ export const CashFlowItem = ({name, value, isIncome, currency}: Props) => {
         size="body1"
         weight="semiBold"
         color={isIncome ? 'success' : 'danger'}>
-        {value.toLocaleString(getCurrentLocale(), {
+        {value.toLocaleString(undefined, {
           style: 'currency',
           currency: currency,
           maximumFractionDigits: 0,

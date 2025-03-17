@@ -1,7 +1,38 @@
 import {differenceInYears} from 'date-fns';
 import * as RNLocalize from 'react-native-localize';
-import {User} from '../model/types';
+import {Liability, User} from '../model/types';
 import {Constants} from '../api/types';
+
+export const getRealFutureValue = (
+  presentValue: number,
+  annualGrowthRate: number,
+  years: number,
+  inflationRate: number,
+  monthlyPayment?: number,
+) => {
+  let assetTotalWorth = presentValue;
+  if (annualGrowthRate > 0) {
+    const monthlyRate = annualGrowthRate / 100 / 12;
+    const totalMonths = years * 12;
+
+    // Future Value of Initial Asset
+    const futureValueInitial =
+      presentValue * Math.pow(1 + monthlyRate, totalMonths);
+
+    // Future Value of Monthly Contributions
+    const futureValuePayments =
+      (monthlyPayment || 0) *
+      ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate);
+
+    // Total Future Value (Nominal)
+    assetTotalWorth = futureValueInitial + futureValuePayments;
+  }
+
+  const assetTotalNetWorth =
+    assetTotalWorth / Math.pow(1 + inflationRate / 100, years);
+
+  return {assetTotalNetWorth, assetTotalWorth};
+};
 
 export const getUserNetWorth = (
   user: User,
@@ -13,44 +44,68 @@ export const getUserNetWorth = (
   let totalWorth = 0;
   user.finance?.assets.forEach(asset => {
     if (!excludeNonPensionAssets || !asset.keepInPension) {
-      const assetGrowthRate = 1 + asset.avgGrowthRate / 100;
-      const assetRealGrowthRate =
-        (1 + asset.avgGrowthRate / 100) / (1 + inflationRate / 100);
-      totalWorth =
-        totalWorth + asset.value * Math.pow(assetGrowthRate, yearsFromNow);
-      totalNetWorth =
-        totalNetWorth +
-        asset.value * Math.pow(assetRealGrowthRate, yearsFromNow);
-
-      console.log({
-        asset,
-        ble: asset.value * Math.pow(assetRealGrowthRate, yearsFromNow),
-      });
-      console.log({totalNetWorth, excludeNonPensionAssets});
+      const {assetTotalNetWorth, assetTotalWorth} = getRealFutureValue(
+        asset.value,
+        asset.avgGrowthRate,
+        yearsFromNow,
+        inflationRate,
+      );
+      totalWorth = totalWorth + assetTotalWorth;
+      totalNetWorth = totalNetWorth + assetTotalNetWorth;
     }
   });
 
-  const monthlyNetIncome =
-    (user.finance?.monthlyNetIncome || 0) -
-    (user.finance?.monthlyNetExpense || 0);
-  const totalRealIncome = calculateInflationAdjustedIncome(
-    monthlyNetIncome,
-    yearsFromNow,
-    inflationRate,
-  );
-  totalWorth = totalWorth + monthlyNetIncome * yearsFromNow * 12;
-  totalNetWorth = totalNetWorth + totalRealIncome;
+  let liablityMonthlyExpenses = 0;
+  user.finance.liabilities.forEach(liability => {
+    const {monthlyPayment, balance} = calculateAmortization(
+      liability,
+      yearsFromNow,
+    );
 
-  console.log({ble2: totalNetWorth});
-
-  user.finance?.liabilities.forEach(liability => {
-    totalWorth = totalWorth - liability.value;
-    totalNetWorth = totalNetWorth - liability.value;
+    totalWorth = totalWorth - balance;
+    totalNetWorth = totalNetWorth - balance;
+    liablityMonthlyExpenses = liablityMonthlyExpenses + monthlyPayment;
   });
 
-  console.log({ble3: totalNetWorth});
+  const {totalRealIncome, totalIncome} = calculateInflationAdjustedIncome(
+    user.finance.monthlyNetIncome,
+    user.finance.monthlyNetExpense,
+    liablityMonthlyExpenses,
+    yearsFromNow,
+    inflationRate,
+    user.finance.incomeGrowthRate,
+  );
+  totalWorth = totalWorth + totalIncome;
+  totalNetWorth = totalNetWorth + totalRealIncome;
 
-  return {totalWorth, totalNetWorth};
+  return {totalWorth, totalNetWorth, totalRealIncome, totalIncome};
+};
+
+export const calculateAmortization = (
+  liability: Liability,
+  yearsPaid: number,
+) => {
+  const totalYears = differenceInYears(liability.endDate, new Date());
+  const months = totalYears * 12;
+  const monthsPaid = yearsPaid * 12;
+  const monthlyRate = liability.annualRate / 100 / 12;
+  const monthlyPayment =
+    (liability.value * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+    (Math.pow(1 + monthlyRate, months) - 1);
+
+  let balance = liability.value;
+
+  for (let i = 1; i <= monthsPaid; i++) {
+    const interestPayment = balance * monthlyRate;
+    const principalPayment = monthlyPayment - interestPayment;
+    if (balance - principalPayment < 0) {
+      balance = 0;
+      break;
+    }
+    balance -= principalPayment;
+  }
+
+  return {monthlyPayment, balance};
 };
 
 export const getMontlhlyPension = (
@@ -64,18 +119,17 @@ export const getMontlhlyPension = (
     differenceInYears(new Date(), user.birthDate) -
     retirementInYearsFromNow;
 
-  const {totalNetWorth} = getUserNetWorth(
+  const {totalNetWorth, totalWorth} = getUserNetWorth(
     user,
     retirementInYearsFromNow,
     constants.inflationRate,
     true,
   );
 
-  const penstion = totalNetWorth / pensionYears / 12;
+  const pension = totalWorth / pensionYears / 12;
+  const netPension = totalNetWorth / pensionYears / 12;
 
-  console.log(pensionYears);
-
-  return penstion;
+  return {pension, netPension};
 };
 
 export const getLifeExpectancy = (user: User, constants: Constants) =>
@@ -85,20 +139,28 @@ export const getLifeExpectancy = (user: User, constants: Constants) =>
 
 const calculateInflationAdjustedIncome = (
   monthlyIncome: number,
+  monthlyExpense: number,
+  liablityMonthlyExpenses: number,
   years: number,
   inflationRate: number,
-): number => {
-  const months = years * 12;
-  let totalRealIncome = 0;
+  incomeGrowthRate: number,
+) => {
+  const totalMonths = years * 12;
+  const monthlyRate = incomeGrowthRate / 100 / 12;
+  const monthlyInflation = inflationRate / 100 / 12;
 
-  for (let month = 1; month <= months; month++) {
-    // Adjust each month's income for inflation
-    const realValue =
-      monthlyIncome / Math.pow(1 + inflationRate / 100, month / 12);
-    totalRealIncome += realValue;
-  }
+  const totalIncome =
+    monthlyIncome *
+      ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) -
+    (monthlyExpense + liablityMonthlyExpenses) * totalMonths;
 
-  return totalRealIncome;
+  const totalRealIncome =
+    totalIncome / Math.pow(1 + monthlyInflation, totalMonths);
+
+  return {
+    totalRealIncome,
+    totalIncome,
+  };
 };
 
 const getCurrencySymbol = (locale: string, currency: string) => {

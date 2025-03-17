@@ -4,31 +4,23 @@ import {AppButton} from '../../components/button';
 import {buttonLabels, financeScreen} from '../../util/strings';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {RootStackParamList} from '../../../App';
-import {useUserData} from '../../api/useUserData';
 import {AppText} from '../../components/text';
-import {
-  getCurrentLocale,
-  getDeviceCurrencySymbol,
-  getLifeExpectancy,
-  getMontlhlyPension,
-  getUserNetWorth,
-} from '../../util/data';
+import {getDeviceCurrencySymbol} from '../../util/data';
 import {FinanceListItem} from './finance-list-item';
 import Slider from '@react-native-community/slider';
-import {useConstants} from '../../api/useConstants';
-import {differenceInYears} from 'date-fns/differenceInYears';
 import {useState} from 'react';
 import {pallette} from '../../util/colors';
 import {Spacing} from '../../components/spacing';
 import {LoadingSpinner} from '../../components/loading-spinner';
 import {CashFlowItem} from './cash-flow-item';
+import {useFinanceScreenData} from './use-finance-screen-data';
 
 const styles = StyleSheet.create(theme => ({
   container: {
     backgroundColor: theme.colors.background,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: theme.spacing.m,
+    paddingVertical: theme.spacing.m,
   },
   linearGradient: {
     paddingLeft: 15,
@@ -39,6 +31,12 @@ const styles = StyleSheet.create(theme => ({
   slider: {
     width: '100%',
   },
+  sliderContainer: {
+    width: '100%',
+    backgroundColor: theme.colors.backgroundSecondary,
+    paddingHorizontal: theme.spacing.m,
+  },
+  centeredText: {textAlign: 'center'},
   buttonText: {
     fontSize: 18,
     fontFamily: 'Gill Sans',
@@ -46,6 +44,9 @@ const styles = StyleSheet.create(theme => ({
     margin: 10,
     color: theme.colors.background,
     backgroundColor: 'transparent',
+  },
+  viewWithPadding: {
+    paddingHorizontal: theme.spacing.m,
   },
   header: {
     alignSelf: 'flex-start',
@@ -55,135 +56,157 @@ const styles = StyleSheet.create(theme => ({
 type Props = BottomTabScreenProps<RootStackParamList>;
 
 export const FinanceScreen = ({navigation}: Props) => {
-  const {data: user, isPending, isError, error} = useUserData();
-  const {data: constants} = useConstants();
   const [years, setYears] = useState(0);
+  const {data, isPending, isError, error} = useFinanceScreenData(years);
 
   if (isPending) {
     return <LoadingSpinner />;
   }
 
   if (isError) {
-    return <AppText>Error: {error.message}</AppText>;
+    return <AppText>Error: {error?.message}</AppText>;
   }
 
-  if (user.finance) {
-    const {totalNetWorth, totalWorth} = getUserNetWorth(
-      user,
-      years,
-      constants.inflationRate,
-    );
+  if (data) {
+    const {
+      totalNetWorth,
+      totalWorth,
+      currency,
+      userLifeExpectancy,
+      userAge,
+      monthlyPension,
+      monthlyNetPension,
+      monthlyNetIncome,
+      monthlyNetExpense,
+      assets,
+      liabilities,
+    } = data;
 
     return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        stickyHeaderIndices={[4]}>
         <AppText size="header2" color="light" weight="bold">
           {financeScreen.totalNetWorth}
         </AppText>
         <Text>
           <AppText weight="bold" size="header2" color="highlight">
-            {getDeviceCurrencySymbol(user.currency)}{' '}
+            {getDeviceCurrencySymbol(currency)}{' '}
           </AppText>
           <AppText weight="bold" size="header2">
-            {totalNetWorth.toLocaleString(getCurrentLocale(), {
+            {totalWorth.toLocaleString(undefined, {
               maximumFractionDigits: 0,
-            })}
+            })}{' '}
           </AppText>
-          <Text>
-            <AppText size="header4" color="light">
-              {' ('}
-              {totalWorth.toLocaleString(getCurrentLocale(), {
-                maximumFractionDigits: 0,
-              })}
+        </Text>
+        <AppText size="header4" color="light">
+          {financeScreen.inCurrentPrices(
+            totalNetWorth.toLocaleString(undefined, {
+              maximumFractionDigits: 0,
+              style: 'currency',
+              currency: currency,
+            }),
+          )}
+        </AppText>
+        <Spacing />
+        <View style={styles.sliderContainer}>
+          <Spacing />
+          <AppText color="light" style={styles.centeredText}>
+            {financeScreen.simulateFuture}
+          </AppText>
+          <Slider
+            style={styles.slider}
+            minimumValue={0}
+            maximumValue={userLifeExpectancy - userAge - 1}
+            onValueChange={value => setYears(value)}
+            minimumTrackTintColor={pallette.secondary900}
+            maximumTrackTintColor={pallette.primary900}
+            step={1}
+          />
+          <Text style={styles.centeredText}>
+            <AppText weight="bold" size="header2" color="highlight">
+              {years === 0 ? 'Now' : `${years} `}
             </AppText>
-            <AppText size="body2" color="light">
-              {' '}
-              {financeScreen.withoutInflation}
-            </AppText>
-            <AppText size="header5" color="light">
-              {')'}
+            <AppText weight="bold" size="header5">
+              {years === 0 ? '' : `year${years === 1 ? '' : 's'} from now`}
             </AppText>
           </Text>
-        </Text>
-        <Spacing />
-        <AppText color="light">{financeScreen.simulateFuture}</AppText>
-        <Slider
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={
-            getLifeExpectancy(user, constants) -
-            differenceInYears(new Date(), user.birthDate) -
-            1
-          }
-          onValueChange={value => setYears(value)}
-          minimumTrackTintColor={pallette.secondary900}
-          maximumTrackTintColor={pallette.primary900}
-          step={1}
-        />
-        <Text>
-          <AppText weight="bold" size="header2" color="highlight">
-            {years === 0 ? 'Now' : `${years} `}
-          </AppText>
-          <AppText weight="bold" size="header5">
-            {years === 0 ? '' : `year${years === 1 ? '' : 's'} from now`}
-          </AppText>
-        </Text>
+          <Spacing />
+        </View>
         <Spacing />
         <AppText size="header2" color="light" weight="bold">
           {financeScreen.expectedPension}
         </AppText>
-        <AppText weight="bold" size="header2">
-          {getMontlhlyPension(user, years, constants).toLocaleString(
-            getCurrentLocale(),
-            {
-              style: 'currency',
-              currency: user.currency,
+        <Text>
+          <AppText weight="bold" size="header2" color="highlight">
+            {getDeviceCurrencySymbol(currency)}{' '}
+          </AppText>
+          <AppText weight="bold" size="header2">
+            {monthlyPension.toLocaleString(undefined, {
               maximumFractionDigits: 0,
-            },
+            })}{' '}
+          </AppText>
+        </Text>
+        <AppText size="header4" color="light">
+          {financeScreen.inCurrentPrices(
+            monthlyNetPension.toLocaleString(undefined, {
+              maximumFractionDigits: 0,
+              style: 'currency',
+              currency: currency,
+            }),
           )}
         </AppText>
+
         <AppText size="body2" color="light">
-          {financeScreen.withdrawalPeriod(
-            getLifeExpectancy(user, constants) -
-              years -
-              differenceInYears(new Date(), user.birthDate),
-          )}
+          {financeScreen.withdrawalPeriod(userLifeExpectancy - years - userAge)}
         </AppText>
         <Spacing />
         <CashFlowItem
           name={financeScreen.montlyNetIncome}
-          value={user.finance?.monthlyNetIncome}
+          value={monthlyNetIncome}
           isIncome
-          currency={user.currency}
+          currency={currency}
         />
 
         <CashFlowItem
           name={financeScreen.montlyNetExpense}
-          value={user.finance?.monthlyNetExpense}
+          value={monthlyNetExpense}
           isIncome={false}
-          currency={user.currency}
+          currency={currency}
         />
         <Spacing size="large" />
-        <AppText size="header3" weight="semiBold" style={styles.header}>
-          {financeScreen.assets}
-        </AppText>
+        <View style={styles.viewWithPadding}>
+          <AppText size="header3" weight="semiBold" style={styles.header}>
+            {financeScreen.assets}
+          </AppText>
 
-        {user.finance?.assets.map(asset => {
-          return <FinanceListItem isAsset item={asset} key={asset.id} />;
-        })}
-        <Spacing />
-        <AppText size="header3" weight="semiBold" style={styles.header}>
-          {financeScreen.liabilities}
-        </AppText>
+          {assets.map(asset => {
+            return (
+              <FinanceListItem
+                isAsset
+                item={asset}
+                key={asset.id}
+                value={asset.value}
+              />
+            );
+          })}
 
-        {user.finance?.liabilities.map(liability => {
-          return (
-            <FinanceListItem
-              isAsset={false}
-              item={liability}
-              key={liability.id}
-            />
-          );
-        })}
+          <Spacing />
+          <AppText size="header3" weight="semiBold" style={styles.header}>
+            {financeScreen.liabilities}
+          </AppText>
+
+          {liabilities.map(liability => {
+            return (
+              <FinanceListItem
+                isAsset={false}
+                item={liability}
+                key={liability.id}
+                value={liability.value}
+              />
+            );
+          })}
+        </View>
       </ScrollView>
     );
   }
