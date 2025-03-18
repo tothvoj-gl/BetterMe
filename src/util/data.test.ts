@@ -5,12 +5,12 @@ import {
   getUserNetWorth,
 } from './data';
 
-test('should first', () => {
+test('getDeviceCurrencySymbol', () => {
   const result = getDeviceCurrencySymbol('USD');
   expect(result).toBe('$');
 });
 
-test('should first', () => {
+test('getRealFutureValue', () => {
   const result = getRealFutureValue(10000, 4, 10, 3, 100);
   expect(result).toStrictEqual({
     assetTotalNetWorth: 22049.96363776187,
@@ -18,7 +18,7 @@ test('should first', () => {
   });
 });
 
-test('should first', () => {
+test('getUserNetWorth', () => {
   const result = getUserNetWorth(userMock, 10, 3, true);
   expect(result).toStrictEqual({
     totalIncome: 387166.7603707186,

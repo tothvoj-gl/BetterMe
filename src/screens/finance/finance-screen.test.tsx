@@ -19,12 +19,12 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({navigate: mockedNavigate}),
 }));
 
-test('should first', () => {
+test('Lets start button is displayed if there is no finance data', () => {
   render(<FinanceScreen />);
   expect(screen.getByRole('button', {name: "Let's start"})).toBeOnTheScreen();
 });
 
-test('should first 2', () => {
+test('Finance data is displayed', () => {
   mockFinanceData = {
     isPending: false,
     isError: false,
@@ -65,9 +65,14 @@ test('should first 2', () => {
   };
   render(<FinanceScreen />);
   expect(screen.getByText('Total net worth')).toBeOnTheScreen();
+  expect(screen.getByText('Expected monthly pension')).toBeOnTheScreen();
+  expect(screen.getByText('Assets')).toBeOnTheScreen();
+  expect(screen.getByText('Liabilities')).toBeOnTheScreen();
+  expect(screen.getByText('Monthly net income')).toBeOnTheScreen();
+  expect(screen.getByText('Monthly net expense')).toBeOnTheScreen();
 });
 
-test('should first 3', () => {
+test('Loading indicator is displayed while data is loading', () => {
   mockFinanceData = {
     isPending: true,
     isError: false,
@@ -78,7 +83,7 @@ test('should first 3', () => {
   expect(screen.getByTestId('loading-indicator')).toBeOnTheScreen();
 });
 
-test('should first 3', () => {
+test('Error message is displayed in case of an error', () => {
   mockFinanceData = {
     isPending: false,
     isError: true,

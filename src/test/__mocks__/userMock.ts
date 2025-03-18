@@ -1,7 +1,9 @@
-export const userMock = {
+import {User} from '../../model/types';
+
+export const userMock: User = {
   sex: 'm',
   currency: 'EUR',
-  birthDate: '1987-03-01T23:00:00.548Z',
+  birthDate: new Date('1987-03-01T23:00:00.548Z'),
   finance: {
     assets: [
       {
@@ -10,7 +12,7 @@ export const userMock = {
         supportsRegularPayments: true,
         id: 'UHDWs1N1t2ETJ61TDuHN',
         value: 320000,
-        dateModified: '2025-02-28T23:00:00.960Z',
+        dateModified: new Date('2025-02-28T23:00:00.960Z'),
         keepInPension: true,
       },
       {
@@ -19,7 +21,7 @@ export const userMock = {
         supportsRegularPayments: false,
         id: 'D9VUq7QmA2IeBaZKJtgk',
         value: 45000,
-        dateModified: '2025-03-01T23:00:00.396Z',
+        dateModified: new Date('2025-03-01T23:00:00.396Z'),
         keepInPension: false,
       },
       {
@@ -28,7 +30,7 @@ export const userMock = {
         supportsRegularPayments: true,
         id: 'zz81GcHshqg2zYnpipNh',
         value: 30000,
-        dateModified: '2025-03-01T23:00:00.833Z',
+        dateModified: new Date('2025-03-01T23:00:00.833Z'),
         keepInPension: false,
         monthlyPayment: 200,
       },
@@ -38,7 +40,7 @@ export const userMock = {
         supportsRegularPayments: true,
         id: 'eh63w1f8jg5uV4uPENxA',
         value: 3000,
-        dateModified: '2025-03-01T23:00:00.508Z',
+        dateModified: new Date('2025-03-01T23:00:00.508Z'),
         keepInPension: false,
       },
     ],
@@ -47,8 +49,8 @@ export const userMock = {
         value: 66000,
         name: 'Mortgage',
         annualRate: 3,
-        endDate: '2052-08-24T22:00:00.320Z',
-        dateModified: '2025-03-01T23:00:00.794Z',
+        endDate: new Date('2052-08-24T22:00:00.320Z'),
+        dateModified: new Date('2025-03-01T23:00:00.794Z'),
         id: 'fyRfr3TExSvTn6WpB6MU',
       },
     ],
