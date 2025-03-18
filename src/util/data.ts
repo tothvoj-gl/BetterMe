@@ -40,6 +40,8 @@ export const getUserNetWorth = (
   inflationRate: number,
   excludeNonPensionAssets = false,
 ) => {
+  console.log(JSON.stringify(user));
+
   let totalNetWorth = 0;
   let totalWorth = 0;
   user.finance?.assets.forEach(asset => {

@@ -9,8 +9,31 @@ import {
   getUserNetWorth,
 } from '../../util/data';
 import {CASH_ASSET_ID} from '../../util/constant';
+import {Asset, Liability} from '../../model/types';
 
-export const useFinanceScreenData = (years: number) => {
+export type FinanceScreenData = {
+  isPending: boolean;
+  isError: boolean;
+  error: Error | null;
+  data:
+    | {
+        totalNetWorth: number;
+        totalWorth: number;
+        totalRealIncome: number;
+        currency: string;
+        userAge: number;
+        userLifeExpectancy: number;
+        monthlyPension: number;
+        monthlyNetPension: number;
+        monthlyNetIncome: number;
+        monthlyNetExpense: number;
+        assets: Asset[];
+        liabilities: Liability[];
+      }
+    | undefined;
+};
+
+export const useFinanceScreenData = (years: number): FinanceScreenData => {
   const {data: user, isPending, isError, error} = useUserData();
   const {data: constants} = useConstants();
 

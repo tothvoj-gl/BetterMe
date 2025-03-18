@@ -11,7 +11,7 @@ const styles = StyleSheet.create(() => ({
 }));
 
 export const LoadingSpinner = () => (
-  <View style={styles.container}>
+  <View style={styles.container} testID="loading-indicator">
     <ActivityIndicator size="large" color={pallette.secondary900} />
   </View>
 );

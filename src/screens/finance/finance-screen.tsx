@@ -14,6 +14,7 @@ import {Spacing} from '../../components/spacing';
 import {LoadingSpinner} from '../../components/loading-spinner';
 import {CashFlowItem} from './cash-flow-item';
 import {useFinanceScreenData} from './use-finance-screen-data';
+import {useNavigation} from '@react-navigation/native';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -53,9 +54,8 @@ const styles = StyleSheet.create(theme => ({
   },
 }));
 
-type Props = BottomTabScreenProps<RootStackParamList>;
-
-export const FinanceScreen = ({navigation}: Props) => {
+export const FinanceScreen = () => {
+  const navigation = useNavigation();
   const [years, setYears] = useState(0);
   const {data, isPending, isError, error} = useFinanceScreenData(years);
 
@@ -64,7 +64,7 @@ export const FinanceScreen = ({navigation}: Props) => {
   }
 
   if (isError) {
-    return <AppText>Error: {error?.message}</AppText>;
+    return <AppText>{error?.message}</AppText>;
   }
 
   if (data) {
