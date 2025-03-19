@@ -27,6 +27,8 @@ export type FinanceScreenData = {
         monthlyNetPension: number;
         monthlyNetIncome: number;
         monthlyNetExpense: number;
+        liabilityPayments: number;
+        assetPayments: number;
         assets: Asset[];
         liabilities: Liability[];
       }
@@ -47,6 +49,35 @@ export const useFinanceScreenData = (years: number): FinanceScreenData => {
     );
 
     const {pension, netPension} = getMontlhlyPension(user, years, constants);
+    let assetPayments = 0;
+    const assets = user.finance.assets.map(asset => {
+      assetPayments = assetPayments + (asset.monthlyPayment || 0);
+      const futureValue = getRealFutureValue(
+        asset.value,
+        asset.avgGrowthRate,
+        years,
+        constants.inflationRate,
+        asset.monthlyPayment,
+      ).assetTotalNetWorth;
+
+      return {
+        ...asset,
+        value:
+          asset.id === CASH_ASSET_ID
+            ? futureValue + totalRealIncome
+            : futureValue,
+      };
+    });
+
+    let liabilityPayments = 0;
+    const liabilities = user.finance.liabilities.map(liability => {
+      const {monthlyPayment, balance} = calculateAmortization(liability, years);
+      liabilityPayments = liabilityPayments + monthlyPayment;
+      return {
+        ...liability,
+        value: balance,
+      };
+    });
 
     data = {
       totalNetWorth,
@@ -69,29 +100,10 @@ export const useFinanceScreenData = (years: number): FinanceScreenData => {
         years,
         0,
       ).assetTotalWorth,
-      assets: user.finance.assets.map(asset => {
-        const futureValue = getRealFutureValue(
-          asset.value,
-          asset.avgGrowthRate,
-          years,
-          constants.inflationRate,
-          asset.monthlyPayment,
-        ).assetTotalNetWorth;
-
-        return {
-          ...asset,
-          value:
-            asset.id === CASH_ASSET_ID
-              ? futureValue + totalRealIncome
-              : futureValue,
-        };
-      }),
-      liabilities: user.finance.liabilities.map(liability => {
-        return {
-          ...liability,
-          value: calculateAmortization(liability, years).balance,
-        };
-      }),
+      assets,
+      liabilities,
+      assetPayments,
+      liabilityPayments,
     };
   }
 

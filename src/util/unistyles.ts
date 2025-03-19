@@ -13,6 +13,7 @@ const lightTheme = {
     textHighlight: pallette.primary900,
     danger: pallette.danger900,
     success: pallette.success900,
+    border: pallette.dark200,
     // any nesting, spreading, arrays, etc.
   },
   // functions, external imports, etc.
@@ -38,6 +39,7 @@ const otherTheme = {
     textHighlight: pallette.primary900,
     danger: pallette.danger900,
     success: pallette.success900,
+    border: pallette.dark200,
   },
   spacing: {
     xs: 4,

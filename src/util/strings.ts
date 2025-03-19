@@ -15,7 +15,12 @@ export const financeScreen = {
     `assuming a ${years}-year withdrawal period`,
   montlyNetIncome: 'Monthly net income',
   montlyNetExpense: 'Monthly net expense',
+  monthlyLiabilityPayments: 'Monthly liability payments',
+  monthlyAssetPayments: 'Monthly asset payments',
   assets: 'Assets',
   liabilities: 'Liabilities',
   inCurrentPrices: (value: string) => `(${value} in current prices)`,
+  now: 'Now',
+  yearsFromNowOn: (years: number) =>
+    years === 0 ? '' : `year${years === 1 ? '' : 's'} from now`,
 };

@@ -89,7 +89,7 @@ export const calculateAmortization = (
   const months = totalYears * 12;
   const monthsPaid = yearsPaid * 12;
   const monthlyRate = liability.annualRate / 100 / 12;
-  const monthlyPayment =
+  let monthlyPayment =
     (liability.value * monthlyRate * Math.pow(1 + monthlyRate, months)) /
     (Math.pow(1 + monthlyRate, months) - 1);
 
@@ -100,6 +100,7 @@ export const calculateAmortization = (
     const principalPayment = monthlyPayment - interestPayment;
     if (balance - principalPayment < 0) {
       balance = 0;
+      monthlyPayment = 0;
       break;
     }
     balance -= principalPayment;

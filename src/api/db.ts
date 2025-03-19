@@ -9,8 +9,6 @@ export const getUserData = async (): Promise<User> => {
       .doc('jKsLb3uKvwgAQ0exVTblyCaFSNh1')
       .get();
 
-    console.log(userDoc.data());
-
     const user = UserSchema.parse(userDoc.data());
     const assetTypes = await getAssetTypes();
     const userAssets: Asset[] = [];

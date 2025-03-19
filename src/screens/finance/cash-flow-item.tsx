@@ -16,7 +16,7 @@ const styles = StyleSheet.create(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: theme.spacing.m,
-    paddingVertical: theme.spacing.sm,
+    paddingVertical: theme.spacing.s,
     marginVertical: theme.spacing.xs,
   },
 }));

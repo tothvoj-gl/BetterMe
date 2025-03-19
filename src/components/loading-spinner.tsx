@@ -3,11 +3,7 @@ import {pallette} from '../util/colors';
 import {StyleSheet} from 'react-native-unistyles';
 
 const styles = StyleSheet.create(() => ({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  container: {},
 }));
 
 export const LoadingSpinner = () => (

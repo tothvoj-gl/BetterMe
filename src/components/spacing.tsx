@@ -14,13 +14,16 @@ const styles = StyleSheet.create(theme => ({
         large: {
           height: theme.spacing.l,
         },
+        extraLarge: {
+          height: theme.spacing.l,
+        },
       },
     },
   },
 }));
 
 type Props = {
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'extraLarge';
 };
 
 export const Spacing = ({size = 'medium'}: Props) => {

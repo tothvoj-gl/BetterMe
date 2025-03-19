@@ -15,6 +15,7 @@ import {LoadingSpinner} from '../../components/loading-spinner';
 import {CashFlowItem} from './cash-flow-item';
 import {useFinanceScreenData} from './use-finance-screen-data';
 import {useNavigation} from '@react-navigation/native';
+import {formatMoney, formatMoneyWithCurrencySymbol} from '../../util/formatter';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -80,6 +81,8 @@ export const FinanceScreen = () => {
       monthlyNetExpense,
       assets,
       liabilities,
+      assetPayments,
+      liabilityPayments,
     } = data;
 
     return (
@@ -94,18 +97,12 @@ export const FinanceScreen = () => {
             {getDeviceCurrencySymbol(currency)}{' '}
           </AppText>
           <AppText weight="bold" size="header2">
-            {totalWorth.toLocaleString(undefined, {
-              maximumFractionDigits: 0,
-            })}{' '}
+            {formatMoney(totalWorth)}{' '}
           </AppText>
         </Text>
         <AppText size="header4" color="light">
           {financeScreen.inCurrentPrices(
-            totalNetWorth.toLocaleString(undefined, {
-              maximumFractionDigits: 0,
-              style: 'currency',
-              currency: currency,
-            }),
+            formatMoneyWithCurrencySymbol(totalNetWorth, currency),
           )}
         </AppText>
         <Spacing />
@@ -125,10 +122,10 @@ export const FinanceScreen = () => {
           />
           <Text style={styles.centeredText}>
             <AppText weight="bold" size="header2" color="highlight">
-              {years === 0 ? 'Now' : `${years} `}
+              {years === 0 ? financeScreen.now : `${years} `}
             </AppText>
             <AppText weight="bold" size="header5">
-              {years === 0 ? '' : `year${years === 1 ? '' : 's'} from now`}
+              {financeScreen.yearsFromNowOn(years)}
             </AppText>
           </Text>
           <Spacing />
@@ -142,18 +139,12 @@ export const FinanceScreen = () => {
             {getDeviceCurrencySymbol(currency)}{' '}
           </AppText>
           <AppText weight="bold" size="header2">
-            {monthlyPension.toLocaleString(undefined, {
-              maximumFractionDigits: 0,
-            })}{' '}
+            {formatMoney(monthlyPension)}{' '}
           </AppText>
         </Text>
         <AppText size="header4" color="light">
           {financeScreen.inCurrentPrices(
-            monthlyNetPension.toLocaleString(undefined, {
-              maximumFractionDigits: 0,
-              style: 'currency',
-              currency: currency,
-            }),
+            formatMoneyWithCurrencySymbol(monthlyNetPension, currency),
           )}
         </AppText>
 
@@ -171,6 +162,18 @@ export const FinanceScreen = () => {
         <CashFlowItem
           name={financeScreen.montlyNetExpense}
           value={monthlyNetExpense}
+          isIncome={false}
+          currency={currency}
+        />
+        <CashFlowItem
+          name={financeScreen.monthlyLiabilityPayments}
+          value={liabilityPayments}
+          isIncome={false}
+          currency={currency}
+        />
+        <CashFlowItem
+          name={financeScreen.monthlyAssetPayments}
+          value={assetPayments}
           isIncome={false}
           currency={currency}
         />

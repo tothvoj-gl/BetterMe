@@ -70,6 +70,8 @@ test('Finance data is displayed', () => {
   expect(screen.getByText('Liabilities')).toBeOnTheScreen();
   expect(screen.getByText('Monthly net income')).toBeOnTheScreen();
   expect(screen.getByText('Monthly net expense')).toBeOnTheScreen();
+  expect(screen.getByText('10,000')).toBeOnTheScreen();
+  expect(screen.getByText('200')).toBeOnTheScreen();
 });
 
 test('Loading indicator is displayed while data is loading', () => {
