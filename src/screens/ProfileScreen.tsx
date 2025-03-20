@@ -1,5 +1,5 @@
 import {Text, View} from 'react-native';
-import {AppButton} from '../components/button';
+import {AppButton} from '../components/AppButton';
 import {useLogout} from '../api/auth/useAuth';
 
 export const ProfileScreen = () => {

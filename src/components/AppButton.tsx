@@ -1,8 +1,8 @@
-import {ActivityIndicator, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import LinearGradient from 'react-native-linear-gradient';
 import {pallette} from '../util/colors';
-import {AppText} from './text';
+import {AppText} from './AppText';
 
 export type Props = {
   onPress: () => void;
@@ -12,10 +12,10 @@ export type Props = {
 
 const styles = StyleSheet.create(() => ({
   linearGradient: {
-    paddingLeft: 15,
-    paddingRight: 15,
     borderRadius: 5,
     margin: 15,
+    width: '80%',
+    alignSelf: 'center',
   },
   buttonText: {
     textAlign: 'center',
@@ -23,7 +23,7 @@ const styles = StyleSheet.create(() => ({
   },
 }));
 
-export const AppButton = ({label, onPress, showLoading, disabled}: Props) => {
+export const AppButton = ({label, onPress, disabled}: Props) => {
   return (
     <Pressable accessibilityRole="button" onPress={onPress} disabled={disabled}>
       {({pressed}) => (
@@ -36,13 +36,9 @@ export const AppButton = ({label, onPress, showLoading, disabled}: Props) => {
               : [pallette.secondary900, pallette.primary900]
           }
           style={styles.linearGradient}>
-          {showLoading ? (
-            <ActivityIndicator color={'white'} />
-          ) : (
-            <AppText style={styles.buttonText} color="secondary">
-              {label}
-            </AppText>
-          )}
+          <AppText style={styles.buttonText} color="secondary">
+            {label}
+          </AppText>
         </LinearGradient>
       )}
     </Pressable>

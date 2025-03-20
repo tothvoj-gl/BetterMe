@@ -1,7 +1,7 @@
 import {Image, View} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {Asset, Liability} from '../../model/types';
-import {AppText} from '../../components/text';
+import {AppText} from '../../components/AppText';
 
 export type Props = {
   item: Asset | Liability;

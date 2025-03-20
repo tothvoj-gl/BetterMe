@@ -1,5 +1,5 @@
 import {SafeAreaView, Text, View} from 'react-native';
-import {AppButton} from '../../components/button';
+import {AppButton} from '../../components/AppButton';
 import {StyleSheet} from 'react-native-unistyles';
 
 const styles = StyleSheet.create(theme => ({

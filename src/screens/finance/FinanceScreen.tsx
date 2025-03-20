@@ -1,19 +1,17 @@
 import {Image, View, Text, ScrollView} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
-import {AppButton} from '../../components/button';
+import {AppButton} from '../../components/AppButton';
 import {buttonLabels, financeScreen} from '../../util/strings';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import {RootStackParamList} from '../../../App';
-import {AppText} from '../../components/text';
+import {AppText} from '../../components/AppText';
 import {getDeviceCurrencySymbol} from '../../util/data';
-import {FinanceListItem} from './finance-list-item';
+import {FinanceListItem} from './FinanceListItem';
 import Slider from '@react-native-community/slider';
 import {useState} from 'react';
 import {pallette} from '../../util/colors';
-import {Spacing} from '../../components/spacing';
-import {LoadingSpinner} from '../../components/loading-spinner';
-import {CashFlowItem} from './cash-flow-item';
-import {useFinanceScreenData} from './use-finance-screen-data';
+import {Spacing} from '../../components/Spacing';
+import {LoadingSpinner} from '../../components/LoadingSpinner';
+import {CashFlowItem} from './CashFlowItem';
+import {useFinanceScreenData} from './useFinanceScreenData';
 import {useNavigation} from '@react-navigation/native';
 import {formatMoney, formatMoneyWithCurrencySymbol} from '../../util/formatter';
 
@@ -53,6 +51,10 @@ const styles = StyleSheet.create(theme => ({
   header: {
     alignSelf: 'flex-start',
   },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 }));
 
 export const FinanceScreen = () => {
@@ -61,7 +63,11 @@ export const FinanceScreen = () => {
   const {data, isPending, isError, error} = useFinanceScreenData(years);
 
   if (isPending) {
-    return <LoadingSpinner />;
+    return (
+      <View style={styles.loading}>
+        <LoadingSpinner />
+      </View>
+    );
   }
 
   if (isError) {
@@ -215,8 +221,15 @@ export const FinanceScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Image source={require('./img/finance.png')} />
+    <View>
+      <Image
+        style={{alignSelf: 'center'}}
+        source={require('./img/finance.png')}
+      />
+      <AppText size="header3" weight="semiBold" style={styles.header}>
+        {financeScreen.liabilities}
+      </AppText>
+
       <AppButton
         onPress={() => navigation.navigate('AddFinanceInfo')}
         label={buttonLabels.letsStart}

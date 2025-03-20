@@ -32,17 +32,19 @@ const LiabilitySchema = z.object({
   endDate: TimestampType,
 });
 
-export const UserSchema = z.object({
-  sex: z.string(),
-  currency: z.string(),
-  birthDate: TimestampType,
-  finance: z.object({
-    assets: z.record(z.string(), AssetSchema),
-    liabilities: z.record(z.string(), LiabilitySchema),
-    monthlyNetIncome: z.number(),
-    monthlyNetExpense: z.number(),
-    incomeGrowthRate: z.number(),
-  }),
-});
+export const UserSchema = z
+  .object({
+    sex: z.string(),
+    currency: z.string(),
+    birthDate: TimestampType,
+    finance: z.object({
+      assets: z.record(z.string(), AssetSchema),
+      liabilities: z.record(z.string(), LiabilitySchema),
+      monthlyNetIncome: z.number(),
+      monthlyNetExpense: z.number(),
+      incomeGrowthRate: z.number(),
+    }),
+  })
+  .optional();
 
 export type UserResponse = z.infer<typeof UserSchema>;

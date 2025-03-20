@@ -1,6 +1,6 @@
 import {View} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
-import {AppText} from '../../components/text';
+import {AppText} from '../../components/AppText';
 
 export type Props = {
   name: string;

@@ -1,14 +1,16 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {AppTextinput} from '../../components/text-input';
+import {View} from 'react-native';
+import {AppTextinput} from '../../components/AppTextInput';
 import {StyleSheet} from 'react-native-unistyles';
-import {AppButton} from '../../components/button';
+import {AppButton} from '../../components/AppButton';
 import {Controller, useForm} from 'react-hook-form';
 
-import {AppText} from '../../components/text';
-import {Spacing} from '../../components/spacing';
+import {AppText} from '../../components/AppText';
+import {Spacing} from '../../components/Spacing';
 import {useLogin} from '../../api/auth/useAuth';
-import {LoadingSpinner} from '../../components/loading-spinner';
+import {LoadingSpinner} from '../../components/LoadingSpinner';
+import {loginScreen} from '../../util/strings';
+import {getRemoteConfigValue, RemoteConfigKey} from '../../api/remoteConfig';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -41,11 +43,16 @@ export const LoginScreen = () => {
   });
 
   const login = useLogin();
-  const onSubmit = (data: FormData) => {
+  const onLogin = (data: FormData) => {
     login.mutate({email: data.email, password: data.password});
   };
 
-  console.log(errors);
+  const onDemoLogin = () => {
+    login.mutate({
+      email: getRemoteConfigValue(RemoteConfigKey.DemoEmail),
+      password: getRemoteConfigValue(RemoteConfigKey.DemoPassword),
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -57,7 +64,7 @@ export const LoginScreen = () => {
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <AppTextinput
-            placeholder="Email"
+            placeholder={loginScreen.email}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -65,7 +72,9 @@ export const LoginScreen = () => {
         )}
         name="email"
       />
-      {errors.email && <AppText color="danger">This is required.</AppText>}
+      {errors.email && (
+        <AppText color="danger">{loginScreen.emailFieldError}</AppText>
+      )}
       <Spacing />
       <Controller
         control={control}
@@ -74,7 +83,7 @@ export const LoginScreen = () => {
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <AppTextinput
-            placeholder="Password"
+            placeholder={loginScreen.password}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -83,7 +92,9 @@ export const LoginScreen = () => {
         )}
         name="password"
       />
-      {errors.password && <AppText color="danger">This is required.</AppText>}
+      {errors.password && (
+        <AppText color="danger">{loginScreen.passwordFieldError}</AppText>
+      )}
       <Spacing size="extraLarge" />
       {login.error && (
         <AppText style={styles.centeredText} color="danger">
@@ -94,11 +105,17 @@ export const LoginScreen = () => {
       <AppButton
         disabled={login.isPending}
         label="Login"
-        onPress={handleSubmit(onSubmit)}
+        onPress={handleSubmit(onLogin)}
       />
-      {/* <AppText color="light" size="body2">
-        Login
-      </AppText> */}
+      <AppText style={styles.centeredText} color="light" size="body2">
+        {loginScreen.or}
+      </AppText>
+
+      <AppButton
+        disabled={login.isPending}
+        label={loginScreen.loginDemo}
+        onPress={onDemoLogin}
+      />
     </View>
   );
 };

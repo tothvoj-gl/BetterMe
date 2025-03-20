@@ -1,15 +1,23 @@
 import firestore from '@react-native-firebase/firestore';
 import {Asset, Liability, User} from '../model/types';
 import {AssetType, Constants, UserSchema} from './types';
+import {getCurrentUser} from './auth/auth';
 
-export const getUserData = async (): Promise<User> => {
+export const getUserData = async (): Promise<User | null> => {
   try {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      throw new Error('User not signed in.');
+    }
     const userDoc = await firestore()
       .collection('users')
-      .doc('jKsLb3uKvwgAQ0exVTblyCaFSNh1')
+      .doc(currentUser?.uid)
       .get();
 
     const user = UserSchema.parse(userDoc.data());
+    if (!user) {
+      return null;
+    }
     const assetTypes = await getAssetTypes();
     const userAssets: Asset[] = [];
 

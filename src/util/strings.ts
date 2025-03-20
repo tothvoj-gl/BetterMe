@@ -24,3 +24,13 @@ export const financeScreen = {
   yearsFromNowOn: (years: number) =>
     years === 0 ? '' : `year${years === 1 ? '' : 's'} from now`,
 };
+
+export const loginScreen = {
+  email: 'Email',
+  emailFieldError: 'Email is required.',
+  password: 'Password',
+  passwordFieldError: 'Password is required.',
+  login: 'Login',
+  loginDemo: 'Try it with a demo account',
+  or: 'or',
+};

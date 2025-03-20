@@ -1,18 +1,27 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useCallback, useEffect, useState} from 'react';
-import {Image} from 'react-native';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {FinanceScreen} from './src/screens/finance/finance-screen';
+import React from 'react';
+import {Image, View} from 'react-native';
+import {FinanceScreen} from './src/screens/finance/FinanceScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {ProfileScreen} from './src/screens/profile-screen';
+import {ProfileScreen} from './src/screens/ProfileScreen';
 import {pallette} from './src/util/colors';
 import {StyleSheet} from 'react-native-unistyles';
-import {AddFinanceInfoScreen} from './src/screens/finance/add-finance-info-screen';
+import {AddFinanceInfoScreen} from './src/screens/finance/AddFinanceInfoScreen';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {LoginScreen} from './src/screens/login/login_screen';
+import {LoginScreen} from './src/screens/login/LoginScreen';
+import {
+  useCurrentUser,
+  useSubscribeToUserChanges,
+} from './src/api/auth/useAuth';
+import {useFetchRemoteConfig} from './src/api/remoteConfig';
+import {LoadingSpinner} from './src/components/LoadingSpinner';
 
 const styles = StyleSheet.create({
+  splash: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   tabIcon: {
     height: 24,
     width: 24,
@@ -68,23 +77,21 @@ function HomeTabs() {
 
 const Stack = createNativeStackNavigator();
 function RootStack() {
-  // Set an initializing state whilst Firebase connects
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+  useFetchRemoteConfig();
+  useSubscribeToUserChanges();
+  const {isPending, data: user} = useCurrentUser();
 
-  useEffect(() => {
-    return auth().onAuthStateChanged(userState => {
-      setUser(userState);
-
-      if (initializing) {
-        setInitializing(false);
-      }
-    });
-  }, [initializing]);
+  if (isPending) {
+    return (
+      <View style={styles.splash}>
+        <LoadingSpinner />
+      </View>
+    );
+  }
 
   return (
     <Stack.Navigator>
-      {user == null ? (
+      {!user ? (
         <>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen

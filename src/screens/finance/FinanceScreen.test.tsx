@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react-native';
-import {FinanceScreen} from './finance-screen';
-import {FinanceScreenData} from './use-finance-screen-data';
+import {FinanceScreen} from './FinanceScreen';
+import {FinanceScreenData} from './useFinanceScreenData';
 
 let mockFinanceData: FinanceScreenData = {
   isPending: false,
