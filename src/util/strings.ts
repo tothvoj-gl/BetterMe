@@ -25,6 +25,11 @@ export const financeScreen = {
     years === 0 ? '' : `year${years === 1 ? '' : 's'} from now`,
 };
 
+export const profileScreen = {
+  termsOfUse: 'Terms of Use',
+  privacyPolicy: 'Privacy Policy',
+};
+
 export const loginScreen = {
   email: 'Email',
   emailFieldError: 'Email is required.',
@@ -39,7 +44,7 @@ export const loginScreen = {
   createAccount: 'Create Account',
   footer1: 'By Logging in, you agree to the ',
   footer1register: 'By Registering, you agree to the ',
-  footer2: 'Terms of Use',
+  footer2: profileScreen.termsOfUse,
   footer3: ' and ',
-  footer4: 'Privacy Policy.',
+  footer4: profileScreen.privacyPolicy,
 };

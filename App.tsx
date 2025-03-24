@@ -4,7 +4,7 @@ import React from 'react';
 import {Image, View} from 'react-native';
 import {FinanceScreen} from './src/screens/finance/FinanceScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {ProfileScreen} from './src/screens/ProfileScreen';
+import {ProfileScreen} from './src/screens/profile/ProfileScreen';
 import {pallette} from './src/util/colors';
 import {StyleSheet} from 'react-native-unistyles';
 import {AddFinanceInfoScreen} from './src/screens/finance/AddFinanceInfoScreen';

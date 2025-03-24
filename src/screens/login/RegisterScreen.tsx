@@ -179,6 +179,7 @@ export const RegisterScreen = () => {
           weight="bold"
           onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}>
           {loginScreen.footer4}
+          {'.'}
         </AppText>
       </View>
     </SafeAreaView>
