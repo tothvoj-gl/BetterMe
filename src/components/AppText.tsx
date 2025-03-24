@@ -1,4 +1,4 @@
-import {Text, TextStyle} from 'react-native';
+import {Text, TextStyle, TouchableOpacity} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {ReactNode} from 'react';
 
@@ -9,6 +9,7 @@ type Props = {
     | 'secondary'
     | 'light'
     | 'highlight'
+    | 'highlightSecondary'
     | 'success'
     | 'danger';
   size?:
@@ -21,6 +22,7 @@ type Props = {
     | 'header5';
   weight?: 'regular' | 'bold' | 'semiBold';
   style?: TextStyle;
+  onPress?: () => void;
 };
 
 const styles = StyleSheet.create(theme => ({
@@ -38,6 +40,9 @@ const styles = StyleSheet.create(theme => ({
         },
         highlight: {
           color: theme.colors.textHighlight,
+        },
+        highlightSecondary: {
+          color: theme.colors.textHighlightSecondary,
         },
         success: {
           color: theme.colors.success,
@@ -93,11 +98,19 @@ export const AppText = ({
   color = 'primary',
   size = 'body1',
   weight = 'regular',
+  onPress,
 }: Props) => {
   styles.useVariants({
     color,
     size,
     weight,
   });
-  return <Text style={[styles.text, style]}>{children}</Text>;
+
+  return onPress ? (
+    <TouchableOpacity onPress={onPress}>
+      <Text style={[styles.text, style]}>{children}</Text>
+    </TouchableOpacity>
+  ) : (
+    <Text style={[styles.text, style]}>{children}</Text>
+  );
 };

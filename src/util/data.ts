@@ -11,7 +11,7 @@ export const getRealFutureValue = (
   monthlyPayment?: number,
 ) => {
   let assetTotalWorth = presentValue;
-  if (annualGrowthRate > 0) {
+  if (annualGrowthRate !== 0) {
     const monthlyRate = annualGrowthRate / 100 / 12;
     const totalMonths = years * 12;
 

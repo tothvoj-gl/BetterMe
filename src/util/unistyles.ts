@@ -4,13 +4,14 @@ import {pallette} from './colors';
 const lightTheme = {
   colors: {
     primary: pallette.primary900,
-    secondary: '#1ff4ff',
+    secondary: pallette.secondary900,
     background: pallette.light900,
     backgroundSecondary: pallette.light950,
     textPrimary: pallette.dark900,
     textSecondary: pallette.light900,
     textLight: pallette.dark700,
     textHighlight: pallette.primary900,
+    textHighlightSecondary: pallette.secondary900,
     danger: pallette.danger900,
     success: pallette.success900,
     border: pallette.dark200,
@@ -30,13 +31,14 @@ const lightTheme = {
 const otherTheme = {
   colors: {
     primary: pallette.primary900,
-    secondary: '#1ff4ff',
+    secondary: pallette.secondary900,
     background: pallette.light900,
     backgroundSecondary: pallette.light950,
     textPrimary: pallette.dark900,
     textSecondary: pallette.light900,
     textLight: pallette.dark700,
     textHighlight: pallette.primary900,
+    textHighlightSecondary: pallette.secondary900,
     danger: pallette.danger900,
     success: pallette.success900,
     border: pallette.dark200,

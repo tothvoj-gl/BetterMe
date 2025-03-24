@@ -16,6 +16,7 @@ import {
 } from './src/api/auth/useAuth';
 import {useFetchRemoteConfig} from './src/api/remoteConfig';
 import {LoadingSpinner} from './src/components/LoadingSpinner';
+import {RegisterScreen} from './src/screens/login/RegisterScreen';
 
 const styles = StyleSheet.create({
   splash: {
@@ -94,10 +95,7 @@ function RootStack() {
       {!user ? (
         <>
           <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen
-            name="AddFinanceInfo"
-            component={AddFinanceInfoScreen}
-          />
+          <Stack.Screen name="Register" component={RegisterScreen} />
         </>
       ) : (
         <>

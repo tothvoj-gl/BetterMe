@@ -5,16 +5,15 @@ import {StyleSheet} from 'react-native-unistyles';
 import {AppButton} from '../../components/AppButton';
 import {Controller, useForm} from 'react-hook-form';
 import {z} from 'zod';
-import {zodResolver} from '@hookform/resolvers/zod';
 import {AppText} from '../../components/AppText';
 import {Spacing} from '../../components/Spacing';
-import {useLogin} from '../../api/auth/useAuth';
+import {useRegister} from '../../api/auth/useAuth';
 import {LoadingSpinner} from '../../components/LoadingSpinner';
 import {loginScreen} from '../../util/strings';
-import {getRemoteConfigValue, RemoteConfigKey} from '../../api/remoteConfig';
 import {PRIVACY_POLICY_URL, TERMS_OF_USE_URL} from '../../util/constant';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import {zodResolver} from '@hookform/resolvers/zod';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -38,11 +37,16 @@ const schema = z
   .object({
     email: z.string().email(),
     password: z.string().min(8),
+    confirmPassword: z.string().min(8),
   })
-  .required();
+  .required()
+  .refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
 type FormData = z.infer<typeof schema>;
 
-export const LoginScreen = () => {
+export const RegisterScreen = () => {
   const {
     control,
     handleSubmit,
@@ -52,21 +56,15 @@ export const LoginScreen = () => {
     defaultValues: {
       email: '',
       password: '',
+      confirmPassword: '',
     },
   });
 
   const navigation = useNavigation();
 
-  const login = useLogin();
-  const onLogin = (data: FormData) => {
-    login.mutate({email: data.email, password: data.password});
-  };
-
-  const onDemoLogin = () => {
-    login.mutate({
-      email: getRemoteConfigValue(RemoteConfigKey.DemoEmail),
-      password: getRemoteConfigValue(RemoteConfigKey.DemoPassword),
-    });
+  const register = useRegister();
+  const onRegister = (data: FormData) => {
+    register.mutate({email: data.email, password: data.password});
   };
 
   return (
@@ -111,46 +109,59 @@ export const LoginScreen = () => {
         {errors.password && (
           <AppText color="danger">{errors.password.message}</AppText>
         )}
-        <Spacing size="extraLarge" />
-        {login.error && (
+        <Spacing />
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <AppTextinput
+              placeholder={loginScreen.confirmPassword}
+              onBlur={onBlur}
+              onChangeText={onChange}
+              value={value}
+              secureTextEntry
+            />
+          )}
+          name="confirmPassword"
+        />
+        {errors.confirmPassword && (
+          <AppText color="danger">{errors.confirmPassword.message}</AppText>
+        )}
+        {register.error && (
           <AppText style={styles.centeredText} color="danger">
-            {login.error.message}
+            {register.error.message}
           </AppText>
         )}
-        {login.isPending && <LoadingSpinner />}
+        {register.isPending && <LoadingSpinner />}
         <AppButton
-          disabled={login.isPending}
-          label={loginScreen.login}
-          onPress={handleSubmit(onLogin)}
+          disabled={register.isPending}
+          label={loginScreen.createAccount}
+          onPress={handleSubmit(onRegister)}
         />
         <AppText style={styles.centeredText} color="light" size="body2">
           {loginScreen.or}
         </AppText>
 
-        <AppButton
-          disabled={login.isPending}
-          label={loginScreen.loginDemo}
-          onPress={onDemoLogin}
-        />
-
         <View style={styles.centeredRowView}>
-          <AppText size="body2">{loginScreen.dontHaveAccount}</AppText>
+          <AppText size="body2">{loginScreen.alreadyHaveAccount}</AppText>
           <AppText size="body2"> </AppText>
           <AppText
             color="highlight"
             size="body2"
             weight="bold"
             onPress={() => {
-              navigation.navigate('Register');
+              navigation.goBack();
             }}>
-            {loginScreen.createAccount}
+            {loginScreen.login}
           </AppText>
         </View>
       </View>
 
       <View style={styles.centeredRowView}>
         <AppText size="body2" color="light">
-          {loginScreen.footer1}
+          {loginScreen.footer1register}
         </AppText>
         <AppText
           size="body2"

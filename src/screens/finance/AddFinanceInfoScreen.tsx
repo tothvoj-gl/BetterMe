@@ -1,6 +1,7 @@
-import {SafeAreaView, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {AppButton} from '../../components/AppButton';
 import {StyleSheet} from 'react-native-unistyles';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create(theme => ({
   container: {

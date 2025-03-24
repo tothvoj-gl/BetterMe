@@ -3,6 +3,7 @@ import {
   getCurrentUser,
   loginWithEmailPassword,
   logout,
+  registerWithEmailPassword,
   subscribeToUserChanges,
 } from './auth';
 import {useEffect} from 'react';
@@ -32,12 +33,25 @@ export const useLogin = () => {
   });
 };
 
+export const useRegister = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: {email: string; password: string}) => {
+      return registerWithEmailPassword(data.email, data.password);
+    },
+    onSuccess: user => {
+      queryClient.setQueryData(['currentUser'], user);
+    },
+  });
+};
+
 export const useLogout = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: logout,
     onSuccess: () => {
       queryClient.setQueryData(['currentUser'], null);
+      queryClient.setQueryData(['userData'], null);
     },
   });
 };
