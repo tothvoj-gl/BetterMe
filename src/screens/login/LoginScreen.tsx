@@ -10,11 +10,11 @@ import {AppText} from '../../components/AppText';
 import {Spacing} from '../../components/Spacing';
 import {useLogin} from '../../api/auth/useAuth';
 import {LoadingSpinner} from '../../components/LoadingSpinner';
-import {loginScreen} from '../../util/strings';
 import {getRemoteConfigValue, RemoteConfigKey} from '../../api/remoteConfig';
 import {PRIVACY_POLICY_URL, TERMS_OF_USE_URL} from '../../util/constant';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -31,18 +31,21 @@ const styles = StyleSheet.create(theme => ({
   centeredRowView: {
     flexDirection: 'row',
     justifyContent: 'center',
+    width: '100%',
+    flexWrap: 'wrap',
   },
 }));
 
-const schema = z
-  .object({
-    email: z.string().email(),
-    password: z.string().min(8),
-  })
-  .required();
-type FormData = z.infer<typeof schema>;
-
 export const LoginScreen = () => {
+  const {t} = useTranslation('loginScreen');
+  const schema = z
+    .object({
+      email: z.string().email(t('emailFieldError')),
+      password: z.string().min(8, t('passwordFieldError')),
+    })
+    .required();
+  type FormData = z.infer<typeof schema>;
+
   const {
     control,
     handleSubmit,
@@ -80,7 +83,7 @@ export const LoginScreen = () => {
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <AppTextinput
-              placeholder={loginScreen.email}
+              placeholder={t('email')}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -99,7 +102,7 @@ export const LoginScreen = () => {
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <AppTextinput
-              placeholder={loginScreen.password}
+              placeholder={t('password')}
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
@@ -120,21 +123,21 @@ export const LoginScreen = () => {
         {login.isPending && <LoadingSpinner />}
         <AppButton
           disabled={login.isPending}
-          label={loginScreen.login}
+          label={t('login')}
           onPress={handleSubmit(onLogin)}
         />
         <AppText style={styles.centeredText} color="light" size="body2">
-          {loginScreen.or}
+          {t('or')}
         </AppText>
 
         <AppButton
           disabled={login.isPending}
-          label={loginScreen.loginDemo}
+          label={t('loginDemo')}
           onPress={onDemoLogin}
         />
 
         <View style={styles.centeredRowView}>
-          <AppText size="body2">{loginScreen.dontHaveAccount}</AppText>
+          <AppText size="body2">{t('dontHaveAccount')}</AppText>
           <AppText size="body2"> </AppText>
           <AppText
             color="highlight"
@@ -143,31 +146,31 @@ export const LoginScreen = () => {
             onPress={() => {
               navigation.navigate('Register');
             }}>
-            {loginScreen.createAccount}
+            {t('createAccount')}
           </AppText>
         </View>
       </View>
 
       <View style={styles.centeredRowView}>
         <AppText size="body2" color="light">
-          {loginScreen.footer1}
+          {t('footer1')}
         </AppText>
         <AppText
           size="body2"
           color="highlightSecondary"
           weight="bold"
           onPress={() => Linking.openURL(TERMS_OF_USE_URL)}>
-          {loginScreen.footer2}
+          {t('footer2')}
         </AppText>
         <AppText size="body2" color="light">
-          {loginScreen.footer3}
+          {t('footer3')}
         </AppText>
         <AppText
           size="body2"
           color="highlightSecondary"
           weight="bold"
           onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}>
-          {loginScreen.footer4}
+          {t('footer4')}
           {'.'}
         </AppText>
       </View>

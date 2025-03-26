@@ -1,12 +1,13 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, View} from 'react-native';
 import {FinanceScreen} from './src/screens/finance/FinanceScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ProfileScreen} from './src/screens/profile/ProfileScreen';
 import {pallette} from './src/util/colors';
 import {StyleSheet} from 'react-native-unistyles';
+
 import {AddFinanceInfoScreen} from './src/screens/finance/AddFinanceInfoScreen';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {LoginScreen} from './src/screens/login/LoginScreen';
@@ -17,6 +18,8 @@ import {
 import {useFetchRemoteConfig} from './src/api/remoteConfig';
 import {LoadingSpinner} from './src/components/LoadingSpinner';
 import {RegisterScreen} from './src/screens/login/RegisterScreen';
+import i18n from './src/locales/i18n';
+import {useTranslation} from 'react-i18next';
 
 const styles = StyleSheet.create({
   splash: {
@@ -50,10 +53,11 @@ function TabBarIcon(icon: any) {
 
 const Tab = createBottomTabNavigator();
 function HomeTabs() {
+  const {t} = useTranslation('screenNames');
   return (
     <Tab.Navigator screenOptions={{tabBarActiveTintColor: pallette.primary900}}>
       <Tab.Screen
-        name="Finance"
+        name={t('Finance')}
         component={FinanceScreen}
         options={{
           tabBarIcon: ({focused}) => {
@@ -63,7 +67,7 @@ function HomeTabs() {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name={t('Profile')}
         component={ProfileScreen}
         options={{
           tabBarIcon: ({focused}) => {
@@ -80,6 +84,7 @@ const Stack = createNativeStackNavigator();
 function RootStack() {
   useFetchRemoteConfig();
   useSubscribeToUserChanges();
+
   const {isPending, data: user} = useCurrentUser();
 
   if (isPending) {

@@ -2,6 +2,7 @@ import {Image, View} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {Asset, Liability} from '../../model/types';
 import {AppText} from '../../components/AppText';
+import i18n from '../../locales/i18n';
 
 export type Props = {
   item: Asset | Liability;
@@ -30,6 +31,10 @@ const styles = StyleSheet.create(theme => ({
 }));
 
 export const FinanceListItem = ({item, isAsset, value}: Props) => {
+  i18n.language;
+  const name = isAsset
+    ? (item as Asset)[`name_${i18n.language}` as keyof Asset]
+    : item.name;
   const icon = isAsset
     ? require('./img/icon_asset.png')
     : require('./img/icon_liability.png');
@@ -38,7 +43,7 @@ export const FinanceListItem = ({item, isAsset, value}: Props) => {
       <View style={styles.nameContainer}>
         <Image style={styles.image} source={icon} />
         <AppText size="body2" weight="semiBold">
-          {item.name}
+          {name?.toString()}
         </AppText>
       </View>
       <AppText size="body2" weight="semiBold">

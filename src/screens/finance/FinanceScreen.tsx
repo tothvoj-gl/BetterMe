@@ -1,12 +1,11 @@
 import {Image, View, Text, ScrollView} from 'react-native';
 import {StyleSheet} from 'react-native-unistyles';
 import {AppButton} from '../../components/AppButton';
-import {buttonLabels, financeScreen} from '../../util/strings';
 import {AppText} from '../../components/AppText';
 import {getDeviceCurrencySymbol} from '../../util/data';
 import {FinanceListItem} from './FinanceListItem';
 import Slider from '@react-native-community/slider';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {pallette} from '../../util/colors';
 import {Spacing} from '../../components/Spacing';
 import {LoadingSpinner} from '../../components/LoadingSpinner';
@@ -14,6 +13,7 @@ import {CashFlowItem} from './CashFlowItem';
 import {useFinanceScreenData} from './useFinanceScreenData';
 import {useNavigation} from '@react-navigation/native';
 import {formatMoney, formatMoneyWithCurrencySymbol} from '../../util/formatter';
+import {useTranslation} from 'react-i18next';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -61,6 +61,14 @@ export const FinanceScreen = () => {
   const navigation = useNavigation();
   const [years, setYears] = useState(0);
   const {data, isPending, isError, error} = useFinanceScreenData(years);
+  const {t} = useTranslation('financeScreen');
+  const ble = t('expectedPension');
+
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     title: ble,
+  //   });
+  // }, [navigation, t]);
 
   if (isPending) {
     return (
@@ -96,7 +104,7 @@ export const FinanceScreen = () => {
         contentContainerStyle={styles.container}
         stickyHeaderIndices={[4]}>
         <AppText size="header2" color="light" weight="bold">
-          {financeScreen.totalNetWorth}
+          {t('totalNetWorth')}
         </AppText>
         <Text>
           <AppText weight="bold" size="header2" color="highlight">
@@ -107,15 +115,15 @@ export const FinanceScreen = () => {
           </AppText>
         </Text>
         <AppText size="header4" color="light">
-          {financeScreen.inCurrentPrices(
-            formatMoneyWithCurrencySymbol(totalNetWorth, currency),
-          )}
+          {t('inCurrentPrices', {
+            value: formatMoneyWithCurrencySymbol(totalNetWorth, currency),
+          })}
         </AppText>
         <Spacing />
         <View style={styles.sliderContainer}>
           <Spacing />
           <AppText color="light" style={styles.centeredText}>
-            {financeScreen.simulateFuture}
+            {t('simulateFuture')}
           </AppText>
           <Slider
             style={styles.slider}
@@ -127,18 +135,24 @@ export const FinanceScreen = () => {
             step={1}
           />
           <Text style={styles.centeredText}>
-            <AppText weight="bold" size="header2" color="highlight">
-              {years === 0 ? financeScreen.now : `${years} `}
+            <AppText weight="bold" size="header4" color="highlight">
+              {years === 0 ? t('now') : ''}
             </AppText>
-            <AppText weight="bold" size="header5">
-              {financeScreen.yearsFromNowOn(years)}
+            <AppText weight="bold" size="header4">
+              {years === 0
+                ? ''
+                : years === 1
+                  ? t('yearsFromNowOnOneYear', {value: years})
+                  : years < 5
+                    ? t('yearsFromNowOnLessThanFive', {value: years})
+                    : t('yearsFromNowOn', {value: years})}
             </AppText>
           </Text>
           <Spacing />
         </View>
         <Spacing />
         <AppText size="header2" color="light" weight="bold">
-          {financeScreen.expectedPension}
+          {t('expectedPension')}
         </AppText>
         <Text>
           <AppText weight="bold" size="header2" color="highlight">
@@ -149,36 +163,36 @@ export const FinanceScreen = () => {
           </AppText>
         </Text>
         <AppText size="header4" color="light">
-          {financeScreen.inCurrentPrices(
-            formatMoneyWithCurrencySymbol(monthlyNetPension, currency),
-          )}
+          {t('inCurrentPrices', {
+            value: formatMoneyWithCurrencySymbol(monthlyNetPension, currency),
+          })}
         </AppText>
 
         <AppText size="body2" color="light">
-          {financeScreen.withdrawalPeriod(userLifeExpectancy - years - userAge)}
+          {t('withdrawalPeriod', {value: userLifeExpectancy - years - userAge})}
         </AppText>
         <Spacing />
         <CashFlowItem
-          name={financeScreen.montlyNetIncome}
+          name={t('montlyNetIncome')}
           value={monthlyNetIncome}
           isIncome
           currency={currency}
         />
 
         <CashFlowItem
-          name={financeScreen.montlyNetExpense}
+          name={t('montlyNetExpense')}
           value={monthlyNetExpense}
           isIncome={false}
           currency={currency}
         />
         <CashFlowItem
-          name={financeScreen.monthlyLiabilityPayments}
+          name={t('monthlyLiabilityPayments')}
           value={liabilityPayments}
           isIncome={false}
           currency={currency}
         />
         <CashFlowItem
-          name={financeScreen.monthlyAssetPayments}
+          name={t('monthlyAssetPayments')}
           value={assetPayments}
           isIncome={false}
           currency={currency}
@@ -186,7 +200,7 @@ export const FinanceScreen = () => {
         <Spacing size="large" />
         <View style={styles.viewWithPadding}>
           <AppText size="header3" weight="semiBold" style={styles.header}>
-            {financeScreen.assets}
+            {t('assets')}
           </AppText>
 
           {assets.map(asset => {
@@ -202,7 +216,7 @@ export const FinanceScreen = () => {
 
           <Spacing />
           <AppText size="header3" weight="semiBold" style={styles.header}>
-            {financeScreen.liabilities}
+            {t('liabilities')}
           </AppText>
 
           {liabilities.map(liability => {
@@ -227,12 +241,12 @@ export const FinanceScreen = () => {
         source={require('./img/finance.png')}
       />
       <AppText size="header3" weight="semiBold" style={styles.header}>
-        {financeScreen.liabilities}
+        Ble
       </AppText>
 
       <AppButton
         onPress={() => navigation.navigate('AddFinanceInfo')}
-        label={buttonLabels.letsStart}
+        label={t('letsStart')}
       />
     </View>
   );

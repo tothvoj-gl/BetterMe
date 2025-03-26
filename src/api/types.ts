@@ -3,6 +3,7 @@ import {z} from 'zod';
 
 const AssetTypeSchema = z.object({
   name: z.string(),
+  name_sk: z.string(),
   avgGrowthRate: z.number(),
   supportsRegularPayments: z.boolean(),
 });

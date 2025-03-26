@@ -1,0 +1,53 @@
+{
+  "screenNames": {
+    "Finance": "Financie",
+    "Profile": "Profil"
+  },
+  "financeScreen": {
+    "letsStart": "Chcem začať",
+    "totalNetWorth": "Čistý majetok",
+    "expectedPension": "Očakávaný mesačný dôchodok",
+    "simulateFuture": "Posúvajte pre simuláciu budúcnosti",
+    "withoutInflation": "bez inflácie",
+    "withdrawalPeriod": "pri predpokladanom {{value}} ročnom čerpaní dôchodku",
+    "montlyNetIncome": "Čistý mesačný príjem",
+    "montlyNetExpense": "Bežné mesačné výdavky",
+    "monthlyLiabilityPayments": "Výdavky na úvery",
+    "monthlyAssetPayments": "Výdavky na investície",
+    "assets": "Aktíva",
+    "liabilities": "Pasíva",
+    "inCurrentPrices": "({{value}} v súčasných cenách)",
+    "now": "Súčasnosť",
+    "yearsFromNowOnOneYear": "o {{value}} rok",
+    "yearsFromNowOnLessThanFive": "o {{value}} roky",
+    "yearsFromNowOn": "o {{value}} rokov"
+  },
+  "profileScreen": {
+    "termsOfUse": "Podmienky používania",
+    "privacyPolicy": "Ochrana osobných údajov",
+    "logout": "Odhlásiť",
+    "changeLanguage": "Zmeniť jazyk",
+    "chooseLanguage": "Vyberte jazyk",
+    "english": "English",
+    "slovak": "Slovenčina"
+  },
+  "loginScreen": {
+    "email": "Email",
+    "emailFieldError": "Neplatný formát emailu.",
+    "password": "Heslo",
+    "confirmPassword": "Potvrďte heslo",
+    "passwordFieldError": "Heslo musí mať aspoň 8 znakov.",
+    "confirmPasswordFieldError": "Heslá sa nezhodujú.",
+    "login": "Prihlásiť",
+    "loginDemo": "Výskušať demo účet",
+    "or": "alebo",
+    "dontHaveAccount": "Nemáte vytvorený účet?",
+    "alreadyHaveAccount": "Máte vytvorený účet?",
+    "createAccount": "Vytvoriť účet",
+    "footer1": "Prihlásením sa súhlasíte s ",
+    "footer1register": "Registráciou súhlasíte s  ",
+    "footer2": "podmienkami používania",
+    "footer3": " a ",
+    "footer4": "ochranou osobných údajov"
+  }
+}

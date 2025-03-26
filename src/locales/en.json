@@ -1,0 +1,53 @@
+{
+  "screenNames": {
+    "Finance": "Finance",
+    "Profile": "Profile"
+  },
+  "financeScreen": {
+    "letsStart": "Let's start",
+    "totalNetWorth": "Total net worth",
+    "expectedPension": "Expected monthly pension",
+    "simulateFuture": "Use the slider to simulate future",
+    "withoutInflation": "without inflation",
+    "withdrawalPeriod": "assuming a {{value}}-year withdrawal period",
+    "montlyNetIncome": "Monthly net income",
+    "montlyNetExpense": "Monthly net expense",
+    "monthlyLiabilityPayments": "Monthly liability payments",
+    "monthlyAssetPayments": "Monthly asset payments",
+    "assets": "Assets",
+    "liabilities": "Liabilities",
+    "inCurrentPrices": "({{value}} in current prices)",
+    "now": "Now",
+    "yearsFromNowOnOneYear": "{{value}} year from now",
+    "yearsFromNowOnLessThanFive": "{{value}} years from now",
+    "yearsFromNowOn": "{{value}} years from now"
+  },
+  "profileScreen": {
+    "termsOfUse": "Terms of Use",
+    "privacyPolicy": "Privacy Policy",
+    "logout": "Logout",
+    "changeLanguage": "Change language",
+    "chooseLanguage": "Choose language",
+    "english": "English",
+    "slovak": "Slovenčina"
+  },
+  "loginScreen": {
+    "email": "Email",
+    "emailFieldError": "Invalid email.",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "passwordFieldError": "Password has to be at least 8 characters long.",
+    "confirmPasswordFieldError": "Passwords don't match.",
+    "login": "Login",
+    "loginDemo": "Try it with a demo account",
+    "or": "or",
+    "dontHaveAccount": "Don’t have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "createAccount": "Create Account",
+    "footer1": "By Logging in, you agree to the ",
+    "footer1register": "By Registering, you agree to the ",
+    "footer2": "Terms of Use",
+    "footer3": " and ",
+    "footer4": "Privacy Policy"
+  }
+}

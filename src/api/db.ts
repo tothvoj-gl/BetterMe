@@ -56,7 +56,7 @@ export const getUserData = async (): Promise<User | null> => {
       sex: user.sex,
       finance: {
         assets: userAssets.sort((a, b) => b.value - a.value),
-        liabilities: userLiabilities,
+        liabilities: userLiabilities.sort((a, b) => b.value - a.value),
         monthlyNetIncome: user.finance.monthlyNetIncome,
         monthlyNetExpense: user.finance.monthlyNetExpense,
         incomeGrowthRate: user.finance.incomeGrowthRate,
