@@ -7,7 +7,6 @@ import {useLogout} from '../../api/auth/useAuth';
 import {AppButtonOutline} from '../../components/AppButtonOutline';
 import {useTranslation} from 'react-i18next';
 import {AppText} from '../../components/AppText';
-import {AppRadioButton} from '../../components/AppRadioButton';
 import {StyleSheet} from 'react-native-unistyles';
 import {AppRadioButtonGroup} from '../../components/AppRadioButtonGroup';
 import i18n from '../../locales/i18n';

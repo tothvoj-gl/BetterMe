@@ -5,7 +5,7 @@ import {AppText} from '../../components/AppText';
 import {getDeviceCurrencySymbol} from '../../util/data';
 import {FinanceListItem} from './FinanceListItem';
 import Slider from '@react-native-community/slider';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {pallette} from '../../util/colors';
 import {Spacing} from '../../components/Spacing';
 import {LoadingSpinner} from '../../components/LoadingSpinner';
@@ -62,13 +62,6 @@ export const FinanceScreen = () => {
   const [years, setYears] = useState(0);
   const {data, isPending, isError, error} = useFinanceScreenData(years);
   const {t} = useTranslation('financeScreen');
-  const ble = t('expectedPension');
-
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     title: ble,
-  //   });
-  // }, [navigation, t]);
 
   if (isPending) {
     return (

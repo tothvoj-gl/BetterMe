@@ -8,7 +8,8 @@ export const userMock: User = {
     assets: [
       {
         avgGrowthRate: 4.41,
-        name: 'Real estate',
+        name_en: 'Real estate',
+        name_sk: 'Nehnutelnost',
         supportsRegularPayments: true,
         id: 'UHDWs1N1t2ETJ61TDuHN',
         value: 320000,
@@ -17,7 +18,8 @@ export const userMock: User = {
       },
       {
         avgGrowthRate: 0,
-        name: 'Cash/Checking bank account',
+        name_en: 'Cash/Checking bank account',
+        name_sk: 'Hotovost',
         supportsRegularPayments: false,
         id: 'D9VUq7QmA2IeBaZKJtgk',
         value: 45000,
@@ -26,7 +28,8 @@ export const userMock: User = {
       },
       {
         avgGrowthRate: 8.3,
-        name: 'ETF',
+        name_en: 'ETF',
+        name_sk: 'ETF',
         supportsRegularPayments: true,
         id: 'zz81GcHshqg2zYnpipNh',
         value: 30000,
@@ -36,7 +39,8 @@ export const userMock: User = {
       },
       {
         avgGrowthRate: 19,
-        name: 'Bitcoin/Ethereum',
+        name_en: 'Bitcoin/Ethereum',
+        name_sk: 'Bitcoin/Ethereum',
         supportsRegularPayments: true,
         id: 'eh63w1f8jg5uV4uPENxA',
         value: 3000,

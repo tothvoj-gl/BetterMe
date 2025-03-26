@@ -9,7 +9,7 @@ let mockFinanceData: FinanceScreenData = {
   data: undefined,
 };
 
-jest.mock('./use-finance-screen-data', () => ({
+jest.mock('./useFinanceScreenData', () => ({
   useFinanceScreenData: () => mockFinanceData,
 }));
 
@@ -40,10 +40,13 @@ test('Finance data is displayed', () => {
       totalRealIncome: 300,
       userAge: 35,
       userLifeExpectancy: 79,
+      liabilityPayments: 100,
+      assetPayments: 30,
       assets: [
         {
           value: 300,
-          name: 'asset1',
+          name_en: 'asset1',
+          name_sk: 'asset1',
           id: 'asset1',
           dateModified: new Date(),
           keepInPension: false,

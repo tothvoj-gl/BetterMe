@@ -17,3 +17,7 @@ jest.mock('react-native-unistyles', () => {
     getCountry: () => 'US',
     getLocales: jest.fn(() => [{languageTag:'en-US'}]),
   }));
+
+  jest.mock('@react-native-async-storage/async-storage', () =>
+    require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+  );

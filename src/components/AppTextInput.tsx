@@ -1,6 +1,5 @@
 import {
   NativeSyntheticEvent,
-  Pressable,
   TextInput,
   TextInputFocusEventData,
 } from 'react-native';

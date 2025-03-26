@@ -31,10 +31,9 @@ const styles = StyleSheet.create(theme => ({
 }));
 
 export const FinanceListItem = ({item, isAsset, value}: Props) => {
-  i18n.language;
   const name = isAsset
     ? (item as Asset)[`name_${i18n.language}` as keyof Asset]
-    : item.name;
+    : (item as Liability).name;
   const icon = isAsset
     ? require('./img/icon_asset.png')
     : require('./img/icon_liability.png');

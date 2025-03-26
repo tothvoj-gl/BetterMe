@@ -1,6 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Image, View} from 'react-native';
 import {FinanceScreen} from './src/screens/finance/FinanceScreen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -18,7 +18,6 @@ import {
 import {useFetchRemoteConfig} from './src/api/remoteConfig';
 import {LoadingSpinner} from './src/components/LoadingSpinner';
 import {RegisterScreen} from './src/screens/login/RegisterScreen';
-import i18n from './src/locales/i18n';
 import {useTranslation} from 'react-i18next';
 
 const styles = StyleSheet.create({
@@ -31,13 +30,6 @@ const styles = StyleSheet.create({
     width: 24,
   },
 });
-
-export type RootStackParamList = {
-  Home: undefined;
-  Profile: undefined;
-  Finance: undefined;
-  AddFinanceInfo: undefined;
-};
 
 const activeChartIcon = require('./chart_active.png');
 const chartIcon = require('./chart.png');
