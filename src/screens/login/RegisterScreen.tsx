@@ -133,7 +133,7 @@ export const RegisterScreen = () => {
         )}
         {register.error && (
           <AppText style={styles.centeredText} color="danger">
-            {register.error.message}
+            {t('errorMessage')}
           </AppText>
         )}
         {register.isPending && <LoadingSpinner />}

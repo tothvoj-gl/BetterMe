@@ -3,6 +3,10 @@
     "Finance": "Finance",
     "Profile": "Profile"
   },
+  "common":{
+    "retry":"Retry",
+    "genericErrorMessage":"Something went wrong, please try again later."
+  },
   "financeScreen": {
     "letsStart": "Let's start",
     "totalNetWorth": "Total net worth",
@@ -39,6 +43,7 @@
     "passwordFieldError": "Password has to be at least 8 characters long.",
     "confirmPasswordFieldError": "Passwords don't match.",
     "login": "Login",
+    "errorMessage": "Invalid credentials.",
     "loginDemo": "Try it with a demo account",
     "or": "or",
     "dontHaveAccount": "Don’t have an account?",

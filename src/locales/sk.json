@@ -3,6 +3,10 @@
     "Finance": "Financie",
     "Profile": "Profil"
   },
+  "common":{
+    "retry":"Skúsiť znovu",
+    "genericErrorMessage":"Nastala chyba, prosím skúste neskôr."
+  },
   "financeScreen": {
     "letsStart": "Chcem začať",
     "totalNetWorth": "Čistý majetok",
@@ -40,6 +44,7 @@
     "confirmPasswordFieldError": "Heslá sa nezhodujú.",
     "login": "Prihlásiť",
     "loginDemo": "Výskušať demo účet",
+    "errorMessage": "Nesprávne prihlasovacie údaje.",
     "or": "alebo",
     "dontHaveAccount": "Nemáte vytvorený účet?",
     "alreadyHaveAccount": "Máte vytvorený účet?",

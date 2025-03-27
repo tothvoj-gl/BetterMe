@@ -15,6 +15,7 @@ export type FinanceScreenData = {
   isPending: boolean;
   isError: boolean;
   error: Error | null;
+  refetch: () => void;
   data:
     | {
         totalNetWorth: number;
@@ -36,7 +37,7 @@ export type FinanceScreenData = {
 };
 
 export const useFinanceScreenData = (years: number): FinanceScreenData => {
-  const {data: user, isPending, isError, error} = useUserData();
+  const {data: user, isPending, isError, error, refetch} = useUserData();
   const {data: constants} = useConstants();
 
   let data;
@@ -112,5 +113,6 @@ export const useFinanceScreenData = (years: number): FinanceScreenData => {
     isError,
     error,
     data,
+    refetch,
   };
 };

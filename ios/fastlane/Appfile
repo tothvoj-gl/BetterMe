@@ -1,0 +1,8 @@
+app_identifier("eu.eliteo.finteo") # The bundle identifier of your app
+apple_id("granko87@gmail.com") # Your Apple Developer Portal username
+
+itc_team_id("118749945") # App Store Connect Team ID
+team_id("RL4WND7MS7") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

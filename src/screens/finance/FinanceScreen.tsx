@@ -55,13 +55,24 @@ const styles = StyleSheet.create(theme => ({
     flex: 1,
     justifyContent: 'center',
   },
+  error: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    height: 120,
+    width: 120,
+    resizeMode: 'contain',
+  },
 }));
 
 export const FinanceScreen = () => {
   const navigation = useNavigation();
   const [years, setYears] = useState(0);
-  const {data, isPending, isError, error} = useFinanceScreenData(years);
+  const {data, isPending, isError, refetch} = useFinanceScreenData(years);
   const {t} = useTranslation('financeScreen');
+  const {t: common} = useTranslation('common');
 
   if (isPending) {
     return (
@@ -72,7 +83,15 @@ export const FinanceScreen = () => {
   }
 
   if (isError) {
-    return <AppText>{error?.message}</AppText>;
+    return (
+      <View style={styles.error}>
+        <Image style={styles.image} source={require('./img/error.png')} />
+        <Spacing />
+        <AppText>{common('genericErrorMessage')}</AppText>
+        <Spacing />
+        <AppButton label={common('retry')} onPress={refetch} />
+      </View>
+    );
   }
 
   if (data) {

@@ -117,7 +117,7 @@ export const LoginScreen = () => {
         <Spacing size="extraLarge" />
         {login.error && (
           <AppText style={styles.centeredText} color="danger">
-            {login.error.message}
+            {t('errorMessage')}
           </AppText>
         )}
         {login.isPending && <LoadingSpinner />}

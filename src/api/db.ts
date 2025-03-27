@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import crashlytics from '@react-native-firebase/crashlytics';
 import {Asset, Liability, User} from '../model/types';
 import {AssetType, Constants, UserSchema} from './types';
 import {getCurrentUser} from './auth/auth';
@@ -62,7 +63,8 @@ export const getUserData = async (): Promise<User | null> => {
         incomeGrowthRate: user.finance.incomeGrowthRate,
       },
     };
-  } catch (error) {
+  } catch (error: any) {
+    crashlytics().recordError(error);
     throw error;
   }
 };
