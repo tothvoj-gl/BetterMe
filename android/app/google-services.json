@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:41530911633:android:f4933f707f6fab4fab4830",
+        "mobilesdk_app_id": "1:41530911633:android:9b3633eb4e7c8a8aab4830",
         "android_client_info": {
-          "package_name": "com.betterme"
+          "package_name": "eu.eliteo.finteo"
         }
       },
       "oauth_client": [],
