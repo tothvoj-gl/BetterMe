@@ -20,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		02581FA6A2994D41A890915D /* DMSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-SemiBold.ttf"; path = "../assets/fonts/DMSans-SemiBold.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* BetterMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Finteo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finteo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BetterMe/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BetterMe/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = BetterMe/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* BetterMe.app */,
+				13B07F961A680F5B00A75B9A /* Finteo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,7 +141,7 @@
 			);
 			name = BetterMe;
 			productName = BetterMe;
-			productReference = 13B07F961A680F5B00A75B9A /* BetterMe.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Finteo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -312,8 +312,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z92GTXZ5D8;
+				CURRENT_PROJECT_VERSION = 9;
+				DEVELOPMENT_TEAM = RL4WND7MS7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BetterMe/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
@@ -329,7 +329,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.eliteo.finteo;
-				PRODUCT_NAME = BetterMe;
+				PRODUCT_NAME = Finteo;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -343,8 +343,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				CURRENT_PROJECT_VERSION = 9;
+				DEVELOPMENT_TEAM = RL4WND7MS7;
 				INFOPLIST_FILE = BetterMe/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -359,8 +359,9 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.eliteo.finteo;
-				PRODUCT_NAME = BetterMe;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PRODUCT_NAME = Finteo;
+				PROVISIONING_PROFILE = "f078c767-47c2-41cb-a593-1af677e55a31";
+				PROVISIONING_PROFILE_SPECIFIER = "eu.eliteo.finteo AppStore";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

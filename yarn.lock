@@ -1937,7 +1937,7 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@react-native-async-storage/async-storage@^2.1.2":
+"@react-native-async-storage/async-storage@2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-2.1.2.tgz#8aae432adfc20800308e2ef3ce380864f0f9def8"
   integrity sha512-dvlNq4AlGWC+ehtH12p65+17V0Dx7IecOWl6WanF2ja38O1Dcjjvn7jVzkUHJ5oWkQBlyASurTPlTHgKXyYiow==
@@ -2115,10 +2115,10 @@
   dependencies:
     plist "^3.1.0"
 
-"@react-native-firebase/crashlytics@^21.12.2":
-  version "21.12.2"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-21.12.2.tgz#b5052c687c23d353b97a35e70e2c3231d5149dda"
-  integrity sha512-NX6TcldPI5zQZcGSFOcn1WN2rw8enTRLZwL+jXHfXrrvuXJOca0gXXYFlcrKUrDGMVZOS6UojvntTlMaBSogOA==
+"@react-native-firebase/crashlytics@21.7.1":
+  version "21.7.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/crashlytics/-/crashlytics-21.7.1.tgz#0f367ea9582c575c6c84b4094b9ee79fb9abcc54"
+  integrity sha512-ld5cKgn6m3ouunqjc2zK1j65b4Dh+auq8h+j0bZvai9pA5LkTz2ReGc8hpwQ5uaNtNszu5TaV7ETGJaAJF0xqA==
   dependencies:
     stacktrace-js "^2.0.2"
 
@@ -2127,10 +2127,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-21.7.1.tgz#69292bfdfdfa8ec48a04718fe57227571146e875"
   integrity sha512-tW1nfya6q/OK0KvQv3/6dJlyeagPoWWGKIvAhPDxjun33ZvCPPsKDJdRkSluaE6cszsCa2IP7srg56FespaWJA==
 
-"@react-native-firebase/remote-config@21.12.0":
-  version "21.12.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/remote-config/-/remote-config-21.12.0.tgz#5c01f42d3dd4cf8696d449dded80e9fb7685638e"
-  integrity sha512-Xwbzfsc8/W6agBA85cjQKbqUw2RB6auUXhTMrTfgfPowtHzN5p1kqhChARMBc/7JDnLroU+/l5T7hKFTF1N74Q==
+"@react-native-firebase/remote-config@21.7.1":
+  version "21.7.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/remote-config/-/remote-config-21.7.1.tgz#2334b1405aa40f203b6bacf8f1e0fde17c06a6be"
+  integrity sha512-FafhSVfcBMpFlpn1ACMGMf4uWqjnTdPYFi4uyKg/6/rc0jrFfjYKMP2G9NHnRkdfXD7PnKFcKDpyOaRW7s4uWg==
 
 "@react-native/assets-registry@0.77.0":
   version "0.77.0"
