@@ -8,7 +8,7 @@ import {ProfileScreen} from './src/screens/profile/ProfileScreen';
 import {pallette} from './src/util/colors';
 import {StyleSheet} from 'react-native-unistyles';
 
-import {AddFinanceInfoScreen} from './src/screens/finance/AddFinanceInfoScreen';
+import {AddFinanceInfoScreen} from './src/screens/addFinanceInfo/AddFinanceInfoScreen';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {LoginScreen} from './src/screens/login/LoginScreen';
 import {

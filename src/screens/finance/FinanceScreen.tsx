@@ -65,6 +65,11 @@ const styles = StyleSheet.create(theme => ({
     width: 120,
     resizeMode: 'contain',
   },
+  noDataImage: {
+    width: 220,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  },
 }));
 
 export const FinanceScreen = () => {
@@ -248,14 +253,8 @@ export const FinanceScreen = () => {
 
   return (
     <View>
-      <Image
-        style={{alignSelf: 'center'}}
-        source={require('./img/finance.png')}
-      />
-      <AppText size="header3" weight="semiBold" style={styles.header}>
-        Ble
-      </AppText>
-
+      <Image style={styles.noDataImage} source={require('./img/finance.png')} />
+      <Spacing></Spacing>
       <AppButton
         onPress={() => navigation.navigate('AddFinanceInfo')}
         label={t('letsStart')}

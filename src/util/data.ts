@@ -127,8 +127,8 @@ export const getMontlhlyPension = (
     true,
   );
 
-  const pension = totalWorth / pensionYears / 12;
-  const netPension = totalNetWorth / pensionYears / 12;
+  const pension = Math.max(totalWorth / pensionYears / 12, 0);
+  const netPension = Math.max(totalNetWorth / pensionYears / 12, 0);
 
   return {pension, netPension};
 };

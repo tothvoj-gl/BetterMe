@@ -64,6 +64,8 @@ export const getUserData = async (): Promise<User | null> => {
       },
     };
   } catch (error: any) {
+    console.log(error);
+
     crashlytics().recordError(error);
     throw error;
   }
