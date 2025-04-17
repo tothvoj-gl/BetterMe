@@ -3,6 +3,7 @@ import crashlytics from '@react-native-firebase/crashlytics';
 import {Asset, Liability, User} from '../model/types';
 import {AssetType, Constants, UserSchema} from './types';
 import {getCurrentUser} from './auth/auth';
+import {getUserSchemaFromUser} from '../util/data';
 
 export const getUserData = async (): Promise<User | null> => {
   try {
@@ -20,36 +21,29 @@ export const getUserData = async (): Promise<User | null> => {
       return null;
     }
     const assetTypes = await getAssetTypes();
-    const userAssets: Asset[] = [];
+    const userAssets: Asset[] = user?.finance?.assets?.map(asset => {
+      const assetType = assetTypes.find(item => item.id === asset.id);
+      return {
+        ...assetType,
+        value: asset.value,
+        dateModified: asset.dateModified.toDate(),
+        keepInPension: asset.keepInPension,
+        monthlyPayment: asset.monthlyPayment,
+      };
+    });
 
-    for (const [key, value] of Object.entries(user?.finance?.assets)) {
-      const assetType = assetTypes.get(key);
-      if (assetType && value.dateModified) {
-        userAssets.push({
-          ...assetType,
-          value: value.value,
-          dateModified: value.dateModified.toDate(),
-          id: key,
-          keepInPension: value.keepInPension,
-          monthlyPayment: value.monthlyPayment,
-        });
-      }
-    }
-
-    const userLiabilities: Liability[] = [];
-
-    for (const [key, value] of Object.entries(user?.finance?.liabilities)) {
-      if (value.value && value.dateModified) {
-        userLiabilities.push({
-          value: value.value,
-          name: value.name,
-          annualRate: value.annualRate,
-          endDate: value.endDate.toDate(),
-          dateModified: value.dateModified.toDate(),
-          id: key,
-        });
-      }
-    }
+    const userLiabilities: Liability[] = user?.finance?.liabilities?.map(
+      liability => {
+        return {
+          value: liability.value,
+          name: liability.name,
+          annualRate: liability.annualRate,
+          endDate: liability.endDate.toDate(),
+          dateModified: liability.dateModified.toDate(),
+          id: liability.id,
+        };
+      },
+    );
 
     return {
       ...user,
@@ -73,15 +67,11 @@ export const getUserData = async (): Promise<User | null> => {
 
 export const getAssetTypes = async () => {
   try {
-    const assetTypes = new Map<string, AssetType>();
+    const assetTypes: AssetType[] = [];
     const querySnapshot = await firestore().collection('assetTypes').get();
 
     querySnapshot.forEach(documentSnapshot => {
-      const asset = {
-        ...(documentSnapshot.data() as AssetType),
-        id: documentSnapshot.id,
-      };
-      assetTypes.set(documentSnapshot.id, asset);
+      assetTypes.push(documentSnapshot.data() as AssetType);
     });
 
     return assetTypes;
@@ -97,6 +87,21 @@ export const getConstants = async () => {
     ).data() as Constants;
 
     return constants;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const setUserData = async (user: User) => {
+  try {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      throw new Error('User not signed in.');
+    }
+    await firestore()
+      .collection('users')
+      .doc(currentUser?.uid)
+      .set(getUserSchemaFromUser(user));
   } catch (error) {
     throw error;
   }

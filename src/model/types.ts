@@ -1,8 +1,8 @@
 import {AssetType} from '../api/types';
 
 export interface FinanceData {
-  assets: Asset[];
-  liabilities: Liability[];
+  assets?: Asset[];
+  liabilities?: Liability[];
   monthlyNetIncome: number;
   monthlyNetExpense: number;
   incomeGrowthRate: number;
@@ -16,7 +16,6 @@ export interface User {
 }
 
 export interface Asset extends AssetType {
-  id: string;
   value: number;
   dateModified: Date;
   keepInPension: boolean;

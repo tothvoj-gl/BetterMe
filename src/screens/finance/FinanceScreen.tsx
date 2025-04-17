@@ -254,7 +254,7 @@ export const FinanceScreen = () => {
   return (
     <View>
       <Image style={styles.noDataImage} source={require('./img/finance.png')} />
-      <Spacing></Spacing>
+      <Spacing />
       <AppButton
         onPress={() => navigation.navigate('AddFinanceInfo')}
         label={t('letsStart')}

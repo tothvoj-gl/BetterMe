@@ -2,8 +2,10 @@ import {Timestamp} from '@react-native-firebase/firestore';
 import {z} from 'zod';
 
 const AssetTypeSchema = z.object({
+  id: z.string(),
   name_en: z.string(),
   name_sk: z.string(),
+  question_en: z.string(),
   avgGrowthRate: z.number(),
   supportsRegularPayments: z.boolean(),
 });
@@ -19,6 +21,7 @@ export interface Constants {
 }
 
 const AssetSchema = z.object({
+  id: z.string(),
   value: z.number(),
   keepInPension: z.boolean(),
   dateModified: TimestampType,
@@ -26,6 +29,7 @@ const AssetSchema = z.object({
 });
 
 const LiabilitySchema = z.object({
+  id: z.string(),
   value: z.number(),
   name: z.string(),
   annualRate: z.number(),
@@ -39,8 +43,8 @@ export const UserSchema = z
     currency: z.string(),
     birthDate: TimestampType,
     finance: z.object({
-      assets: z.record(z.string(), AssetSchema),
-      liabilities: z.record(z.string(), LiabilitySchema),
+      assets: z.array(AssetSchema).optional(),
+      liabilities: z.array(LiabilitySchema).optional(),
       monthlyNetIncome: z.number(),
       monthlyNetExpense: z.number(),
       incomeGrowthRate: z.number(),

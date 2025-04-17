@@ -38,6 +38,14 @@ export const ProfileScreen = () => {
         label={t('privacyPolicy')}
         onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
       />
+      <ProfileScreenListItem
+        label={t('giveFeedback')}
+        onPress={() =>
+          Linking.openURL(
+            'mailto:granko87@gmail.com?subject=Finteo app feedback',
+          )
+        }
+      />
       <AppButtonOutline label={t('logout')} onPress={() => logout.mutate()} />
 
       <TrueSheet

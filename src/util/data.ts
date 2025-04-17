@@ -1,7 +1,8 @@
 import {differenceInYears} from 'date-fns';
 import * as RNLocalize from 'react-native-localize';
 import {Liability, User} from '../model/types';
-import {Constants} from '../api/types';
+import {Constants, UserResponse} from '../api/types';
+import {Timestamp} from '@react-native-firebase/firestore';
 
 export const getRealFutureValue = (
   presentValue: number,
@@ -44,6 +45,8 @@ export const getUserNetWorth = (
   let totalWorth = 0;
   user.finance?.assets.forEach(asset => {
     if (!excludeNonPensionAssets || !asset.keepInPension) {
+      console.log(asset);
+
       const {assetTotalNetWorth, assetTotalWorth} = getRealFutureValue(
         asset.value,
         asset.avgGrowthRate,
@@ -86,6 +89,9 @@ export const calculateAmortization = (
   yearsPaid: number,
 ) => {
   const totalYears = differenceInYears(liability.endDate, new Date());
+  if (totalYears === 0) {
+    return {monthlyPayment: 0, balance: 0};
+  }
   const months = totalYears * 12;
   const monthsPaid = yearsPaid * 12;
   const monthlyRate = liability.annualRate / 100 / 12;
@@ -176,12 +182,34 @@ const getCurrencySymbol = (locale: string, currency: string) => {
   return formatted.replace(/\d/g, '').trim();
 };
 
-export const getDeviceCurrencySymbol = (currency: string) => {
+export const getDeviceCurrencySymbol = (currency?: string) => {
   const locale = getCurrentLocale(); // Get device locale
-  return getCurrencySymbol(locale, currency);
+  return getCurrencySymbol(locale, currency || 'EUR');
 };
 
 export const getCurrentLocale = () => {
   const locale = RNLocalize.getLocales()[0].languageTag; // Get device locale
   return locale;
+};
+
+export const getUserSchemaFromUser = (user: User): UserResponse => {
+  const assets = user.finance.assets
+    ?.filter(item => item.value > 0)
+    .map(asset => ({
+      ...asset,
+      dateModified: Timestamp.fromDate(asset.dateModified),
+    }));
+
+  const liabilities = user.finance.liabilities
+    ?.filter(item => item.value > 0)
+    .map(liability => ({
+      ...liability,
+      dateModified: Timestamp.fromDate(liability.dateModified),
+      endDate: Timestamp.fromDate(liability.endDate),
+    }));
+  return {
+    ...user,
+    birthDate: Timestamp.fromDate(user.birthDate),
+    finance: {...user.finance, assets: assets, liabilities: liabilities},
+  };
 };

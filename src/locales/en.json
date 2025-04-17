@@ -5,7 +5,9 @@
   },
   "common":{
     "retry":"Retry",
-    "genericErrorMessage":"Something went wrong, please try again later."
+    "genericErrorMessage":"Something went wrong, please try again later.",
+     "yes" : "Yes",
+    "no" : "No"
   },
   "financeScreen": {
     "letsStart": "Let's start",
@@ -29,11 +31,47 @@
   "profileScreen": {
     "termsOfUse": "Terms of Use",
     "privacyPolicy": "Privacy Policy",
+    "giveFeedback": "Give feedback",
     "logout": "Logout",
     "changeLanguage": "Change language",
     "chooseLanguage": "Choose language",
     "english": "English",
     "slovak": "Slovenčina"
+  },
+
+  "addFinanceInfoScreen": {
+    "next": "Next",
+    "dateOfBirthTitle": "What is your date of birth?",
+    "dateOfBirthDescription": "(We need this information for calculating your expected pension.)",
+    "sexTitle": "What is your sex",
+    "sexDescription": "(We need this information for estimating your life expectancy.)",
+    "female" : "Female",
+    "male" : "Male",
+    "preferNotToSay": "Prefer not to say",
+    "incomeTitle": "What is your monthly net income?",
+    "incomeDescription": "(Please include all income forms like salary, bonuses, rental income, dividends, royalties etc.)",
+    "currencyTitle": "What currency should we use?",
+    "expenseTitle": "What are your monthly expenses?",
+    "expenseDescription": "(Please include all expense type like housing rent, food & groceries, transportation, health & insurance, education, shopping, travel & leisure etc.. Please exclude loan payments. They will be added later.)",
+    "averageIncomeGrowthRateTitle": "What is your expected annual income growth rate?",
+    "assetTitleETF": "How much money do you currently have invested in ETFs?",
+    "assetTitleGold": "How much money do you currently have invested in gold?",
+    "assetTitleCash": "How much money do you currently have in cash or checking bank account?",
+    "assetTitleShares": "How much money do you currently have invested in shares?",
+    "assetTitleCar": "What is the estimated market value of the car(s) you own?",
+    "assetTitleBankSavings": "How much money do you currently have in savings bank account?",
+    "assetTitleCrypto": "How much money do you currently have invested in Bitcoin/Ethereum?",
+    "assetTitleRealEstate": "How much money do you currently have invested in real estate?",
+    "assetTitleRealBonds": "How much money do you currently have invested in government bonds?",   
+    "keepInPensionDescription": "Do you plan to sell this asset to help fund your pension?",
+    "regularPaymentDescription": "Monthly contribution to this asset:",
+    "liabilitiesTitle": "What loans do you currently have?",
+    "interestRateLabel": "Interest rate (%)",
+    "remainingBalanceLabel": "Remaining loan balance",
+    "loanEndDateLabel": "Loan end date",
+    "addLoanButtonLabel": "Add loan",
+    "loanNameLabel": "Loan name",
+    "loanNameDescription": "Please name this loan"
   },
   "loginScreen": {
     "email": "Email",

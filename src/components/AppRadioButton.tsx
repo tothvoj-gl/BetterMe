@@ -10,9 +10,9 @@ export type Props = {
 };
 
 const styles = StyleSheet.create(theme => ({
-  button: {
+  button: (isActiveItem: boolean) => ({
     borderRadius: 5,
-    borderColor: theme.colors.border,
+    borderColor: isActiveItem ? theme.colors.primary : theme.colors.border,
     backgroundColor: theme.colors.background,
     margin: theme.spacing.s,
     borderWidth: 1,
@@ -21,7 +21,7 @@ const styles = StyleSheet.create(theme => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
+  }),
   buttonText: {
     margin: 10,
   },
@@ -43,7 +43,7 @@ export const AppRadioButton = ({
     <TouchableOpacity
       accessibilityRole="button"
       onPress={onPress}
-      style={styles.button}>
+      style={styles.button(selectedItemIndex === index)}>
       <AppText style={styles.buttonText}>{label}</AppText>
       {selectedItemIndex === index && (
         <Image style={styles.image} source={require('./img/tick-circle.png')} />
