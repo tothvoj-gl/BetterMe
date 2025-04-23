@@ -31,9 +31,9 @@ export const DateOfBirthQuestion = ({
   const [date, setDate] = useState(subYears(new Date(), 18));
   const {t} = useTranslation('addFinanceInfoScreen');
 
-  const onUpdate = useCallback(() => {
+  const validate = useCallback(() => {
     userDataUpdated(prev => ({...prev, birthDate: date}));
-    return true;
+    return Promise.resolve(true);
   }, [date, userDataUpdated]);
 
   useGoToNextPage({
@@ -41,7 +41,7 @@ export const DateOfBirthQuestion = ({
     currentIndex,
     requestedPage,
     goToNextPage,
-    onUpdate,
+    validate,
     setValidationError,
   });
 

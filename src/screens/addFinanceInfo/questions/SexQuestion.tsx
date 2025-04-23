@@ -31,9 +31,9 @@ export const SexQuestion = ({
   const {t} = useTranslation('addFinanceInfoScreen');
   const [sex, setSex] = useState('f');
 
-  const onUpdate = useCallback(() => {
+  const validate = useCallback(() => {
     userDataUpdated(prev => ({...prev, sex: sex}));
-    return true;
+    return Promise.resolve(true);
   }, [sex, userDataUpdated]);
 
   useGoToNextPage({
@@ -41,7 +41,7 @@ export const SexQuestion = ({
     currentIndex,
     requestedPage,
     goToNextPage,
-    onUpdate,
+    validate,
     setValidationError,
   });
 

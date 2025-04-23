@@ -1,20 +1,8 @@
-import {
-  FlatList,
-  Text,
-  useWindowDimensions,
-  View,
-  ViewToken,
-} from 'react-native';
+import {FlatList, View, ViewToken} from 'react-native';
 import {AppButton} from '../../components/AppButton';
 import {StyleSheet} from 'react-native-unistyles';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {AppText} from '../../components/AppText';
-import {AppTextinput} from '../../components/AppTextInput';
-import {Spacing} from '../../components/Spacing';
-import {Controller, useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
-import {z} from 'zod';
-import {zodResolver} from '@hookform/resolvers/zod';
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {DateOfBirthQuestion} from './questions/DateOfBirthQuestion';
 import {IncomeQuestion} from './questions/IncomeQuestion';
@@ -123,7 +111,7 @@ export const AddFinanceInfoScreen = () => {
     if (mutation.isSuccess) {
       navigation.goBack();
     }
-  }, [mutation.isSuccess]);
+  }, [mutation.isSuccess, navigation]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -224,6 +212,7 @@ export const AddFinanceInfoScreen = () => {
           label={t('next')}
           onPress={() => {
             if (currentIndex < allQuestions.length - 1) {
+              setValidationError(false);
               setRequestedPage(currentIndex + 1);
             } else {
               mutation.mutate(user! as User);

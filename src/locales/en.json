@@ -50,6 +50,8 @@
     "preferNotToSay": "Prefer not to say",
     "incomeTitle": "What is your monthly net income?",
     "incomeDescription": "(Please include all income forms like salary, bonuses, rental income, dividends, royalties etc.)",
+    "incomeFieldError": "Expected positive number.",
+    "liabilityNameFieldError": "Please provide a name for this liability.",
     "currencyTitle": "What currency should we use?",
     "expenseTitle": "What are your monthly expenses?",
     "expenseDescription": "(Please include all expense type like housing rent, food & groceries, transportation, health & insurance, education, shopping, travel & leisure etc.. Please exclude loan payments. They will be added later.)",

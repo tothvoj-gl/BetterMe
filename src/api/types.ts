@@ -45,9 +45,9 @@ export const UserSchema = z
     finance: z.object({
       assets: z.array(AssetSchema).optional(),
       liabilities: z.array(LiabilitySchema).optional(),
-      monthlyNetIncome: z.number(),
-      monthlyNetExpense: z.number(),
-      incomeGrowthRate: z.number(),
+      monthlyNetIncome: z.number().optional(),
+      monthlyNetExpense: z.number().optional(),
+      incomeGrowthRate: z.number().optional(),
     }),
   })
   .optional();

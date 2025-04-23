@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {AppText} from '../../../components/AppText';
 import {useTranslation} from 'react-i18next';
 import {View} from 'react-native';
@@ -31,9 +31,9 @@ export const CurrencyQuestion = ({
   const {t} = useTranslation('addFinanceInfoScreen');
   const [currency, setCurrency] = useState('EUR');
 
-  const onUpdate = useCallback(() => {
+  const validate = useCallback(() => {
     userDataUpdated(prev => ({...prev, currency: currency}));
-    return true;
+    return Promise.resolve(true);
   }, [currency, userDataUpdated]);
 
   useGoToNextPage({
@@ -41,7 +41,7 @@ export const CurrencyQuestion = ({
     currentIndex,
     requestedPage,
     goToNextPage,
-    onUpdate,
+    validate,
     setValidationError,
   });
 

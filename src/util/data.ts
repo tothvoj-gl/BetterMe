@@ -43,7 +43,7 @@ export const getUserNetWorth = (
 ) => {
   let totalNetWorth = 0;
   let totalWorth = 0;
-  user.finance?.assets.forEach(asset => {
+  user.finance?.assets?.forEach(asset => {
     if (!excludeNonPensionAssets || !asset.keepInPension) {
       console.log(asset);
 
@@ -59,7 +59,7 @@ export const getUserNetWorth = (
   });
 
   let liablityMonthlyExpenses = 0;
-  user.finance.liabilities.forEach(liability => {
+  user.finance?.liabilities?.forEach(liability => {
     const {monthlyPayment, balance} = calculateAmortization(
       liability,
       yearsFromNow,
@@ -71,12 +71,12 @@ export const getUserNetWorth = (
   });
 
   const {totalRealIncome, totalIncome} = calculateInflationAdjustedIncome(
-    user.finance.monthlyNetIncome,
-    user.finance.monthlyNetExpense,
+    user.finance.monthlyNetIncome || 0,
+    user.finance.monthlyNetExpense || 0,
     liablityMonthlyExpenses,
     yearsFromNow,
     inflationRate,
-    user.finance.incomeGrowthRate,
+    user.finance.incomeGrowthRate || 0,
   );
   totalWorth = totalWorth + totalIncome;
   totalNetWorth = totalNetWorth + totalRealIncome;

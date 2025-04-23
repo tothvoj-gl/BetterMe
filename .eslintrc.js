@@ -4,7 +4,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'jest'],
   rules: {
     'react/react-in-jsx-scope': 'off',
-    'react/jsx-props-no-spreading': "error"
+    'react/jsx-props-no-spreading': 'error',
   },
   overrides: [
     {

@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 
 type Props = {
   goToNextPage: () => void;
-  onUpdate: () => boolean;
+  validate: () => Promise<boolean>;
   setValidationError: (isError: boolean) => void;
   requestedPage: number;
   index: number;
@@ -14,23 +14,26 @@ const useGoToNextPage = ({
   currentIndex,
   requestedPage,
   goToNextPage,
-  onUpdate,
+  validate,
   setValidationError,
 }: Props) => {
   useEffect(() => {
-    if (index === currentIndex && requestedPage > index) {
-      const success = onUpdate();
-      if (success) {
-        goToNextPage();
-      } else {
-        setValidationError(true);
+    const checkInput = async () => {
+      if (index === currentIndex && requestedPage > index) {
+        const success = await validate();
+        setValidationError(!success);
+        if (success) {
+          goToNextPage();
+        }
       }
-    }
+    };
+
+    checkInput();
   }, [
     currentIndex,
     index,
     requestedPage,
-    onUpdate,
+    validate,
     goToNextPage,
     setValidationError,
   ]);

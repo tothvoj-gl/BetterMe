@@ -10,6 +10,9 @@ import {getDeviceCurrencySymbol} from '../../../util/data';
 import useGoToNextPage from './useGoToNextPage';
 import Slider from '@react-native-community/slider';
 import {pallette} from '../../../util/colors';
+import {z} from 'zod';
+import {Controller, useForm} from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -40,17 +43,40 @@ export const IncomeQuestion = ({
   currentIndex,
   setValidationError,
 }: QuestionProps) => {
-  const [income, setIncome] = useState('');
   const [incomeGrowthRate, setIncomeGrowthRate] = useState(3);
   const {t} = useTranslation('addFinanceInfoScreen');
+  const schema = z
+    .object({
+      income: z.coerce
+        .number({message: t('incomeFieldError')})
+        .min(0, t('incomeFieldError')),
+    })
+    .required();
+  type FormData = z.infer<typeof schema>;
 
-  const onUpdate = useCallback(() => {
-    if (!isNaN(Number(income))) {
+  const {
+    control,
+    trigger,
+    getValues,
+    formState: {errors},
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      income: 0,
+    },
+  });
+
+  const validate = useCallback(async () => {
+    const validationResult = await trigger('income');
+    if (validationResult) {
+      const income = Number(getValues('income'));
+      console.log({income});
+
       userDataUpdated(prev => ({
         ...prev,
         finance: {
           ...prev?.finance,
-          monthlyNetIncome: Number(income),
+          monthlyNetIncome: income,
           incomeGrowthRate: incomeGrowthRate,
         },
       }));
@@ -58,14 +84,14 @@ export const IncomeQuestion = ({
     } else {
       return false;
     }
-  }, [income, incomeGrowthRate, userDataUpdated]);
+  }, [getValues, incomeGrowthRate, trigger, userDataUpdated]);
 
   useGoToNextPage({
     index,
     currentIndex,
     requestedPage,
     goToNextPage,
-    onUpdate,
+    validate,
     setValidationError,
   });
 
@@ -80,17 +106,32 @@ export const IncomeQuestion = ({
       </AppText>
       <Spacing />
       <View style={styles.inputContainer}>
-        <AppTextinput
-          keyboardType="numeric"
-          placeholder={'1000'}
-          maxWidth={250}
-          value={income}
-          onChangeText={value => setIncome(value)}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <AppTextinput
+              keyboardType="numeric"
+              placeholder={'1000'}
+              maxWidth={250}
+              onBlur={onBlur}
+              value={String(value)}
+              onChangeText={onChange}
+            />
+          )}
+          name="income"
         />
         <AppText weight="bold" size="header1" color="highlight">
           {getDeviceCurrencySymbol(user?.currency)}
         </AppText>
       </View>
+
+      {errors.income && (
+        <AppText color="danger">{errors.income.message}</AppText>
+      )}
+
       <Spacing />
       <AppText weight="bold" size="header3" style={styles.text}>
         {t('averageIncomeGrowthRateTitle')}

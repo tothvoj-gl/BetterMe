@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import {AppText} from '../../../components/AppText';
 import {useTranslation} from 'react-i18next';
 import {View} from 'react-native';
@@ -8,6 +8,9 @@ import {QuestionProps} from '../AddFinanceInfoScreen';
 import {AppTextinput} from '../../../components/AppTextInput';
 import {getDeviceCurrencySymbol} from '../../../util/data';
 import useGoToNextPage from './useGoToNextPage';
+import {z} from 'zod';
+import {Controller, useForm} from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -35,27 +38,51 @@ export const ExpenseQuestion = ({
   currentIndex,
   setValidationError,
 }: QuestionProps) => {
-  const [expense, setExpense] = useState('');
   const {t} = useTranslation('addFinanceInfoScreen');
+  const schema = z
+    .object({
+      expense: z.coerce
+        .number({message: t('incomeFieldError')})
+        .min(0, t('incomeFieldError')),
+    })
+    .required();
+  type FormData = z.infer<typeof schema>;
 
-  const onUpdate = useCallback(() => {
-    if (!isNaN(Number(expense))) {
+  const {
+    control,
+    trigger,
+    getValues,
+    formState: {errors},
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      expense: 0,
+    },
+  });
+
+  const validate = useCallback(async () => {
+    const validationResult = await trigger('expense');
+    if (validationResult) {
+      const expense = Number(getValues('expense'));
       userDataUpdated(prev => ({
         ...prev,
-        finance: {...prev?.finance, monthlyNetExpense: Number(expense)},
+        finance: {
+          ...prev?.finance,
+          monthlyNetExpense: expense,
+        },
       }));
       return true;
     } else {
       return false;
     }
-  }, [expense, userDataUpdated]);
+  }, [getValues, trigger, userDataUpdated]);
 
   useGoToNextPage({
     index,
     currentIndex,
     requestedPage,
     goToNextPage,
-    onUpdate,
+    validate,
     setValidationError,
   });
 
@@ -70,17 +97,31 @@ export const ExpenseQuestion = ({
       </AppText>
       <Spacing />
       <View style={styles.inputContainer}>
-        <AppTextinput
-          keyboardType="numeric"
-          placeholder={'1000'}
-          maxWidth={250}
-          value={expense}
-          onChangeText={value => setExpense(value)}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <AppTextinput
+              keyboardType="numeric"
+              placeholder={'1000'}
+              maxWidth={250}
+              onBlur={onBlur}
+              value={String(value)}
+              onChangeText={onChange}
+            />
+          )}
+          name="expense"
         />
         <AppText weight="bold" size="header1" color="highlight">
           {getDeviceCurrencySymbol(user?.currency)}
         </AppText>
       </View>
+
+      {errors.expense && (
+        <AppText color="danger">{errors.expense.message}</AppText>
+      )}
     </View>
   );
 };

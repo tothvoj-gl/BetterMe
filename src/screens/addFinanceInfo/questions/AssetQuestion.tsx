@@ -12,6 +12,9 @@ import {Asset} from '../../../model/types';
 import {AssetType} from '../../../api/types';
 import i18n from '../../../locales/i18n';
 import {AppRadioButtonGroup} from '../../../components/AppRadioButtonGroup';
+import {z} from 'zod';
+import {Controller, useForm} from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
 
 type Props = QuestionProps & {asset?: Asset; assetType: AssetType};
 
@@ -45,23 +48,47 @@ export const AssetQuestion = ({
   setValidationError,
   assetType,
 }: Props) => {
-  const [value, setValue] = useState('');
-  const [monthlyContribution, setMonthlyContribution] = useState('');
   const [keepInPension, setKeepInPension] = useState(false);
   const {t: common} = useTranslation('common');
   const {t} = useTranslation('addFinanceInfoScreen');
 
-  const onUpdate = useCallback(() => {
-    if (!isNaN(Number(value))) {
+  const schema = z
+    .object({
+      value: z.coerce
+        .number({message: t('incomeFieldError')})
+        .min(0, t('incomeFieldError')),
+      monthlyContribution: z.coerce
+        .number({message: t('incomeFieldError')})
+        .min(0, t('incomeFieldError')),
+    })
+    .required();
+  type FormData = z.infer<typeof schema>;
+
+  const {
+    control,
+    trigger,
+    getValues,
+    formState: {errors},
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      value: 0,
+      monthlyContribution: 0,
+    },
+  });
+
+  const validate = useCallback(async () => {
+    const validationResult = await trigger();
+    if (validationResult) {
+      const value = Number(getValues('value'));
+      const monthlyContribution = Number(getValues('monthlyContribution'));
       userDataUpdated(prev => {
         const asset: Asset = {
           ...assetType,
-          value: Number(value),
+          value: value,
           keepInPension: keepInPension,
           dateModified: new Date(),
-          monthlyPayment: isNaN(Number(monthlyContribution))
-            ? 0
-            : Number(monthlyContribution),
+          monthlyPayment: monthlyContribution,
         };
         return {
           ...prev,
@@ -77,14 +104,14 @@ export const AssetQuestion = ({
     } else {
       return false;
     }
-  }, [assetType, keepInPension, monthlyContribution, userDataUpdated, value]);
+  }, [assetType, getValues, keepInPension, trigger, userDataUpdated]);
 
   useGoToNextPage({
     index,
     currentIndex,
     requestedPage,
     goToNextPage,
-    onUpdate,
+    validate,
     setValidationError,
   });
 
@@ -96,17 +123,30 @@ export const AssetQuestion = ({
 
       <Spacing />
       <View style={styles.inputContainer}>
-        <AppTextinput
-          keyboardType="numeric"
-          placeholder={'1000'}
-          maxWidth={250}
-          value={value}
-          onChangeText={val => setValue(val)}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({field: {onChange, onBlur, value}}) => (
+            <AppTextinput
+              keyboardType="numeric"
+              placeholder={'1000'}
+              maxWidth={250}
+              onBlur={onBlur}
+              value={String(value)}
+              onChangeText={onChange}
+            />
+          )}
+          name="value"
         />
         <AppText weight="bold" size="header1" color="highlight">
           {getDeviceCurrencySymbol(user?.currency)}
         </AppText>
       </View>
+
+      {errors.value && <AppText color="danger">{errors.value.message}</AppText>}
+
       <Spacing size="extraLarge" />
       {assetType.supportsRegularPayments && (
         <>
@@ -115,17 +155,32 @@ export const AssetQuestion = ({
           </AppText>
           <Spacing size="small" />
           <View style={styles.inputContainer}>
-            <AppTextinput
-              keyboardType="numeric"
-              placeholder={'0'}
-              maxWidth={250}
-              value={monthlyContribution}
-              onChangeText={val => setMonthlyContribution(val)}
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <AppTextinput
+                  keyboardType="numeric"
+                  placeholder={'0'}
+                  maxWidth={250}
+                  value={String(value)}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                />
+              )}
+              name="monthlyContribution"
             />
             <AppText weight="bold" size="header1" color="highlight">
               {getDeviceCurrencySymbol(user?.currency)}
             </AppText>
           </View>
+
+          {errors.value && (
+            <AppText color="danger">{errors.value.message}</AppText>
+          )}
+
           <Spacing size="large" />
         </>
       )}

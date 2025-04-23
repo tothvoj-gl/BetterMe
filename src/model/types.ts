@@ -3,9 +3,9 @@ import {AssetType} from '../api/types';
 export interface FinanceData {
   assets?: Asset[];
   liabilities?: Liability[];
-  monthlyNetIncome: number;
-  monthlyNetExpense: number;
-  incomeGrowthRate: number;
+  monthlyNetIncome?: number;
+  monthlyNetExpense?: number;
+  incomeGrowthRate?: number;
 }
 
 export interface User {

@@ -21,16 +21,17 @@ export const getUserData = async (): Promise<User | null> => {
       return null;
     }
     const assetTypes = await getAssetTypes();
-    const userAssets: Asset[] = user?.finance?.assets?.map(asset => {
-      const assetType = assetTypes.find(item => item.id === asset.id);
-      return {
-        ...assetType,
-        value: asset.value,
-        dateModified: asset.dateModified.toDate(),
-        keepInPension: asset.keepInPension,
-        monthlyPayment: asset.monthlyPayment,
-      };
-    });
+    const userAssets: Asset[] =
+      user?.finance?.assets?.map(asset => {
+        const assetType = assetTypes.find(item => item.id === asset.id);
+        return {
+          ...assetType,
+          value: asset.value,
+          dateModified: asset.dateModified.toDate(),
+          keepInPension: asset.keepInPension,
+          monthlyPayment: asset.monthlyPayment,
+        };
+      }) || [];
 
     const userLiabilities: Liability[] = user?.finance?.liabilities?.map(
       liability => {

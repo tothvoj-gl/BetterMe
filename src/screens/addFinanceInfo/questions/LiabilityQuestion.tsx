@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {AppText} from '../../../components/AppText';
 import {useTranslation} from 'react-i18next';
 import {ScrollView, View} from 'react-native';
@@ -15,6 +15,7 @@ import DatePicker from 'react-native-date-picker';
 import {AppButton} from '../../../components/AppButton';
 import {Separator} from '../../../components/Separator';
 import {Liability} from '../../../model/types';
+import {useForm} from 'react-hook-form';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -48,23 +49,46 @@ export const LiabilityQuestion = ({
   const [liabilities, setLiabilities] = useState<Partial<Liability>[]>([]);
   const {t} = useTranslation('addFinanceInfoScreen');
 
-  const onUpdate = useCallback(() => {
-    userDataUpdated(prev => ({
-      ...prev,
-      finance: {
-        ...prev?.finance,
-        liabilities: liabilities as Liability[],
-      },
-    }));
-    return true;
-  }, [liabilities, userDataUpdated]);
+  const {
+    trigger,
+    register,
+    setValue,
+    formState: {errors},
+  } = useForm();
+
+  useEffect(() => {
+    liabilities.forEach((_, itemIndex) => {
+      register('name' + itemIndex, {
+        required: t('liabilityNameFieldError'),
+        minLength: 1,
+      });
+      register('value' + itemIndex);
+    });
+  }, [liabilities, register, t]);
+
+  const validate = useCallback(async () => {
+    const valid = await trigger();
+    console.log({valid});
+
+    if (valid) {
+      userDataUpdated(prev => ({
+        ...prev,
+        finance: {
+          ...prev?.finance,
+          liabilities: liabilities as Liability[],
+        },
+      }));
+    }
+
+    return valid;
+  }, [liabilities, trigger, userDataUpdated]);
 
   useGoToNextPage({
     index,
     currentIndex,
     requestedPage,
     goToNextPage,
-    onUpdate,
+    validate,
     setValidationError,
   });
 
@@ -86,6 +110,7 @@ export const LiabilityQuestion = ({
               maxWidth={250}
               value={liability.name || ''}
               onChangeText={value => {
+                setValue('name' + itemIndex, value);
                 setLiabilities(oldArray => {
                   const newArray = [...oldArray];
                   newArray[itemIndex].name = value;
@@ -94,6 +119,11 @@ export const LiabilityQuestion = ({
               }}
             />
           </View>
+          {errors['name' + itemIndex]?.message && (
+            <AppText color="danger">
+              {String(errors['name' + itemIndex]?.message)}
+            </AppText>
+          )}
           <Spacing size="large" />
           <AppText size="header4" style={styles.text}>
             {t('remainingBalanceLabel')}
@@ -106,9 +136,13 @@ export const LiabilityQuestion = ({
               maxWidth={250}
               value={String(liability.value)}
               onChangeText={value => {
+                setValue('value' + itemIndex, value);
+
                 setLiabilities(oldArray => {
                   const newArray = [...oldArray];
-                  newArray[itemIndex].value = Number(value);
+                  newArray[itemIndex].value = isNaN(Number(value))
+                    ? oldArray[itemIndex].value
+                    : Number(value);
                   return newArray;
                 });
               }}
@@ -117,6 +151,11 @@ export const LiabilityQuestion = ({
               {getDeviceCurrencySymbol(user?.currency)}
             </AppText>
           </View>
+          {errors['value' + itemIndex]?.message && (
+            <AppText color="danger">
+              {String(errors['value' + itemIndex]?.message)}
+            </AppText>
+          )}
           <Spacing size="large" />
           <AppText size="header4" style={styles.text}>
             {t('interestRateLabel')}
