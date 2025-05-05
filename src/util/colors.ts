@@ -4,6 +4,7 @@ export const pallette = {
   light900: '#FFFFFF',
   light950: '#FAFAFA',
   dark900: '#0F0F0F',
+  dark50: '#EDEDED',
   dark200: '#DFDFDF',
   dark700: '#787878',
   danger900: '#FD4300',
