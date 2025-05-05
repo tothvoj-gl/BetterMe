@@ -6698,6 +6698,11 @@ react-native-edge-to-edge@1.4.3:
   resolved "https://registry.yarnpkg.com/react-native-edge-to-edge/-/react-native-edge-to-edge-1.4.3.tgz#755c77f9bee94392166a7bdf46618886b54e0c77"
   integrity sha512-fYchwiQ2D/8NzcvJK1sD9Cm25GFQfsLgYmGpohoSpRxwBwR5UCL0wUf4scoQgYncRh9Hmc2t8ml/sikTwMM3ng==
 
+react-native-email-link@^1.16.1:
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/react-native-email-link/-/react-native-email-link-1.16.1.tgz#e46f2f0baa1343e05618abdd1248f42e0baf8e9b"
+  integrity sha512-uTolJXOa6HKPEiRAQuLKN/OhVwUA4xS++yPV6YiCtRBWxl2q3FUlrJt1G6plfMAEU4qNhmwZnH3tCJ9WNYIDhg==
+
 react-native-linear-gradient@2.8.3:
   version "2.8.3"
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.8.3.tgz#9a116649f86d74747304ee13db325e20b21e564f"
@@ -6726,12 +6731,12 @@ react-native-screens@4.5.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native-unistyles@3.0.0-beta.8:
-  version "3.0.0-beta.8"
-  resolved "https://registry.yarnpkg.com/react-native-unistyles/-/react-native-unistyles-3.0.0-beta.8.tgz#33bef5dac3649ad52e61a0b0e5f2d28bea2d4139"
-  integrity sha512-fMUYTC7+zrXhpyfJ9Z5xmVGHTV2VRsNExQwomjnTWO74M/O/PEg+2jKLJ9MnGyHb/70cFV0mjL7Hl/7Olb1T3w==
+react-native-unistyles@3.0.0-rc.2:
+  version "3.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/react-native-unistyles/-/react-native-unistyles-3.0.0-rc.2.tgz#5d7ab7d2a683cc52d63ca6ffe0dfbe1900dfe79a"
+  integrity sha512-t6wXwvGebMLbwDdpzqBUBPYr625/kvQTb9w28S8a08tUQHpdSKvVIr4DB2YRC6vhhwre0HpAf/H9SnsVfIW7PQ==
 
-react-native-uuid@^2.0.3:
+react-native-uuid@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/react-native-uuid/-/react-native-uuid-2.0.3.tgz#f85f8a8d68e52e3f1c18ba0f02ec7776f9d4a0da"
   integrity sha512-f/YfIS2f5UB+gut7t/9BKGSCYbRA9/74A5R1MDp+FLYsuS+OSWoiM/D8Jko6OJB6Jcu3v6ONuddvZKHdIGpeiw==

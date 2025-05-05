@@ -1,6 +1,7 @@
 import {Linking, View} from 'react-native';
 import {useRef} from 'react';
 import {TrueSheet} from '@lodev09/react-native-true-sheet';
+import {openComposer} from 'react-native-email-link';
 import {ProfileScreenListItem} from './ProfileScreenListItem';
 import {PRIVACY_POLICY_URL, TERMS_OF_USE_URL} from '../../util/constant';
 import {useLogout} from '../../api/auth/useAuth';
@@ -41,9 +42,10 @@ export const ProfileScreen = () => {
       <ProfileScreenListItem
         label={t('giveFeedback')}
         onPress={() =>
-          Linking.openURL(
-            'mailto:granko87@gmail.com?subject=Finteo app feedback',
-          )
+          openComposer({
+            to: 'granko87@gmail.com',
+            subject: 'Finteo app feedback',
+          })
         }
       />
       <AppButtonOutline label={t('logout')} onPress={() => logout.mutate()} />

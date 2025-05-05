@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>9</string>
+	<string>12</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -53,5 +53,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>mailto</string>
+    <string>message</string>
+    <string>readdle-spark</string>
+    <string>airmail</string>
+    <string>ms-outlook</string>
+    <string>googlegmail</string>
+    <string>inbox-gmail</string>
+    <string>ymail</string>
+    <string>superhuman</string>
+    <string>yandexmail</string>
+    <string>fastmail</string>
+    <string>protonmail</string>
+    <string>szn-email</string>
+</array>
 </dict>
 </plist>

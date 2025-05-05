@@ -60,6 +60,7 @@ export const DateOfBirthQuestion = ({
         onDateChange={setDate}
         mode="date"
         maximumDate={subYears(new Date(), 18)}
+        theme="light"
       />
     </View>
   );
