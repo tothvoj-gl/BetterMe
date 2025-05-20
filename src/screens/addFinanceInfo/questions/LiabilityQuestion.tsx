@@ -46,7 +46,9 @@ export const LiabilityQuestion = ({
   currentIndex,
   setValidationError,
 }: QuestionProps) => {
-  const [liabilities, setLiabilities] = useState<Partial<Liability>[]>([]);
+  const [liabilities, setLiabilities] = useState<Partial<Liability>[]>(
+    user?.finance?.liabilities || [],
+  );
   const {t} = useTranslation('addFinanceInfoScreen');
 
   const {
@@ -57,12 +59,13 @@ export const LiabilityQuestion = ({
   } = useForm();
 
   useEffect(() => {
-    liabilities.forEach((_, itemIndex) => {
+    liabilities.forEach((item, itemIndex) => {
       register('name' + itemIndex, {
         required: t('liabilityNameFieldError'),
         minLength: 1,
+        value: item.name,
       });
-      register('value' + itemIndex);
+      register('value' + itemIndex, {value: item.value});
     });
   }, [liabilities, register, t]);
 

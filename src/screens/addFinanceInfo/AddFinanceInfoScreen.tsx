@@ -11,7 +11,8 @@ import {StyleSheet, UnistylesRuntime} from 'react-native-unistyles';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import {useCallback, useEffect, useRef, useState} from 'react';
-import ProgressBar from 'react-native-progress/Bar';
+import {Bar as ProgressBar} from 'react-native-progress';
+import Toast from 'react-native-toast-message';
 import {DateOfBirthQuestion} from './questions/DateOfBirthQuestion';
 import {IncomeQuestion} from './questions/IncomeQuestion';
 import React from 'react';
@@ -27,6 +28,8 @@ import {useNavigation} from '@react-navigation/native';
 import {pallette} from '../../util/colors';
 import {AppText} from '../../components/AppText';
 import {Separator} from '../../components/Separator';
+import {useUserData} from '../../api/useUserData';
+import {formatRemoteDataError} from '../../util/formatter';
 
 export enum QuestionType {
   DateOfBirth,
@@ -39,10 +42,10 @@ export enum QuestionType {
 }
 
 export type QuestionProps = {
-  user?: Partial<User>;
+  user?: Partial<User> | null;
   goToNextPage: () => void;
   userDataUpdated: React.Dispatch<
-    React.SetStateAction<Partial<User> | undefined>
+    React.SetStateAction<Partial<User> | undefined | null>
   >;
   setValidationError: (isError: boolean) => void;
   requestedPage: number;
@@ -80,7 +83,10 @@ export const AddFinanceInfoScreen = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [requestedPage, setRequestedPage] = useState(0);
   const [validationError, setValidationError] = useState(false);
-  const [user, setCurrentUser] = useState<Partial<User>>();
+  const {data: currentUser} = useUserData();
+  const [user, setCurrentUser] = useState<Partial<User> | undefined | null>(
+    currentUser,
+  );
   const flatListRef = useRef<FlatList<string> | null>(null);
   const {t} = useTranslation('addFinanceInfoScreen');
   const navigation = useNavigation();
@@ -131,8 +137,16 @@ export const AddFinanceInfoScreen = () => {
   useEffect(() => {
     if (mutation.isSuccess) {
       navigation.goBack();
+    } else if (mutation.error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: formatRemoteDataError(mutation.error),
+      });
     }
-  }, [mutation.isSuccess, navigation]);
+  }, [mutation.isSuccess, mutation.error, navigation]);
+
+  console.log({user: user});
 
   return (
     <KeyboardAvoidingView
@@ -164,6 +178,8 @@ export const AddFinanceInfoScreen = () => {
           ref={flatListRef}
           data={allQuestions}
           scrollEnabled={false}
+          initialNumToRender={4}
+          windowSize={3}
           onViewableItemsChanged={onViewableItemsChanged}
           renderItem={({item, index}) => (
             <>

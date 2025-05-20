@@ -94,5 +94,8 @@
     "footer2": "Terms of Use",
     "footer3": " and ",
     "footer4": "Privacy Policy"
+  },
+  "errorMessages":{
+    "firestorePermissionDenied":"You do not have permission for this action."
   }
 }

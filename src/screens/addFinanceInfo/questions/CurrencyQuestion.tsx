@@ -21,7 +21,7 @@ const styles = StyleSheet.create(theme => ({
 
 export const CurrencyQuestion = ({
   goToNextPage,
-
+  user,
   userDataUpdated,
   index,
   requestedPage,
@@ -29,7 +29,7 @@ export const CurrencyQuestion = ({
   setValidationError,
 }: QuestionProps) => {
   const {t} = useTranslation('addFinanceInfoScreen');
-  const [currency, setCurrency] = useState('EUR');
+  const [currency, setCurrency] = useState(user?.currency || 'EUR');
 
   const validate = useCallback(() => {
     userDataUpdated(prev => ({...prev, currency: currency}));
@@ -45,6 +45,15 @@ export const CurrencyQuestion = ({
     setValidationError,
   });
 
+  const items = [
+    {label: 'EUR', value: 'EUR'},
+    {label: 'USD', value: 'USD'},
+    {label: 'GBP', value: 'GBP'},
+    {label: 'HUF', value: 'HUF'},
+    {label: 'CZK', value: 'CZK'},
+    {label: 'PLN', value: 'PLN'},
+  ];
+
   return (
     <View style={styles.container}>
       <AppText weight="bold" size="header3" style={styles.text}>
@@ -53,15 +62,8 @@ export const CurrencyQuestion = ({
 
       <Spacing />
       <AppRadioButtonGroup
-        items={[
-          {label: 'EUR', value: 'EUR'},
-          {label: 'USD', value: 'USD'},
-          {label: 'GBP', value: 'GBP'},
-          {label: 'HUF', value: 'HUF'},
-          {label: 'CZK', value: 'CZK'},
-          {label: 'PLN', value: 'PLN'},
-        ]}
-        initialIndex={0}
+        items={items}
+        initialIndex={items.findIndex(item => item.value === currency)}
         onPress={value => {
           setCurrency(value);
         }}

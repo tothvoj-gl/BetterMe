@@ -43,7 +43,9 @@ export const IncomeQuestion = ({
   currentIndex,
   setValidationError,
 }: QuestionProps) => {
-  const [incomeGrowthRate, setIncomeGrowthRate] = useState(3);
+  const [incomeGrowthRate, setIncomeGrowthRate] = useState(
+    user?.finance?.incomeGrowthRate ?? 3,
+  );
   const {t} = useTranslation('addFinanceInfoScreen');
   const schema = z
     .object({
@@ -62,7 +64,7 @@ export const IncomeQuestion = ({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      income: 0,
+      income: user?.finance?.monthlyNetIncome ?? 0,
     },
   });
 

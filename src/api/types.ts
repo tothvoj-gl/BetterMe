@@ -6,6 +6,7 @@ const AssetTypeSchema = z.object({
   name_en: z.string(),
   name_sk: z.string(),
   question_en: z.string(),
+  question_sk: z.string(),
   avgGrowthRate: z.number(),
   supportsRegularPayments: z.boolean(),
 });

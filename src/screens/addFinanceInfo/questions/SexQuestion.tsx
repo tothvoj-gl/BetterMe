@@ -21,7 +21,7 @@ const styles = StyleSheet.create(theme => ({
 
 export const SexQuestion = ({
   goToNextPage,
-
+  user,
   userDataUpdated,
   index,
   requestedPage,
@@ -29,7 +29,7 @@ export const SexQuestion = ({
   setValidationError,
 }: QuestionProps) => {
   const {t} = useTranslation('addFinanceInfoScreen');
-  const [sex, setSex] = useState('f');
+  const [sex, setSex] = useState(user?.sex || 'f');
 
   const validate = useCallback(() => {
     userDataUpdated(prev => ({...prev, sex: sex}));
@@ -61,7 +61,7 @@ export const SexQuestion = ({
           {label: t('male'), value: 'm'},
           {label: t('preferNotToSay'), value: 'na'},
         ]}
-        initialIndex={0}
+        initialIndex={sex === 'm' ? 1 : sex === 'na' ? 2 : 0}
         onPress={value => {
           setSex(value);
         }}

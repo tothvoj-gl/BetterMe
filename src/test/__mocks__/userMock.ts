@@ -16,6 +16,7 @@ export const userMock: User = {
         dateModified: new Date('2025-02-28T23:00:00.960Z'),
         keepInPension: true,
         question_en: 'Question',
+        question_sk: 'Question',
       },
       {
         avgGrowthRate: 0,
@@ -27,6 +28,7 @@ export const userMock: User = {
         dateModified: new Date('2025-03-01T23:00:00.396Z'),
         keepInPension: false,
         question_en: 'Question',
+        question_sk: 'Question',
       },
       {
         avgGrowthRate: 8.3,
@@ -39,6 +41,7 @@ export const userMock: User = {
         keepInPension: false,
         monthlyPayment: 200,
         question_en: 'Question',
+        question_sk: 'Question',
       },
       {
         avgGrowthRate: 19,
@@ -50,6 +53,7 @@ export const userMock: User = {
         dateModified: new Date('2025-03-01T23:00:00.508Z'),
         keepInPension: false,
         question_en: 'Question',
+        question_sk: 'Question',
       },
     ],
     liabilities: [

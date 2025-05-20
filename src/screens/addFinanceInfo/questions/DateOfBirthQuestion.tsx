@@ -27,8 +27,11 @@ export const DateOfBirthQuestion = ({
   requestedPage,
   currentIndex,
   setValidationError,
+  user,
 }: QuestionProps) => {
-  const [date, setDate] = useState(subYears(new Date(), 18));
+  const [date, setDate] = useState(
+    user?.birthDate ? user.birthDate : subYears(new Date(), 18),
+  );
   const {t} = useTranslation('addFinanceInfoScreen');
 
   const validate = useCallback(() => {

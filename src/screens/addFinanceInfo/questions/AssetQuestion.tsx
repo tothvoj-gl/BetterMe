@@ -48,9 +48,17 @@ export const AssetQuestion = ({
   setValidationError,
   assetType,
 }: Props) => {
-  const [keepInPension, setKeepInPension] = useState(false);
   const {t: common} = useTranslation('common');
   const {t} = useTranslation('addFinanceInfoScreen');
+
+  const existingAsset = user?.finance?.assets?.find(
+    asset => asset.id === assetType.id,
+  );
+  const [keepInPension, setKeepInPension] = useState(
+    !!existingAsset?.keepInPension,
+  );
+
+  console.log('elizaaa');
 
   const schema = z
     .object({
@@ -72,8 +80,8 @@ export const AssetQuestion = ({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      value: 0,
-      monthlyContribution: 0,
+      value: existingAsset?.value || 0,
+      monthlyContribution: existingAsset?.monthlyPayment || 0,
     },
   });
 
@@ -90,13 +98,23 @@ export const AssetQuestion = ({
           dateModified: new Date(),
           monthlyPayment: monthlyContribution,
         };
+
+        const userAssets = prev?.finance?.assets || [];
+        const existingAssetIndex = userAssets.findIndex(
+          item => item.id === assetType.id,
+        );
+
+        if (existingAssetIndex !== -1) {
+          userAssets[existingAssetIndex] = asset;
+        } else {
+          userAssets.push(asset);
+        }
+
         return {
           ...prev,
           finance: {
             ...prev?.finance,
-            assets: prev?.finance?.assets
-              ? [...prev?.finance?.assets, asset]
-              : [asset],
+            assets: userAssets,
           },
         };
       });

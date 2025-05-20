@@ -56,7 +56,7 @@ export const ExpenseQuestion = ({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      expense: 0,
+      expense: user?.finance?.monthlyNetExpense ?? 0,
     },
   });
 

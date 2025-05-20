@@ -7,6 +7,7 @@ let mockFinanceData: FinanceScreenData = {
   isError: false,
   error: null,
   data: undefined,
+  refetch: () => {},
 };
 
 jest.mock('./useFinanceScreenData', () => ({
@@ -29,6 +30,7 @@ test('Finance data is displayed', () => {
     isPending: false,
     isError: false,
     error: null,
+    refetch: () => {},
     data: {
       currency: 'USD',
       totalWorth: 10000,
@@ -52,6 +54,8 @@ test('Finance data is displayed', () => {
           keepInPension: false,
           avgGrowthRate: 3,
           supportsRegularPayments: true,
+          question_en: 'question_en',
+          question_sk: 'question_sk',
         },
       ],
       liabilities: [
@@ -83,6 +87,7 @@ test('Loading indicator is displayed while data is loading', () => {
     isError: false,
     data: undefined,
     error: null,
+    refetch: () => {},
   };
   render(<FinanceScreen />);
   expect(screen.getByTestId('loading-indicator')).toBeOnTheScreen();
@@ -93,6 +98,7 @@ test('Error message is displayed in case of an error', () => {
     isPending: false,
     isError: true,
     data: undefined,
+    refetch: () => {},
     error: new Error('Test error msg'),
   };
   render(<FinanceScreen />);

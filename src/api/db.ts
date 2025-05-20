@@ -22,8 +22,11 @@ export const getUserData = async (): Promise<User | null> => {
     }
     const assetTypes = await getAssetTypes();
     const userAssets: Asset[] =
-      user?.finance?.assets?.map(asset => {
+      user?.finance?.assets?.flatMap(asset => {
         const assetType = assetTypes.find(item => item.id === asset.id);
+        if (!assetType) {
+          return [];
+        }
         return {
           ...assetType,
           value: asset.value,
@@ -33,8 +36,8 @@ export const getUserData = async (): Promise<User | null> => {
         };
       }) || [];
 
-    const userLiabilities: Liability[] = user?.finance?.liabilities?.map(
-      liability => {
+    const userLiabilities: Liability[] =
+      user?.finance?.liabilities?.map(liability => {
         return {
           value: liability.value,
           name: liability.name,
@@ -43,8 +46,7 @@ export const getUserData = async (): Promise<User | null> => {
           dateModified: liability.dateModified.toDate(),
           id: liability.id,
         };
-      },
-    );
+      }) || [];
 
     return {
       ...user,
@@ -99,10 +101,14 @@ export const setUserData = async (user: User) => {
     if (!currentUser) {
       throw new Error('User not signed in.');
     }
-    await firestore()
-      .collection('users')
-      .doc(currentUser?.uid)
-      .set(getUserSchemaFromUser(user));
+
+    const userSchema = getUserSchemaFromUser(user);
+    if (userSchema) {
+      await firestore()
+        .collection('users')
+        .doc(currentUser?.uid)
+        .set(userSchema);
+    }
   } catch (error) {
     throw error;
   }

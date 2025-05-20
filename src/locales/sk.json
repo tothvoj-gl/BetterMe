@@ -36,6 +36,42 @@
     "english": "English",
     "slovak": "Slovenčina"
   },
+"addFinanceInfoScreen": {
+  "next": "Ďalej",
+  "dateOfBirthTitle": "Aký je váš dátum narodenia?",
+  "dateOfBirthDescription": "(Túto informáciu potrebujeme na výpočet očakávaného dôchodku.)",
+  "sexTitle": "Aké je vaše pohlavie?",
+  "sexDescription": "(Túto informáciu potrebujeme na odhad vašej očakávanej dĺžky života.)",
+  "female": "Žena",
+  "male": "Muž",
+  "preferNotToSay": "Radšej neuvádzať",
+  "incomeTitle": "Aký je váš mesačný čistý príjem?",
+  "incomeDescription": "(Zahrňte všetky formy príjmu ako mzda, bonusy, prenájom, dividendy, tantiémy a pod.)",
+  "incomeFieldError": "Očakáva sa kladné číslo.",
+  "liabilityNameFieldError": "Zadajte názov tohto záväzku.",
+  "currencyTitle": "V akej mene by sme mali pracovať?",
+  "expenseTitle": "Aké sú vaše mesačné výdavky?",
+  "expenseDescription": "(Zahrňte všetky typy výdavkov ako nájomné, potraviny, dopravu, zdravotnú starostlivosť a poistenie, vzdelanie, nakupovanie, cestovanie a voľný čas a pod. Splátky úverov neuvádzajte. Tie pridáte neskôr.)",
+  "averageIncomeGrowthRateTitle": "Aký je váš očakávaný ročný rast príjmu?",
+  "assetTitleETF": "Koľko peňazí máte momentálne investovaných v ETF?",
+  "assetTitleGold": "Koľko peňazí máte momentálne investovaných v zlate?",
+  "assetTitleCash": "Koľko peňazí máte momentálne v hotovosti alebo na bežnom účte?",
+  "assetTitleShares": "Koľko peňazí máte momentálne investovaných v akciách?",
+  "assetTitleCar": "Aká je odhadovaná trhová hodnota vášho auta (vašich áut)?",
+  "assetTitleBankSavings": "Koľko peňazí máte momentálne na sporiacom účte?",
+  "assetTitleCrypto": "Koľko peňazí máte momentálne investovaných v Bitcoine/Ethereu?",
+  "assetTitleRealEstate": "Koľko peňazí máte momentálne investovaných v nehnuteľnostiach?",
+  "assetTitleRealBonds": "Koľko peňazí máte momentálne investovaných do štátnych dlhopisov?",
+  "keepInPensionDescription": "Plánujete tento majetok predať na financovanie dôchodku?",
+  "regularPaymentDescription": "Mesačný príspevok k tomuto majetku:",
+  "liabilitiesTitle": "Aké úvery momentálne máte?",
+  "interestRateLabel": "Úroková sadzba (%)",
+  "remainingBalanceLabel": "Zostatok úveru",
+  "loanEndDateLabel": "Dátum splatenia úveru",
+  "addLoanButtonLabel": "Pridať úver",
+  "loanNameLabel": "Názov úveru",
+  "loanNameDescription": "Pomenujte tento úver"
+},
   "loginScreen": {
     "email": "Email",
     "emailFieldError": "Neplatný formát emailu.",
@@ -55,5 +91,8 @@
     "footer2": "podmienkami používania",
     "footer3": " a ",
     "footer4": "ochranou osobných údajov"
+  },
+  "errorMessages":{
+    "firestorePermissionDenied":"Na túto akciu nemáte povolenie."
   }
 }
