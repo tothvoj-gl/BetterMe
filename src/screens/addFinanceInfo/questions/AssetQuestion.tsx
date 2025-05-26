@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {AppText} from '../../../components/AppText';
 import {useTranslation} from 'react-i18next';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {StyleSheet, UnistylesRuntime} from 'react-native-unistyles';
 import {Spacing} from '../../../components/Spacing';
 import {QuestionProps} from '../AddFinanceInfoScreen';
@@ -134,7 +134,7 @@ export const AssetQuestion = ({
   });
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <AppText weight="bold" size="header3" style={styles.text}>
         {assetType[`question_${i18n.language}` as keyof AssetType]}
       </AppText>
@@ -219,6 +219,6 @@ export const AssetQuestion = ({
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };

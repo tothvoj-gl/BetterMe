@@ -196,7 +196,10 @@ export const getUserSchemaFromUser = (user: User): UserResponse => {
   const assets = user.finance.assets
     ?.filter(item => item.value > 0)
     .map(asset => ({
-      ...asset,
+      id: asset.id,
+      value: asset.value,
+      keepInPension: asset.keepInPension,
+      monthlyPayment: asset.monthlyPayment,
       dateModified: Timestamp.fromDate(asset.dateModified),
     }));
 

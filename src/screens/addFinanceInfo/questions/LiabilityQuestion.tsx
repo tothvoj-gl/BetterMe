@@ -197,6 +197,7 @@ export const LiabilityQuestion = ({
             }}
             mode="date"
             minimumDate={new Date()}
+            theme="light"
           />
           <Spacing />
           <Separator />

@@ -11,7 +11,7 @@ import {StyleSheet, UnistylesRuntime} from 'react-native-unistyles';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import {useCallback, useEffect, useRef, useState} from 'react';
-import {Bar as ProgressBar} from 'react-native-progress';
+import ProgressBar from 'react-native-progress/Bar';
 import Toast from 'react-native-toast-message';
 import {DateOfBirthQuestion} from './questions/DateOfBirthQuestion';
 import {IncomeQuestion} from './questions/IncomeQuestion';

@@ -21,6 +21,7 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: theme.spacing.m,
     backgroundColor: theme.colors.background,
     justifyContent: 'space-between',
+    paddingBottom: theme.spacing.s,
   },
   buttonText: {
     textAlign: 'center',

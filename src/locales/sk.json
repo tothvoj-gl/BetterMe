@@ -1,11 +1,17 @@
 {
   "screenNames": {
     "Finance": "Financie",
-    "Profile": "Profil"
+    "Profile": "Profil",
+    "AddFinanceInfo": "Informácie o financiách",
+    "Login": "Prihlásenie",
+    "Register": "Registrácia"     
   },
   "common":{
     "retry":"Skúsiť znovu",
-    "genericErrorMessage":"Nastala chyba, prosím skúste neskôr."
+    "genericErrorMessage":"Nastala chyba, prosím skúste neskôr.",
+    "yes" : "Áno",
+    "no" : "Nie",
+    "edit": "Upraviť"
   },
   "financeScreen": {
     "letsStart": "Chcem začať",

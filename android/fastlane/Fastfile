@@ -25,7 +25,7 @@ platform :android do
   lane :beta do
     store_password = prompt(text: "Signing Store Password: ", secure_text: true)
     key_password = prompt(text: "Alias Key Password: ", secure_text: true)
-    releaseFilePath = File.join(Dir.pwd, "..", "my-release-key.keystore")
+    releaseFilePath = File.join(Dir.pwd, "..", "release-key.keystore")
     gradle(task: 'clean')
     gradle(
       task: 'assemble',
@@ -34,7 +34,7 @@ platform :android do
       properties: {
         "android.injected.signing.store.file" => releaseFilePath,
         "android.injected.signing.store.password" => store_password,
-        "android.injected.signing.key.alias" => "my-key-alias",
+        "android.injected.signing.key.alias" => "key0",
         "android.injected.signing.key.password" => key_password,
       }
     )

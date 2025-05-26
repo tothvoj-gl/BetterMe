@@ -1,13 +1,17 @@
 {
   "screenNames": {
     "Finance": "Finance",
-    "Profile": "Profile"
+    "Profile": "Profile",
+    "AddFinanceInfo": "AddFinanceInfo",
+    "Login": "Login",
+    "Register": "Register"      
   },
   "common":{
     "retry":"Retry",
     "genericErrorMessage":"Something went wrong, please try again later.",
      "yes" : "Yes",
-    "no" : "No"
+    "no" : "No",
+    "edit": "Edit"
   },
   "financeScreen": {
     "letsStart": "Let's start",

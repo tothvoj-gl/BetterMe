@@ -46,6 +46,7 @@ function TabBarIcon(icon: any) {
 const Tab = createBottomTabNavigator();
 function HomeTabs() {
   const {t} = useTranslation('screenNames');
+  const {t: common} = useTranslation('common');
   const navigation = useNavigation();
   return (
     <Tab.Navigator screenOptions={{tabBarActiveTintColor: pallette.primary900}}>
@@ -59,7 +60,7 @@ function HomeTabs() {
           },
           headerRight: () => (
             <Button
-              title={'Edit'}
+              title={common('Edit')}
               onPress={() => navigation.navigate('AddFinanceInfo')}
             />
           ),
@@ -83,7 +84,7 @@ const Stack = createNativeStackNavigator();
 function RootStack() {
   useFetchRemoteConfig();
   useSubscribeToUserChanges();
-
+  const {t} = useTranslation('screenNames');
   const {isPending, data: user} = useCurrentUser();
 
   if (isPending) {
@@ -98,18 +99,18 @@ function RootStack() {
     <Stack.Navigator>
       {!user ? (
         <>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name={t('Login')} component={LoginScreen} />
+          <Stack.Screen name={t('Register')} component={RegisterScreen} />
         </>
       ) : (
         <>
           <Stack.Screen
-            name="Home"
+            name={'Home'}
             component={HomeTabs}
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="AddFinanceInfo"
+            name={t('AddFinanceInfo')}
             component={AddFinanceInfoScreen}
           />
         </>
