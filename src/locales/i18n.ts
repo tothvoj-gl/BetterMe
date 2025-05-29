@@ -21,7 +21,6 @@ const initI18n = async () => {
     resources,
     lng: savedLanguage,
     fallbackLng: 'en',
-    debug: true,
   });
 };
 

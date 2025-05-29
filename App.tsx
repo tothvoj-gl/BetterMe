@@ -19,6 +19,7 @@ import {useFetchRemoteConfig} from './src/api/remoteConfig';
 import {LoadingSpinner} from './src/components/LoadingSpinner';
 import {RegisterScreen} from './src/screens/login/RegisterScreen';
 import {useTranslation} from 'react-i18next';
+import i18n from './src/locales/i18n';
 
 const styles = StyleSheet.create({
   splash: {
@@ -84,7 +85,6 @@ const Stack = createNativeStackNavigator();
 function RootStack() {
   useFetchRemoteConfig();
   useSubscribeToUserChanges();
-  const {t} = useTranslation('screenNames');
   const {isPending, data: user} = useCurrentUser();
 
   if (isPending) {
@@ -99,8 +99,14 @@ function RootStack() {
     <Stack.Navigator>
       {!user ? (
         <>
-          <Stack.Screen name={t('Login')} component={LoginScreen} />
-          <Stack.Screen name={t('Register')} component={RegisterScreen} />
+          <Stack.Screen
+            name={i18n.getResource(i18n.language, 'screenNames', 'Login')}
+            component={LoginScreen}
+          />
+          <Stack.Screen
+            name={i18n.getResource(i18n.language, 'screenNames', 'Register')}
+            component={RegisterScreen}
+          />
         </>
       ) : (
         <>
@@ -110,7 +116,11 @@ function RootStack() {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name={t('AddFinanceInfo')}
+            name={i18n.getResource(
+              i18n.language,
+              'screenNames',
+              'AddFinanceInfoScreen',
+            )}
             component={AddFinanceInfoScreen}
           />
         </>
