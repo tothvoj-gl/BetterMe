@@ -4,6 +4,7 @@ import {Asset, Liability, User} from '../model/types';
 import {AssetType, Constants, UserSchema} from './types';
 import {getCurrentUser} from './auth/auth';
 import {getUserSchemaFromUser} from '../util/data';
+import {ETF_ASSET_ID} from '../util/constant';
 
 export const getUserData = async (): Promise<User | null> => {
   try {
@@ -76,6 +77,10 @@ export const getAssetTypes = async () => {
     querySnapshot.forEach(documentSnapshot => {
       assetTypes.push(documentSnapshot.data() as AssetType);
     });
+
+    assetTypes.sort((asset1, asset2) =>
+      ETF_ASSET_ID === asset1.id || asset1.id < asset2.id ? -1 : 1,
+    );
 
     return assetTypes;
   } catch (error) {

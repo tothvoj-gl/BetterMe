@@ -47,8 +47,7 @@ function TabBarIcon(icon: any) {
 const Tab = createBottomTabNavigator();
 function HomeTabs() {
   const {t} = useTranslation('screenNames');
-  const {t: common} = useTranslation('common');
-  const navigation = useNavigation();
+
   return (
     <Tab.Navigator screenOptions={{tabBarActiveTintColor: pallette.primary900}}>
       <Tab.Screen
@@ -59,12 +58,6 @@ function HomeTabs() {
             const icon = focused ? activeChartIcon : chartIcon;
             return TabBarIcon(icon);
           },
-          headerRight: () => (
-            <Button
-              title={common('Edit')}
-              onPress={() => navigation.navigate('AddFinanceInfo')}
-            />
-          ),
         }}
       />
       <Tab.Screen
@@ -119,9 +112,10 @@ function RootStack() {
             name={i18n.getResource(
               i18n.language,
               'screenNames',
-              'AddFinanceInfoScreen',
+              'AddFinanceInfo',
             )}
             component={AddFinanceInfoScreen}
+            options={{headerShown: false}}
           />
         </>
       )}

@@ -5,7 +5,7 @@ import {AppText} from '../../components/AppText';
 import {getDeviceCurrencySymbol} from '../../util/data';
 import {FinanceListItem} from './FinanceListItem';
 import Slider from '@react-native-community/slider';
-import {useState} from 'react';
+import {useCallback, useLayoutEffect, useState} from 'react';
 import {pallette} from '../../util/colors';
 import {Spacing} from '../../components/Spacing';
 import {LoadingSpinner} from '../../components/LoadingSpinner';
@@ -14,6 +14,7 @@ import {useFinanceScreenData} from './useFinanceScreenData';
 import {useNavigation} from '@react-navigation/native';
 import {formatMoney, formatMoneyWithCurrencySymbol} from '../../util/formatter';
 import {useTranslation} from 'react-i18next';
+import {EditButton} from '../../components/EditButton';
 
 const styles = StyleSheet.create(theme => ({
   container: {
@@ -78,6 +79,18 @@ export const FinanceScreen = () => {
   const {data, isPending, isError, refetch} = useFinanceScreenData(years);
   const {t} = useTranslation('financeScreen');
   const {t: common} = useTranslation('common');
+  const {t: screenNames} = useTranslation('screenNames');
+
+  const headerRightButton = useCallback(
+    () => <EditButton shouldShow={!!data} />,
+    [data],
+  );
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: headerRightButton,
+    });
+  }, [headerRightButton, navigation]);
 
   if (isPending) {
     return (
@@ -142,15 +155,7 @@ export const FinanceScreen = () => {
           <AppText color="light" style={styles.centeredText}>
             {t('simulateFuture')}
           </AppText>
-          <Slider
-            style={styles.slider}
-            minimumValue={0}
-            maximumValue={userLifeExpectancy - userAge - 1}
-            onValueChange={value => setYears(value)}
-            minimumTrackTintColor={pallette.secondary900}
-            maximumTrackTintColor={pallette.primary900}
-            step={1}
-          />
+          <Spacing />
           <Text style={styles.centeredText}>
             <AppText weight="bold" size="header4" color="highlight">
               {years === 0 ? t('now') : ''}
@@ -165,6 +170,16 @@ export const FinanceScreen = () => {
                     : t('yearsFromNowOn', {value: years})}
             </AppText>
           </Text>
+          <Slider
+            style={styles.slider}
+            minimumValue={0}
+            maximumValue={userLifeExpectancy - userAge - 1}
+            onValueChange={value => setYears(value)}
+            minimumTrackTintColor={pallette.secondary900}
+            maximumTrackTintColor={pallette.primary900}
+            step={1}
+          />
+
           <Spacing />
         </View>
         <Spacing />
@@ -256,7 +271,7 @@ export const FinanceScreen = () => {
       <Image style={styles.noDataImage} source={require('./img/finance.png')} />
       <Spacing />
       <AppButton
-        onPress={() => navigation.navigate('AddFinanceInfo')}
+        onPress={() => navigation.navigate(screenNames('AddFinanceInfo'))}
         label={t('letsStart')}
       />
     </View>

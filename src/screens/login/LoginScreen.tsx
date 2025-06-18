@@ -39,6 +39,7 @@ const styles = StyleSheet.create(theme => ({
 
 export const LoginScreen = () => {
   const {t} = useTranslation('loginScreen');
+  const {t: screenNames} = useTranslation('screenNames');
   const schema = z
     .object({
       email: z.string().email(t('emailFieldError')),
@@ -145,7 +146,7 @@ export const LoginScreen = () => {
             size="body2"
             weight="bold"
             onPress={() => {
-              navigation.navigate('Register');
+              navigation.navigate(screenNames('Register'));
             }}>
             {t('createAccount')}
           </AppText>

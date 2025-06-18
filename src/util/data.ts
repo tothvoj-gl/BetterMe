@@ -45,13 +45,12 @@ export const getUserNetWorth = (
   let totalWorth = 0;
   user.finance?.assets?.forEach(asset => {
     if (!excludeNonPensionAssets || !asset.keepInPension) {
-      console.log(asset);
-
       const {assetTotalNetWorth, assetTotalWorth} = getRealFutureValue(
         asset.value,
         asset.avgGrowthRate,
         yearsFromNow,
         inflationRate,
+        asset.monthlyPayment,
       );
       totalWorth = totalWorth + assetTotalWorth;
       totalNetWorth = totalNetWorth + assetTotalNetWorth;

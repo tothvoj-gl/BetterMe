@@ -55,10 +55,10 @@ export const AssetQuestion = ({
     asset => asset.id === assetType.id,
   );
   const [keepInPension, setKeepInPension] = useState(
-    !!existingAsset?.keepInPension,
+    existingAsset?.keepInPension,
   );
 
-  console.log('elizaaa');
+  console.log({keepInPension});
 
   const schema = z
     .object({
@@ -94,7 +94,7 @@ export const AssetQuestion = ({
         const asset: Asset = {
           ...assetType,
           value: value,
-          keepInPension: keepInPension,
+          keepInPension: !!keepInPension,
           dateModified: new Date(),
           monthlyPayment: monthlyContribution,
         };
@@ -213,9 +213,11 @@ export const AssetQuestion = ({
             {label: common('yes'), value: 'true'},
             {label: common('no'), value: 'false'},
           ]}
-          initialIndex={0}
+          initialIndex={existingAsset?.keepInPension ? 1 : 0}
           onPress={v => {
-            setKeepInPension(!v);
+            console.log(v);
+
+            setKeepInPension(v !== 'true');
           }}
         />
       </View>

@@ -26,7 +26,7 @@
     "monthlyAssetPayments": "Výdavky na investície",
     "assets": "Aktíva",
     "liabilities": "Pasíva",
-    "inCurrentPrices": "({{value}} v súčasných cenách)",
+    "inCurrentPrices": "({{value}} pri započítaní inflácie)",
     "now": "Súčasnosť",
     "yearsFromNowOnOneYear": "o {{value}} rok",
     "yearsFromNowOnLessThanFive": "o {{value}} roky",

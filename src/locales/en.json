@@ -26,7 +26,7 @@
     "monthlyAssetPayments": "Monthly asset payments",
     "assets": "Assets",
     "liabilities": "Liabilities",
-    "inCurrentPrices": "({{value}} in current prices)",
+    "inCurrentPrices": "({{value}} with inflation)",
     "now": "Now",
     "yearsFromNowOnOneYear": "{{value}} year from now",
     "yearsFromNowOnLessThanFive": "{{value}} years from now",

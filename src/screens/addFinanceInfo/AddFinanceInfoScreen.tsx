@@ -153,7 +153,7 @@ export const AddFinanceInfoScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
       style={styles.keyboardAvoidingView}>
-      <SafeAreaView style={styles.container} edges={['bottom']}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.progressBarContainer}>
           <ProgressBar
             progress={(currentIndex + 1) / allQuestions.length}
