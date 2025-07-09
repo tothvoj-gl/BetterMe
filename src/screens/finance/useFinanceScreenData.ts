@@ -51,7 +51,7 @@ export const useFinanceScreenData = (years: number): FinanceScreenData => {
 
     const {pension, netPension} = getMontlhlyPension(user, years, constants);
     let assetPayments = 0;
-    const assets =
+    const assets = (
       user.finance?.assets?.map(asset => {
         assetPayments = assetPayments + (asset.monthlyPayment || 0);
         const futureValue = getRealFutureValue(
@@ -69,7 +69,8 @@ export const useFinanceScreenData = (years: number): FinanceScreenData => {
               ? futureValue + totalRealIncome
               : futureValue,
         };
-      }) || [];
+      }) || []
+    ).filter(item => item.value > 0);
 
     let liabilityPayments = 0;
     const liabilities =

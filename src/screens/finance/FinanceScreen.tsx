@@ -129,6 +129,8 @@ export const FinanceScreen = () => {
       liabilityPayments,
     } = data;
 
+    console.log({assets});
+
     return (
       <ScrollView
         contentContainerStyle={styles.container}
@@ -170,6 +172,7 @@ export const FinanceScreen = () => {
                     : t('yearsFromNowOn', {value: years})}
             </AppText>
           </Text>
+          <Spacing />
           <Slider
             style={styles.slider}
             minimumValue={0}

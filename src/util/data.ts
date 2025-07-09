@@ -192,23 +192,19 @@ export const getCurrentLocale = () => {
 };
 
 export const getUserSchemaFromUser = (user: User): UserResponse => {
-  const assets = user.finance.assets
-    ?.filter(item => item.value > 0)
-    .map(asset => ({
-      id: asset.id,
-      value: asset.value,
-      keepInPension: asset.keepInPension,
-      monthlyPayment: asset.monthlyPayment,
-      dateModified: Timestamp.fromDate(asset.dateModified),
-    }));
+  const assets = user.finance.assets?.map(asset => ({
+    id: asset.id,
+    value: asset.value,
+    keepInPension: asset.keepInPension,
+    monthlyPayment: asset.monthlyPayment,
+    dateModified: Timestamp.fromDate(asset.dateModified),
+  }));
 
-  const liabilities = user.finance.liabilities
-    ?.filter(item => item.value > 0)
-    .map(liability => ({
-      ...liability,
-      dateModified: Timestamp.fromDate(liability.dateModified),
-      endDate: Timestamp.fromDate(liability.endDate),
-    }));
+  const liabilities = user.finance.liabilities?.map(liability => ({
+    ...liability,
+    dateModified: Timestamp.fromDate(liability.dateModified),
+    endDate: Timestamp.fromDate(liability.endDate),
+  }));
   return {
     ...user,
     birthDate: Timestamp.fromDate(user.birthDate),
