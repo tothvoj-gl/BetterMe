@@ -38,14 +38,6 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: theme.spacing.m,
   },
   centeredText: {textAlign: 'center'},
-  buttonText: {
-    fontSize: 18,
-    fontFamily: 'Gill Sans',
-    textAlign: 'center',
-    margin: 10,
-    color: theme.colors.background,
-    backgroundColor: 'transparent',
-  },
   viewWithPadding: {
     paddingHorizontal: theme.spacing.m,
   },
@@ -265,6 +257,7 @@ export const FinanceScreen = () => {
             );
           })}
         </View>
+        <AppText color="light">{t('profitNotice')}</AppText>
       </ScrollView>
     );
   }

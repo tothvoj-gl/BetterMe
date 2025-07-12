@@ -85,8 +85,8 @@ android {
         applicationId 'eu.eliteo.finteo'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.0"
+        versionCode 1010
+        versionName "1.01"
     }
     signingConfigs {
         debug {

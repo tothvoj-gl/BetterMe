@@ -17,7 +17,7 @@
     "letsStart": "Chcem začať",
     "totalNetWorth": "Čistý majetok",
     "expectedPension": "Očakávaný mesačný dôchodok",
-    "simulateFuture": "Posúvajte pre simuláciu budúcnosti",
+    "simulateFuture": "Posúvajte pre simuláciu budúcnosti*",
     "withoutInflation": "bez inflácie",
     "withdrawalPeriod": "pri predpokladanom {{value}} ročnom čerpaní dôchodku",
     "montlyNetIncome": "Čistý mesačný príjem",
@@ -30,7 +30,8 @@
     "now": "Súčasnosť",
     "yearsFromNowOnOneYear": "o {{value}} rok",
     "yearsFromNowOnLessThanFive": "o {{value}} roky",
-    "yearsFromNowOn": "o {{value}} rokov"
+    "yearsFromNowOn": "o {{value}} rokov",
+    "profitNotice":"*Minulé výnosy nie sú garanciou budúcich výnosov."
   },
   "profileScreen": {
     "termsOfUse": "Podmienky používania",

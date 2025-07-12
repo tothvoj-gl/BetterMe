@@ -17,7 +17,7 @@
     "letsStart": "Let's start",
     "totalNetWorth": "Total net worth",
     "expectedPension": "Expected monthly pension",
-    "simulateFuture": "Use the slider to simulate future",
+    "simulateFuture": "Use the slider to simulate future*",
     "withoutInflation": "without inflation",
     "withdrawalPeriod": "assuming a {{value}}-year withdrawal period",
     "montlyNetIncome": "Monthly net income",
@@ -30,7 +30,8 @@
     "now": "Now",
     "yearsFromNowOnOneYear": "{{value}} year from now",
     "yearsFromNowOnLessThanFive": "{{value}} years from now",
-    "yearsFromNowOn": "{{value}} years from now"
+    "yearsFromNowOn": "{{value}} years from now",
+    "profitNotice":"*Past performance is no guarantee of future results."
   },
   "profileScreen": {
     "termsOfUse": "Terms of Use",

@@ -30,6 +30,7 @@ import {AppText} from '../../components/AppText';
 import {Separator} from '../../components/Separator';
 import {useUserData} from '../../api/useUserData';
 import {formatRemoteDataError} from '../../util/formatter';
+import {LoadingSpinner} from '../../components/LoadingSpinner';
 
 export enum QuestionType {
   DateOfBirth,
@@ -145,8 +146,6 @@ export const AddFinanceInfoScreen = () => {
       });
     }
   }, [mutation.isSuccess, mutation.error, navigation]);
-
-  console.log({user: user});
 
   return (
     <KeyboardAvoidingView
@@ -269,6 +268,7 @@ export const AddFinanceInfoScreen = () => {
           showsHorizontalScrollIndicator={false}
         />
         <View>
+          {mutation.isPending && <LoadingSpinner />}
           <AppButton
             label={t('next')}
             onPress={() => {
