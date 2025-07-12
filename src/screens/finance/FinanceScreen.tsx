@@ -121,8 +121,6 @@ export const FinanceScreen = () => {
       liabilityPayments,
     } = data;
 
-    console.log({assets});
-
     return (
       <ScrollView
         contentContainerStyle={styles.container}

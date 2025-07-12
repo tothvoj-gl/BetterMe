@@ -58,8 +58,6 @@ export const AssetQuestion = ({
     existingAsset?.keepInPension,
   );
 
-  console.log({keepInPension});
-
   const schema = z
     .object({
       value: z.coerce
@@ -215,8 +213,6 @@ export const AssetQuestion = ({
           ]}
           initialIndex={existingAsset?.keepInPension ? 1 : 0}
           onPress={v => {
-            console.log(v);
-
             setKeepInPension(v !== 'true');
           }}
         />

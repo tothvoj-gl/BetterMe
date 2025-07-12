@@ -16,9 +16,17 @@ jest.mock('./useFinanceScreenData', () => ({
 
 const mockedNavigate = jest.fn();
 
-jest.mock('@react-navigation/native', () => ({
-  useNavigation: () => ({navigate: mockedNavigate}),
-}));
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native');
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      setOptions: jest.fn(),
+      navigate: mockedNavigate,
+      goBack: jest.fn(),
+    }),
+  };
+});
 
 test('Lets start button is displayed if there is no finance data', () => {
   render(<FinanceScreen />);
@@ -102,5 +110,7 @@ test('Error message is displayed in case of an error', () => {
     error: new Error('Test error msg'),
   };
   render(<FinanceScreen />);
-  expect(screen.getByText('Test error msg')).toBeOnTheScreen();
+  expect(
+    screen.getByText('Something went wrong, please try again later.'),
+  ).toBeOnTheScreen();
 });

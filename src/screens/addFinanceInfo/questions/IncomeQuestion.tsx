@@ -72,7 +72,6 @@ export const IncomeQuestion = ({
     const validationResult = await trigger('income');
     if (validationResult) {
       const income = Number(getValues('income'));
-      console.log({income});
 
       userDataUpdated(prev => ({
         ...prev,

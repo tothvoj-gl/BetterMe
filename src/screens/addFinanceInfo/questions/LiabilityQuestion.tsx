@@ -71,7 +71,6 @@ export const LiabilityQuestion = ({
 
   const validate = useCallback(async () => {
     const valid = await trigger();
-    console.log({valid});
 
     if (valid) {
       userDataUpdated(prev => ({

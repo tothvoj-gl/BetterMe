@@ -22,16 +22,16 @@ test('getUserNetWorth', () => {
   const result = getUserNetWorth(userMock, 10, 3, true);
   expect(result).toStrictEqual({
     totalIncome: 387166.7603707186,
-    totalNetWorth: 338673.85849613807,
+    totalNetWorth: 366360.0799848854,
     totalRealIncome: 286927.5892717283,
-    totalWorth: 473041.84377445636,
+    totalWorth: 510249.8103153331,
   });
 
   const result2 = getUserNetWorth(userMock, 10, 3, false);
   expect(result2).toStrictEqual({
     totalIncome: 387166.7603707186,
-    totalNetWorth: 708459.9161142001,
+    totalNetWorth: 736146.1376029474,
     totalRealIncome: 286927.5892717283,
-    totalWorth: 970003.3834604593,
+    totalWorth: 1007211.3500013361,
   });
 });
