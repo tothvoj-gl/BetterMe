@@ -64,9 +64,11 @@ export const LoginScreen = () => {
 
   const login = useLogin();
   const onLogin = (data: FormData) => {
+    console.log('eliza');
+
     login.mutate({email: data.email, password: data.password});
   };
-
+  console.log(login.error);
   const onDemoLogin = () => {
     login.mutate({
       email: getRemoteConfigValue(RemoteConfigKey.DemoEmail),
@@ -89,6 +91,7 @@ export const LoginScreen = () => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              testID="email-input"
             />
           )}
           name="email"
@@ -109,6 +112,7 @@ export const LoginScreen = () => {
               onChangeText={onChange}
               value={value}
               secureTextEntry
+              testID="password-input"
             />
           )}
           name="password"
@@ -126,6 +130,7 @@ export const LoginScreen = () => {
         <AppButton
           disabled={login.isPending}
           label={t('login')}
+          testID="login-button"
           onPress={handleSubmit(onLogin)}
         />
         <AppText style={styles.centeredText} color="light" size="body2">

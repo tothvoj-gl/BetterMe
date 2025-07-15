@@ -85,6 +85,7 @@ export const RegisterScreen = () => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              testID="email-input"
             />
           )}
           name="email"
@@ -105,6 +106,7 @@ export const RegisterScreen = () => {
               onChangeText={onChange}
               value={value}
               secureTextEntry
+              testID="password-input"
             />
           )}
           name="password"
@@ -125,6 +127,7 @@ export const RegisterScreen = () => {
               onChangeText={onChange}
               value={value}
               secureTextEntry
+              testID="confirm-password-input"
             />
           )}
           name="confirmPassword"
@@ -141,6 +144,7 @@ export const RegisterScreen = () => {
         <AppButton
           disabled={register.isPending}
           label={t('createAccount')}
+          testID="register-button"
           onPress={handleSubmit(onRegister)}
         />
 

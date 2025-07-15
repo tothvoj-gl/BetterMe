@@ -15,6 +15,7 @@ export type Props = {
   secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions | undefined;
   maxWidth?: number;
+  testID?: string;
 };
 
 const styles = StyleSheet.create(theme => ({
@@ -39,9 +40,11 @@ export const AppTextinput = ({
   secureTextEntry,
   keyboardType,
   maxWidth,
+  testID,
 }: Props) => {
   return (
     <TextInput
+      testID={testID}
       textAlign="center"
       keyboardType={keyboardType}
       secureTextEntry={secureTextEntry}

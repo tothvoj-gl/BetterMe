@@ -4,6 +4,8 @@ import auth, {
 } from '@react-native-firebase/auth';
 
 export const loginWithEmailPassword = (email: string, password: string) => {
+  console.log('vojto');
+
   return auth().signInWithEmailAndPassword(email, password);
 };
 

@@ -8,6 +8,7 @@ export type Props = {
   onPress: () => void;
   label: string;
   disabled?: boolean;
+  testID?: string;
 };
 
 const styles = StyleSheet.create(() => ({
@@ -23,9 +24,13 @@ const styles = StyleSheet.create(() => ({
   },
 }));
 
-export const AppButton = ({label, onPress, disabled}: Props) => {
+export const AppButton = ({label, onPress, disabled, testID}: Props) => {
   return (
-    <Pressable accessibilityRole="button" onPress={onPress} disabled={disabled}>
+    <Pressable
+      accessibilityRole="button"
+      onPress={onPress}
+      disabled={disabled}
+      testID={testID}>
       {({pressed}) => (
         <LinearGradient
           start={{x: 0, y: 0}}

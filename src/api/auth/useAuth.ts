@@ -25,9 +25,14 @@ export const useLogin = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: {email: string; password: string}) => {
+      console.log('calllling');
+
       return loginWithEmailPassword(data.email, data.password);
     },
     onSuccess: user => {
+      console.log('onSuccesssssss');
+      console.log(user);
+
       queryClient.setQueryData(['currentUser'], user);
     },
   });
