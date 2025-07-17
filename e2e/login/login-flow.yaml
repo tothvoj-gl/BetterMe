@@ -1,0 +1,10 @@
+appId: eu.eliteo.finteo
+---
+- launchApp
+- tapOn: 'Email'
+- inputText: 'vojtech@example.com'
+- tapOn: 'Password'
+- inputText: 'secret123'
+- tapOn:
+    id: 'login-button'
+- assertVisible: 'Invalid credentials.'

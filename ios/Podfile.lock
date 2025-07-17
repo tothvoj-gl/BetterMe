@@ -3811,7 +3811,7 @@ SPEC CHECKSUMS:
   React-timing: bfcc9cbb8679fac884ea344102ebb1498d75fb9e
   React-utils: 098b91d90a32e75eb30171aca08deece0979c8ab
   ReactAppDependencyProvider: 7f5052913dd72a0e84ca95973f9f8bc97f2c5b95
-  ReactCodegen: 705fdb782f9ce714a7222ced8261f778bcb197d3
+  ReactCodegen: 432ab44c696f7dc8ef0641281012ad3c191e3f89
   ReactCommon: 4f0e046f6c9abecc017956dbfdbaddd331afa0ea
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   RNCAsyncStorage: 646c1bf2ebfc78d6632a3b0399f471fba8101e73

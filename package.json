@@ -10,7 +10,13 @@
     "start": "react-native start",
     "test": "jest",
     "test:coverage": "yarn test --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "e2e:ios:build": "xcrun xcodebuild -scheme 'BetterMe' -workspace './ios/BetterMe.xcworkspace' -configuration Release -sdk 'iphonesimulator' -destination 'generic/platform=iOS Simulator' -derivedDataPath ios/build",
+    "e2e:android:build": "cd android && ./gradlew assembleRelease",
+    "e2e:android:install": "adb install emulator-5554 android/app/build/outputs/apk/release/app-release.apk",
+    "e2e:ios:install": "xcrun simctl install 2D0B4DF2-7D80-45BC-923B-9D98D4855ACC ./ios/build/Build/Products/Release-iphonesimulator/Finteo.app",
+    "e2e:ios:run": "maestro --device 2D0B4DF2-7D80-45BC-923B-9D98D4855ACC test e2e/* ",
+    "e2e:android:run": "maestro --device emulator-5554 test e2e/*"
   },
   "dependencies": {
     "@hookform/resolvers": "4.1.3",
