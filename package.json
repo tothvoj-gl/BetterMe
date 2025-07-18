@@ -79,6 +79,7 @@
     "lint-staged": "15.4.3",
     "prettier": "3.5.0",
     "react-test-renderer": "19.0.0",
+    "reassure": "1.4.0",
     "typescript": "5.0.4"
   },
   "engines": {

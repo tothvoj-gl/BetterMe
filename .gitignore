@@ -67,6 +67,7 @@ yarn-error.log
 
 # testing
 /coverage
+.reassure/*
 
 # Yarn
 .yarn/*

@@ -22,6 +22,18 @@ jest.mock('react-native-unistyles', () => {
     require('@react-native-async-storage/async-storage/jest/async-storage-mock')
   );
 
+  jest.mock('@react-native-firebase/crashlytics', () => {
+    return jest.fn(() => ({
+      log: jest.fn(),
+      recordError: jest.fn(),
+      crash: jest.fn(),
+      setUserId: jest.fn(),
+      setAttribute: jest.fn(),
+      setAttributes: jest.fn(),
+      setCrashlyticsCollectionEnabled: jest.fn(),
+    }));
+  });
+
   jest.mock('@react-native-firebase/auth', () => {
     return jest.fn(() => ({
       signInWithEmailAndPassword: jest.fn(),
