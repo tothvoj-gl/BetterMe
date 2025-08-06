@@ -16,7 +16,7 @@
   "financeScreen": {
     "letsStart": "Chcem začať",
     "totalNetWorth": "Čistý majetok",
-    "expectedPension": "Očakávaný mesačný dôchodok",
+    "expectedPension": "Očakávaný súkromný mesačný dôchodok",
     "simulateFuture": "Posúvajte pre simuláciu budúcnosti*",
     "withoutInflation": "bez inflácie",
     "withdrawalPeriod": "pri predpokladanom {{value}} ročnom čerpaní dôchodku",
@@ -58,7 +58,7 @@
   "liabilityNameFieldError": "Zadajte názov tohto záväzku.",
   "currencyTitle": "V akej mene by sme mali pracovať?",
   "expenseTitle": "Aké sú vaše mesačné výdavky?",
-  "expenseDescription": "(Zahrňte všetky typy výdavkov ako nájomné, potraviny, dopravu, zdravotnú starostlivosť a poistenie, vzdelanie, nakupovanie, cestovanie a voľný čas a pod. Splátky úverov neuvádzajte. Tie pridáte neskôr.)",
+  "expenseDescription": "(Zahrňte všetky typy výdavkov ako nájomné, potraviny, dopravu, zdravotnú starostlivosť a poistenie, investície, vzdelanie, nakupovanie, cestovanie a voľný čas a pod. Splátky úverov neuvádzajte. Tie pridáte neskôr.)",
   "averageIncomeGrowthRateTitle": "Aký je váš očakávaný ročný rast príjmu?",
   "assetTitleETF": "Koľko peňazí máte momentálne investovaných v ETF?",
   "assetTitleGold": "Koľko peňazí máte momentálne investovaných v zlate?",

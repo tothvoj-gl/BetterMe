@@ -314,7 +314,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = RL4WND7MS7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BetterMe/Info.plist;
@@ -348,7 +348,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = RL4WND7MS7;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = RL4WND7MS7;
 				INFOPLIST_FILE = BetterMe/Info.plist;

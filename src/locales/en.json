@@ -16,7 +16,7 @@
   "financeScreen": {
     "letsStart": "Let's start",
     "totalNetWorth": "Total net worth",
-    "expectedPension": "Expected monthly pension",
+    "expectedPension": "Expected private monthly pension",
     "simulateFuture": "Use the slider to simulate future*",
     "withoutInflation": "without inflation",
     "withdrawalPeriod": "assuming a {{value}}-year withdrawal period",
@@ -59,7 +59,7 @@
     "liabilityNameFieldError": "Please provide a name for this liability.",
     "currencyTitle": "What currency should we use?",
     "expenseTitle": "What are your monthly expenses?",
-    "expenseDescription": "(Please include all expense type like housing rent, food & groceries, transportation, health & insurance, education, shopping, travel & leisure etc.. Please exclude loan payments. They will be added later.)",
+    "expenseDescription": "(Please include all expense type like housing rent, food & groceries, transportation, health & insurance, investments, education, shopping, travel & leisure etc.. Please exclude loan payments. They will be added later.)",
     "averageIncomeGrowthRateTitle": "What is your expected annual income growth rate?",
     "assetTitleETF": "How much money do you currently have invested in ETFs?",
     "assetTitleGold": "How much money do you currently have invested in gold?",

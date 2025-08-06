@@ -3,6 +3,7 @@ import * as RNLocalize from 'react-native-localize';
 import {Liability, User} from '../model/types';
 import {Constants, UserResponse} from '../api/types';
 import {Timestamp} from '@react-native-firebase/firestore';
+import {CASH_ASSET_ID} from './constant';
 
 export const getRealFutureValue = (
   presentValue: number,
@@ -192,13 +193,15 @@ export const getCurrentLocale = () => {
 };
 
 export const getUserSchemaFromUser = (user: User): UserResponse => {
-  const assets = user.finance.assets?.map(asset => ({
-    id: asset.id,
-    value: asset.value,
-    keepInPension: asset.keepInPension,
-    monthlyPayment: asset.monthlyPayment,
-    dateModified: Timestamp.fromDate(asset.dateModified),
-  }));
+  const assets = user.finance.assets
+    ?.filter(item => item.value > 0 || item.id === CASH_ASSET_ID)
+    .map(asset => ({
+      id: asset.id,
+      value: asset.value,
+      keepInPension: asset.keepInPension,
+      monthlyPayment: asset.monthlyPayment,
+      dateModified: Timestamp.fromDate(asset.dateModified),
+    }));
 
   const liabilities = user.finance.liabilities?.map(liability => ({
     ...liability,
